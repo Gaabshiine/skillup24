@@ -5,22 +5,18 @@
             "src": "skillup24/wsgi.py",
             "use": "@vercel/python",
             "config": {
-                "maxLambdaSize": "15mb",
-                "runtime": "python3.11",
-                "excludeFiles": [
-                    "**/node_modules/**",
-                    "**/*.pyc",
-                    "**/__pycache__/**",
-                    "tests/**",
-                    "*.md",
-                    "*.txt",
-                    "db.sqlite3",
-                    "debug.log"
-                ]
+                "maxLambdaSize": "50mb", 
+                "runtime": "python3.11"
             }
         }
     ],
     "routes": [
+        {
+            "src": "/static/(.*)",
+            "headers": { "cache-control": "max-age=31536000, immutable" },
+            "dest": "/static/$1",
+            "continue": true
+        },
         {
             "src": "/(.*)",
             "dest": "skillup24/wsgi.py"
