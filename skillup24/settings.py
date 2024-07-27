@@ -36,9 +36,32 @@ if not SECRET_KEY:
 
 # DEBUG settings
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+# DEBUG = True
 
 # ALLOWED_HOSTS setting
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "skillup24.vercel.app *.vercel.app localhost 127.0.0.1").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
+
+"""
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+"""
 
 # Application definition
 INSTALLED_APPS = [
