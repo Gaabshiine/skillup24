@@ -28,18 +28,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Set SECRET_KEY using environment variable or generate a random one
-SECRET_KEY = os.environ.get("SECRET_KEY", generate_secret_key())
+SECRET_KEY = os.getenv("SECRET_KEY", generate_secret_key())
 
 # Ensure SECRET_KEY is set
 if not SECRET_KEY:
     raise ValueError("The SECRET_KEY environment variable is not set.")
 
 # DEBUG settings
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-# DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'  # Ensures boolean True/False
 
 # ALLOWED_HOSTS setting
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split()  # Split string into a list
+
+# Include Vercel's dynamic URL if it exists
+VERCEL_URL = os.getenv('VERCEL_URL')
+if VERCEL_URL:
+    ALLOWED_HOSTS.append(VERCEL_URL)
+
 
 
 """
