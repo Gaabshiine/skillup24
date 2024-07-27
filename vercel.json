@@ -4,7 +4,12 @@
         {
             "src": "skillup24/wsgi.py",
             "use": "@vercel/python",
-            "config": { "maxLambdaSize": "15mb", "runtime": "python3.11" }
+            "config": {
+                "maxLambdaSize": "15mb",
+                "runtime": "python3.11",
+                "includeFiles": ["static/**", "templates/**"],
+                "excludeFiles": ["**/node_modules/**", "**/*.pyc", "**/__pycache__/**"]
+            }
         }
     ],
     "routes": [
