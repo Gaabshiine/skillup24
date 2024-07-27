@@ -5,23 +5,17 @@
             "src": "skillup24/wsgi.py",
             "use": "@vercel/python",
             "config": {
-                "maxLambdaSize": "50mb",  
+                "maxLambdaSize": "50mb",
                 "runtime": "python3.11",
-                "includeFiles": ["staticfiles/**/*.css", "staticfiles/**/*.js", "templates/**/*.html"], 
                 "excludeFiles": [
-                    "**",
-                    "!staticfiles/**/*.css",
-                    "!staticfiles/**/*.js",
-                    "!templates/**/*.html",
+                    "static/**",
+                    "staticfiles/**",
+                    "templates/**",
                     "**/*.pyc",
                     "**/__pycache__/**",
                     "tests/**",
-                    "*.md",
                     "*.txt",
-                    ".git/**",
-                    "new_env/**",
-                    "db.sqlite3",
-                    "debug.log"
+                    "db.sqlite3"
                 ]
             }
         }
@@ -29,13 +23,23 @@
     "routes": [
         {
             "src": "/static/(.*)",
-            "headers": { "cache-control": "max-age=31536000, immutable" },
             "dest": "/static/$1",
-            "continue": true
+            "headers": { "cache-control": "max-age=31536000, immutable" }
         },
         {
             "src": "/(.*)",
             "dest": "skillup24/wsgi.py"
         }
-    ]
+    ],
+    "static": {
+        "public": "static",
+        "headers": [
+            {
+                "source": "**/*",
+                "headers": [
+                    { "key": "Cache-Control", "value": "max-age=31536000, immutable" }
+                ]
+            }
+        ]
+    }
 }
