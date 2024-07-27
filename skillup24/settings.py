@@ -39,7 +39,8 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 # DEBUG = True
 
 # ALLOWED_HOSTS setting
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+
 
 """
 # Logging
