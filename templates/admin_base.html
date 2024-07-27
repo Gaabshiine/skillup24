@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Skillup 24{% endblock %}</title>
+    <meta content="Skillup 24" name="author" />
+
+
+    {% block css %}{% endblock css %}
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static "admin_page_app/images/icon.svg" %} ">
+    
+    <!-- third party css -->
+    <link href="{% static 'admin_page_app/css/vendor/dataTables.bootstrap5.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'admin_page_app/css/vendor/responsive.bootstrap5.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'admin_page_app/css/vendor/buttons.bootstrap5.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'admin_page_app/css/vendor/select.bootstrap5.css' %}" rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
+
+    <!-- App css -->
+    <link href="{% static "admin_page_app/css/icons.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "admin_page_app/css/app.min.css" %}" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="{% static "admin_page_app/css/app-dark.min.css" %}" rel="stylesheet" type="text/css" id="dark-style" />
+    <!-- Custom Data Table CSS -->
+    <style>
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            margin-top: 0.75em;
+        }
+
+        .dataTables_length select {
+            width: auto;
+            display: inline-block;
+        }
+
+        table.dataTable tbody tr {
+            background-color: #fff;
+        }
+
+        table.dataTable tbody tr:nth-child(odd) {
+            background-color: #f1f3fa;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table.dataTable tbody td {
+            padding: 0.75em 1em;
+            vertical-align: middle;
+        }
+        table.dataTable tbody td.focus,
+        table.dataTable tbody th.focus {
+            outline: none !important;
+            background-color: transparent !important;
+        }
+    </style>
+
+    <style>
+        .btn .spinner-border {
+            margin-right: 6px; /* Adjust as necessary */
+            vertical-align: middle;
+          }
+        .deleteHover:hover{
+            background-color: #f9224a;
+        }  
+        .text-black {
+            color: #000 !important;
+          }
+          
+          .bluetext {
+            color: #23aa43;
+            font-weight: bold;
+          }
+          
+          .blueflagbg {
+            background-color: #23aa43;
+          }
+          
+          
+    </style>
+</head>
+<body class="loading"
+data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+
+     <!-- Pre-loader -->
+     <div id="preloader">
+        <div id="status">
+            <div class="bouncing-loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- wrapper -->
+    {% block wrapper %}{% endblock %}
+
+    <!-- right_sidebar -->
+    {% block right_sidebar %}{% endblock  %}
+    
+   
+
+
+    <!-- footer -->
+    {% block footer %}{% endblock %}
+
+    <!-- bundle -->
+    <script src="{% static 'admin_page_app/js/vendor.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/app.min.js' %}"></script>
+
+    <!-- third party js -->
+    <script src="{% static 'admin_page_app/js/vendor/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/dataTables.bootstrap5.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/responsive.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/buttons.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/buttons.print.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/dataTables.keyTable.min.js' %}"></script>
+    <script src="{% static 'admin_page_app/js/vendor/dataTables.select.min.js' %}"></script>
+    <!-- third party js ends -->
+
+    <!-- demo app --> 
+    <script src="{% static "admin_page_app/js/pages/demo.customers.js" %}"></script>
+    <script src="{% static "admin_page_app/js/pages/demo.dashboard-crm.js" %}"></script>
+    <script src="{% static "admin_page_app/js/pages/demo.form-wizard.js" %}"></script>
+    <script src="{% static "admin_page_app/js/pages/demo.dashboard.js" %}"></script>
+
+    <!-- demo app -->
+    <script src="{% static 'admin_page_app/js/pages/demo.datatable-init.js' %}"></script>
+    <!-- end demo js-->
+
+
+    <!-- Todo js -->
+    <script src="{% static "admin_page_app/js/ui/component.todo.js" %}"></script>
+
+    <script src="{% static "admin_page_app/js/app.js" %}"></script>
+
+    <!-- third party js -->
+    <script src="{% static "admin_page_app/js/vendor/apexcharts.min.js" %}"></script>
+    <script src="{% static "admin_page_app/js/vendor/jquery-jvectormap-1.2.2.min.js" %}"></script>
+    <script src="{% static "admin_page_app/js/vendor/jquery-jvectormap-world-mill-en.js" %}"></script>
+    <!-- third party js ends -->
+
+
+    <script src="{% static "admin_page_app/js/app.js" %}">
+      // JavaScript code to handle notifications visibility
+      document.addEventListener("DOMContentLoaded", function() {
+        const notificationBell = document.querySelector('.dripicons-bell.noti-icon');
+        const notificationBadge = document.querySelector('.noti-icon-badge');
+        
+        if (notificationBadge) {
+            notificationBell.classList.add('has-notifications');
+        }
+        
+        const clearAllBtn = document.querySelector('.noti-title a.text-dark');
+        clearAllBtn.addEventListener('click', function() {
+            const notifications = document.querySelectorAll('.dropdown-item.notify-item');
+            notifications.forEach(notification => {
+                notification.remove();
+            });
+            notificationBadge.remove();
+        });
+      });
+    </script>
+
+</body>
+</html>

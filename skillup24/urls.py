@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('account/', include('account_app.urls')),
     path('', include('home_page_app.urls')),
+    path('admin_page/', include('admin_page_app.urls')),
+
 
 ]
