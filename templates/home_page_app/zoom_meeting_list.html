@@ -1,0 +1,317 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+
+                <!-- Page Banner Caption Start -->
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Zoom Meetings and Webinars</h2>
+                </div>
+                <!-- Page Banner Caption End -->
+
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+     
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+ 
+
+    <!-- Zoom Meetings Section Start -->
+    <div class="zoom-meetings-section section-padding-01">
+        <div class="container custom-container">
+
+            <div class="row gy-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 1 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-01.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 1 %}">Marketing Committee Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">95671010984</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Nov 10, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 45m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 2 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-02.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 2 %}">Executive Assistant Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">95242815687</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Dec 22, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 1h:20m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 3 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-03.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 3 %}">Website Renovation Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">98912356536</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Dec 20, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 30m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 4 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-04.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 4 %}">Teacher Leader Team Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">93842220661</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Dec 30, 2020 3:24 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 1h:15m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 5 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-05.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 5 %}">Team member responsibilities</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">91453356292</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Nov 10, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 1h:30m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 6 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-06.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 6 %}">Strategic Planning Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">99005309720</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Nov 10, 2020 3:20 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 40m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Zoom Meetings Section End -->
+
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}

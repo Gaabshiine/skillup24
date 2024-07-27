@@ -1,0 +1,278 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    
+     
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+ 
+   <!-- Zoom Meetings Single Section Start -->
+   <div class="zoom-meetings-section section-padding-01">
+    <div class="container custom-container">
+
+        <!-- Zoom Meetings Single Section Start -->
+        <div class="zoom-meetings-single">
+
+            <div class="zoom-meetings-single__categories">
+                <a href="#">Strategies</a>
+            </div>
+            <h2 class="zoom-meetings-single__title">Marketing Committee Meeting</h2>
+
+            <div class="zoom-meetings-single__thumbnail">
+                <img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-single.jpg" %}" alt="Zoom Meeting" width="1170" height="350">
+            </div>
+
+            <div class="row gy-8">
+                <div class="col-lg-8">
+                    <div class="zoom-meetings-single__description">
+                        <h3>I. Marketing Budget</h3>
+                        <ol>
+                            <li>2013 carry over – 12,000$</li>
+                            <li>2014 budget – $16,500</li>
+                        </ol>
+
+                        <h3>II. Marketing Plan</h3>
+
+                        <ol>
+                            <li>Marketing objectives
+                                <ul>
+                                    <li>Business recruitment – Incentives/Available Land/Assistance</li>
+                                    <li>Community name recognition</li>
+                                    <li>Amenities/Family Recruitment</li>
+                                </ul>
+                            </li>
+                            <li>Community support/matching grants
+                                <ol>
+                                    <li>Hillsboro Partners in Marketing (PIM) Grant
+                                        <ul>
+                                            <li>Marketing plan grant $2,500 match for $5,500 total project</li>
+                                            <li>Business recruitment grant $2,300 match for $22,000 total project</li>
+                                        </ul>
+                                    </li>
+                                    <li>May-Port PIM Grant
+                                        <ul>
+                                            <li>Marketing plan grant $2,500 match for $5,500 total project</li>
+                                            <li>Business recruitment grant $2,300 match for $22,000 total project</li>
+                                        </ul>
+                                    </li>
+                                    <li>Other communities?</li>
+                                </ol>
+                            </li>
+                            <li>County-wide marketing
+                                <ul>
+                                    <li>Newman Billboard along I-29 – $19,000 for 1 year contract</li>
+                                    <li>Constructing/Renting/Printing billboard on I-29 for Buxton and Hillsboro commercial property – $15,000 approx.</li>
+                                </ul>
+                            </li>
+                            <li>Organizational marketing
+                                <ul>
+                                    <li>Local advertising describing our organization – $2,500/yr.</li>
+                                    <li>Quarterly newsletter printed and mailed – $500/yr.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="zoom-meetings-single__sidebar">
+                        <h3 class="zoom-meetings-single__sidebar-title">Details</h3>
+
+                        <div class="zoom-meetings-single__sidebar-content">
+                            <div class="zoom-meetings-single__sidebar-list">
+                                <span class="label">Hosted By</span>
+                                <span class="value">Owen Christ</span>
+                            </div>
+                            <div class="zoom-meetings-single__sidebar-list">
+                                <span class="label">Start</span>
+                                <span class="value">Nov 10, 2020 9:27 PM</span>
+                            </div>
+                            <div class="zoom-meetings-single__sidebar-list">
+                                <span class="label">Category</span>
+                                <span class="value">Strategies</span>
+                            </div>
+                            <div class="zoom-meetings-single__sidebar-list">
+                                <span class="label">Duration</span>
+                                <span class="value">45 minutes</span>
+                            </div>
+                            <div class="zoom-meetings-single__sidebar-list">
+                                <span class="label">Timezone</span>
+                                <span class="value">Atlantic/Azores</span>
+                            </div>
+
+                            <p class="zoom-meetings-single__notice"><strong>Note</strong>: Countdown time is shown based on your local timezone.</p>
+                        </div>
+
+                        <div class="zoom-meetings-single__sidebar-content mt-6">
+                            <p>This meeting is no longer valid and cannot be joined !</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Zoom Meetings Single Section End -->
+
+    </div>
+</div>
+<!-- Zoom Meetings Single Section End -->
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}

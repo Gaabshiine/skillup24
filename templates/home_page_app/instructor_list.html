@@ -1,0 +1,488 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+
+                <!-- Page Banner Caption Start -->
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Instructors</h2>
+                </div>
+                <!-- Page Banner Caption End -->
+
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+     
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+ 
+    <!-- Instructors Section Start -->
+    <div class="instructors-section section-padding-01">
+        <div class="container custom-container">
+
+            <div class="archive-filter-bar">
+                <p>We found <span>10</span> instructors available for you</p>
+            </div>
+
+            <div class="row g-6">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 1 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-01.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Donald Logan</h4>
+                                    <p class="instructor-item__designation">Master's Degree, Entrepreneur</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">12 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">50 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 2 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-02.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Emilee Logan</h4>
+                                    <p class="instructor-item__designation">Master of Education Degree</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">4.67/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">15 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">77 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 3 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-03.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Nahla Jones</h4>
+                                    <p class="instructor-item__designation">Master's Degree</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">11 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">3 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 4 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-04.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Oliver Porter</h4>
+                                    <p class="instructor-item__designation">Ph.D.</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">10 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">28 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 5 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-05.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Foley Patrik</h4>
+                                    <p class="instructor-item__designation">Master's Degree, Developer</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">10 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">29 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 6 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-06.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Tomi Hensley</h4>
+                                    <p class="instructor-item__designation">Ph.D.</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">8 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">0 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 7 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-07.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Alex Itzel</h4>
+                                    <p class="instructor-item__designation">Photographer</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">4.75/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">9 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">10 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 8 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-08.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">parra</h4>
+                                    <p class="instructor-item__designation">Master's Degree, Entrepreneur</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">6 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">79 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 9 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-05.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Lily Forster</h4>
+                                    <p class="instructor-item__designation">Ph.D.</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">0 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">0 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" 10 %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{% static "home_page_app/images/instructor/instructor-04.jpg" %}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">Oliver Porter</h4>
+                                    <p class="instructor-item__designation">Master's Degree, Entrepreneur</p>
+                                    <div class="instructor-item__rating">
+
+                                        <div class="rating-star">
+                                            <div class="rating-label" style="width: 80%;"></div>
+                                        </div>
+
+                                        <div class="rating-average">5.0/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"> <i class="fas fa-file-alt"></i> <span class="value">0 courses</span></div>
+                                <div class="instructor-item__meta"> <i class="fas fa-user"></i> <span class="value">0 students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Instructors Section End -->
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}

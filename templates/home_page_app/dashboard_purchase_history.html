@@ -1,0 +1,60 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block title %}Purchase History - Skillup 24{% endblock %}
+
+{% block dashboard_content %}
+<div class="dashboard-content">
+    <div class="container">
+        <h4 class="dashboard-title">Purchase History</h4>
+        
+        <!-- Dashboard Purchase History Start -->
+        <div class="dashboard-purchase-history">
+            {% if purchases %}
+            <div class="dashboard-table table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="product">Product</th>
+                            <th class="price text-center">Price</th>
+                            <th class="action text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                        <tr>
+                            <td class="product">
+                                <div class="cart-product">
+                                    <div class="cart-product__thumbnail">
+                                        <img src="{{ purchase.product.image.url }}" alt="Product" width="70" height="81">
+                                    </div>
+                                    <div class="cart-product__content">
+                                        <h3 class="cart-product__name">{{ purchase.product.name }}</h3>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="price text-center">
+                                <div class="cart-product__price">
+                                    <span class="sale-price">${{ purchase.product.price }}.<small class="separator">00</small></span>
+                                </div>
+                            </td>
+                            <td class="action text-center">
+                                <div class="cart-product__remove">
+                                    <a class="remove" href="{% url 'home_page_app:remove_purchase' purchase.id %}">Remove</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                Sorry, no purchase history found.
+            </div>
+            {% endif %}
+        </div>
+        <!-- Dashboard Purchase History End -->
+    </div>
+</div>
+{% endblock %}

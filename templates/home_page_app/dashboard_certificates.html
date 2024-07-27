@@ -1,0 +1,41 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block title %}Certificates - Skillup 24{% endblock %}
+
+{% block dashboard_content %}
+<!-- Dashboard Content Start -->
+<div class="dashboard-content">
+
+    <div class="container">
+        <h4 class="dashboard-title">My Certificates</h4>
+
+        <!-- Dashboard Certificates Start -->
+        <div class="dashboard-certificates">
+            {% if certificates %}
+                <div class="row">
+                    {% for certificate in certificates %}
+                        <div class="col-md-4">
+                            <div class="certificate-card">
+                                <div class="certificate-image">
+                                    <img src="{{ certificate.image.url }}" alt="Certificate Image" class="img-fluid">
+                                </div>
+                                <div class="certificate-info">
+                                    <h5 class="certificate-title">{{ certificate.title }}</h5>
+                                    <p class="certificate-date">{{ certificate.date_issued }}</p>
+                                    <a href="{{ certificate.download_url }}" class="btn btn-primary">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning">Sorry, no certificates were found.</div>
+            {% endif %}
+        </div>
+        <!-- Dashboard Certificates End -->
+    </div>
+
+</div>
+<!-- Dashboard Content End -->
+{% endblock %}

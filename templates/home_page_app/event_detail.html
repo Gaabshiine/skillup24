@@ -1,0 +1,459 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner">
+        <div class="page-banner__wrapper">
+
+            <div class="event-details-banner" style="background-image: url({% static "home_page_app/images/event/event-details.jpg" %});">
+                <div class="container custom-container">
+
+                    <!-- Event Details Start -->
+                    <div class="event-details-banner__content">
+                        <div class="event-details-banner__date">June 30</div>
+                        <h1 class="event-details-banner__title">Creating Futures Through Technology Conference – Edumall Tech Center</h1>
+                    </div>
+                    <!-- Event Details End -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+     
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+ 
+    <!-- event Details Start -->
+    <div class="event-section section-padding-01">
+        <div class="container custom-container">
+
+            <!-- event Dtails Start -->
+            <div class="event-details">
+
+                <!-- event Dtails Header Start -->
+                <div class="event-details__header mx-auto text-center">
+                    <h3 class="event-details__title">About The Event</h3>
+                    <div class="event-details__meta justify-content-center">
+                        <span class="meta-action"><i class="fas fa-map-marker-alt"></i> <span class="meta-action__value">United States</span></span>
+                        <span class="meta-action"><i class="fas fa-calendar"></i> <span class="meta-action__value">December 4, 2020 - June 30, 2021</span></span>
+                        <span class="meta-action"><i class="fas  fa-clock"></i> <span class="meta-action__value">1:30 pm - 3:30 pm</span></span>
+                    </div>
+                </div>
+                <!-- event Dtails Header End -->
+
+                <!-- event Dtails Summary Start -->
+                <div class="event-details__summary">
+
+                    <!-- event Dtails Conent Start -->
+                    <div class="event-details__content">
+                        <div class="row gy-6">
+                            <div class="col-lg-8">
+                                <p>The Creating Futures Through Technology Conference – Edumall Tech Center is sponsored jointly by the Mississippi Community College Board and the Mississippi Universities Board with a goal of promoting collaboration as well as transforming teaching and learning on college campuses.</p>
+
+                                <p>Celebrating our 20th anniversary this year on the gulf coast, the annual conference is designed to be the key venue where the higher education faculty, administrators and IT professionals come to share with one another their strategies, methods, and best practices with their fellow educators.</p>
+
+                                <p>With the theme, Reshaping the Future: Artificial Intelligence, Virtual Reality and Augmented Reality, the primary focus for the conference is on EdTech, but there are also sessions on networks, data security, etc.</p>
+
+                                <p>This is an excellent marketing opportunity to reach C-Suite level administrators and influential educators. Some limited vendor exhibitor spaces and sponsorships may still be available with speaking slots for vendor presentations/breakout sessions.</p>
+                            </div>
+                            <div class="col-lg-4">
+
+                                <!-- event Dtails Conent Start -->
+                                <div class="event-details__booking-info">
+                                    <ul class="event-details__info-meta">
+                                        <li class="meta-info meta-price">
+                                            <span class="meta-label">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                            Cost:
+                                        </span>
+                                            <span class="meta-value">Free</span>
+                                        </li>
+                                        <li class="meta-info">
+                                            <span class="meta-label">
+                                            <i class="fas fa-user-friends"></i>
+                                            Cost:
+                                        </span>
+                                            <span class="meta-value">68</span>
+                                        </li>
+                                        <li class="meta-info">
+                                            <span class="meta-label">
+                                            <i class="fas fa-lock-alt"></i>
+                                            Cost:
+                                        </span>
+                                            <span class="meta-value">3</span>
+                                        </li>
+                                    </ul>
+                                    <p class="event-details__notice">This event has expired</p>
+                                    <div class="event-details__share">
+                                        <a href="https://twitter.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="top" title="Twitter">
+                                            <div class="fab fa-twitter"></div>
+                                        </a>
+                                        <a href="https://www.facebook.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="top" title="Facebook">
+                                            <div class="fab fa-facebook-f"></div>
+                                        </a>
+                                        <a href="https://www.linkedin.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="top" title="Linkedin">
+                                            <div class="fab fa-linkedin"></div>
+                                        </a>
+                                        <a href="https://www.tumblr.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="top" title="Tumblr">
+                                            <div class="fab fa-tumblr-square"></div>
+                                        </a>
+                                        <a href="#" data-bs-tooltip="tooltip" data-bs-placement="top" title="Email">
+                                            <div class="fas fa-envelope"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- event Dtails Conent End -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- event Dtails Conent End -->
+
+                    <!-- event Dtails Location Start -->
+                    <div class="event-details__location">
+                        <h3 class="event-details__title text-center">Location</h3>
+
+                        <div class="row gy-6">
+                            <div class="col-lg-8">
+                                <div class="event-details__map">
+                                    <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+
+                                <div class="event-details__location-info">
+                                    <p class="location-info-heading">The Palace of Fine Arts</p>
+                                    <div class="location-info-address">
+                                        <p>3601 Lyon St San Francisco, CA 94123 United States</p>
+                                        <a class="location-info-link" href="https://www.google.com/maps/search/?api=1&amp;query=3601%20Lyon%20St%20San%20Francisco,%20CA%2094123%20United%20States">+ Google Map</a>
+                                    </div>
+
+                                    <div class="location-info">
+                                        <span class="meta-label">Phone Number</span>
+                                        <span class="meta-value">(+1) 234 567 890</span>
+                                    </div>
+                                    <div class="location-info">
+                                        <span class="meta-label">Website</span>
+                                        <span class="meta-value">edumall.hasthemes.com</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- event Dtails Location End -->
+
+                    <!-- event Dtails Speakers Start -->
+                    <div class="event-details__speakers">
+                        <h3 class="event-details__title text-center">Our Speakers</h3>
+
+                        <div class="speaker-active">
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <!-- Speakers Item Start -->
+                                        <div class="speaker-item text-center">
+                                            <div class="speaker-item__thumbnail">
+                                                <img src="{% static "home_page_app/images/speaker/speaker-01.jpg" %}" alt="Speaker" width="170" height="170">
+                                            </div>
+                                            <div class="speaker-item__content">
+                                                <h6 class="speaker-item__name">Emerson</h6>
+                                                <p class="speaker-item__designation">/ Developer</p>
+                                            </div>
+                                        </div>
+                                        <!-- Speakers Item End -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- Speakers Item Start -->
+                                        <div class="speaker-item text-center">
+                                            <div class="speaker-item__thumbnail">
+                                                <img src="{% static "home_page_app/images/speaker/speaker-02.jpg" %}" alt="Speaker" width="170" height="170">
+                                            </div>
+                                            <div class="speaker-item__content">
+                                                <h6 class="speaker-item__name">Lilybelle</h6>
+                                                <p class="speaker-item__designation">/ Office Manager</p>
+                                            </div>
+                                        </div>
+                                        <!-- Speakers Item End -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- Speakers Item Start -->
+                                        <div class="speaker-item text-center">
+                                            <div class="speaker-item__thumbnail">
+                                                <img src="{% static "home_page_app/images/speaker/speaker-03.jpg" %}" alt="Speaker" width="170" height="170">
+                                            </div>
+                                            <div class="speaker-item__content">
+                                                <h6 class="speaker-item__name">Lucinda</h6>
+                                                <p class="speaker-item__designation">/ Manager</p>
+                                            </div>
+                                        </div>
+                                        <!-- Speakers Item End -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- Speakers Item Start -->
+                                        <div class="speaker-item text-center">
+                                            <div class="speaker-item__thumbnail">
+                                                <img src="{% static "home_page_app/images/speaker/speaker-04.jpg" %}" alt="Speaker" width="170" height="170">
+                                            </div>
+                                            <div class="speaker-item__content">
+                                                <h6 class="speaker-item__name">Marabel</h6>
+                                                <p class="speaker-item__designation">/ Founder & CEO</p>
+                                            </div>
+                                        </div>
+                                        <!-- Speakers Item End -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- Speakers Item Start -->
+                                        <div class="speaker-item text-center">
+                                            <div class="speaker-item__thumbnail">
+                                                <img src="{% static "home_page_app/images/speaker/speaker-05.jpg" %}" alt="Speaker" width="170" height="170">
+                                            </div>
+                                            <div class="speaker-item__content">
+                                                <h6 class="speaker-item__name">Orabelle</h6>
+                                                <p class="speaker-item__designation">/ Art Director</p>
+                                            </div>
+                                        </div>
+                                        <!-- Speakers Item End -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- Speakers Item Start -->
+                                        <div class="speaker-item text-center">
+                                            <div class="speaker-item__thumbnail">
+                                                <img src="{% static "home_page_app/images/speaker/speaker-06.jpg" %}" alt="Speaker" width="170" height="170">
+                                            </div>
+                                            <div class="speaker-item__content">
+                                                <h6 class="speaker-item__name">Solomon</h6>
+                                                <p class="speaker-item__designation">/ Designer</p>
+                                            </div>
+                                        </div>
+                                        <!-- Speakers Item End -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-details__description text-center">
+                            <p>Register online, get your ticket, meet up with our inspirational speakers and specialists in the field to share your ideas.</p>
+                        </div>
+                    </div>
+                    <!-- event Dtails Speakers End -->
+
+                    <!-- event Dtails Comment Start -->
+                    <div class="event-details__comment">
+                        <h3 class="event-details__title text-center">Leave your thought here</h3>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <!-- Comment Form Start -->
+                                <div class="comment-form">
+                                    <form action="#">
+                                        <div class="row gy-4">
+                                            <div class="col-md-6">
+                                                <div class="comment-form__input">
+                                                    <input type="text" class="form-control" placeholder="Your Name *">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="comment-form__input">
+                                                    <input type="email" class="form-control" placeholder="Your Email *">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="comment-form__input">
+                                                    <textarea class="form-control" placeholder="Your Comment"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="comment-form__input form-check text-center">
+                                                    <input type="checkbox" id="save">
+                                                    <label for="save">Save my name, email, and website in this browser for the next time I comment.</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="comment-form__input text-center">
+                                                    <button class="btn btn-primary btn-hover-secondary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Comment Form End -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- event Dtails Comment End -->
+
+                </div>
+                <!-- event Dtails Summary End -->
+
+            </div>
+            <!-- event Dtails End -->
+
+        </div>
+    </div>
+    <!-- event Details End -->
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}

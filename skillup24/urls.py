@@ -1,5 +1,5 @@
 """
-URL configuration for skillup24 project.
+URL configuration for e_learning project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -15,8 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('account/', include('account_app.urls')),
+    path('', include('home_page_app.urls')),
+    path('admin_page/', include('admin_page_app.urls')),
+
 ]

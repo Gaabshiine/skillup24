@@ -1,0 +1,306 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+
+
+                <!-- Page Banner Caption Start -->
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">GET IN TOUCH</h2>
+                </div>
+                <!-- Page Banner Caption End -->
+
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+
+    <!-- Contact us Section Start -->
+    <div class="contact-section">
+        <div class="container custom-container">
+
+            <div class="section-padding-02">
+                <div class="row gy-8 justify-content-between">
+                    <div class="col-lg-4">
+                        <!-- Contact Info Start -->
+                        <div class="contact-info">
+
+                            <!-- Section Title Start -->
+                            <div class="section-title text-center text-lg-start" data-aos="fade-up" data-aos-duration="1000">
+                                <h2 class="section-title__title-02">Keep In Touch <br> With Us.</h2>
+                            </div>
+                            <!-- Section Title End -->
+
+                            <div class="contact-info__wrapper" data-aos="fade-up" data-aos-duration="1000">
+
+                                <!-- Contact Info Start -->
+                                <div class="contact-info__item-02 text-center text-lg-start">
+                                    <div class="d-lg-flex gap-4 mb-4">
+                                        <div class="contact-info__icon">
+                                            <i class="fas  fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="contact-info__content">
+                                            <h3 class="contact-info__title">Address</h3>
+                                        </div>
+                                    </div>
+                                    <p>1800 Abbot Kinney Blvd. Unit D & E Venice</p>
+                                </div>
+                                <!-- Contact Info End -->
+
+                                <!-- Contact Info Start -->
+                                <div class="contact-info__item-02 text-center text-lg-start">
+                                    <div class="d-lg-flex gap-4 mb-4">
+                                        <div class="contact-info__icon">
+                                            <i class="fas  fa-mobile-alt"></i>
+                                        </div>
+                                        <div class="contact-info__content">
+                                            <h3 class="contact-info__title">Phone</h3>
+                                        </div>
+                                    </div>
+                                    <p>Mobile: <strong> (+88) - 1990 - 6886</strong></p>
+                                    <p>Hotline: <strong>1800 - 1102</strong></p>
+                                </div>
+                                <!-- Contact Info End -->
+
+                                <!-- Contact Info Start -->
+                                <div class="contact-info__item-02 text-center text-lg-start">
+                                    <div class="d-lg-flex gap-4 mb-4">
+                                        <div class="contact-info__icon">
+                                            <i class="fas fa-comment"></i>
+                                        </div>
+                                        <div class="contact-info__content">
+                                            <h3 class="contact-info__title">Email</h3>
+                                        </div>
+                                    </div>
+                                    <p>support@edumall.com</p>
+                                    <p>hi@edumall.com</p>
+                                </div>
+                                <!-- Contact Info End -->
+
+                            </div>
+
+                        </div>
+                        <!-- Contact Info End -->
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- Contact Map Start -->
+                        <div class="contact-map-02" data-aos="fade-up" data-aos-duration="1000">
+                            <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+                        </div>
+                        <!-- Contact Map End -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-padding-01">
+                <div class="row justify-content-between">
+                    <div class="col-lg-4">
+
+                        <!-- Section Title Start -->
+                        <div class="section-title text-center text-lg-start" data-aos="fade-up" data-aos-duration="1000">
+                            <h2 class="section-title__title-02">Send a Message</h2>
+                        </div>
+                        <!-- Section Title End -->
+
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- Contact Form Wrapper Start -->
+                        <div class="contact-form__wrapper" data-aos="fade-up" data-aos-duration="1000">
+                            <div class="row gy-4">
+                                <div class="col-md-6">
+                                    <div class="contact-form__input">
+                                        <input class="form-control" type="text" placeholder="Your name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-form__input">
+                                        <input class="form-control" type="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="contact-form__input">
+                                        <textarea class="form-control" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="contact-form__input text-center">
+                                        <button class="btn btn-primary btn-hover-secondary">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Contact Form Wrapper End -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Contact us Section End -->
+
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+        <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}

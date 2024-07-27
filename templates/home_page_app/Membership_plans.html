@@ -1,0 +1,446 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+
+                <!-- Page Banner Caption Start -->
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Membership plans</h2>
+                </div>
+                <!-- Page Banner Caption End -->
+
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+    <!-- Membership plans Section Start -->
+    <div class="membership-plans section-padding-01">
+        <div class="container custom-container">
+
+            <!-- Section Title Start -->
+            <div class="section-title text-center" data-aos="fade-up" data-aos-duration="1000">
+                <h2 class="section-title__title-02">Great <mark>Price</mark> Plan for You!</h2>
+            </div>
+            <!-- Section Title End -->
+
+            <!-- Membership plans Tabs Start -->
+            <div class="membership-plans-tabs">
+                <ul class="nav justify-content-center" data-aos="fade-up" data-aos-duration="1000">
+                    <li><button class="active" data-bs-toggle="tab" data-bs-target="#tab1"> <i class="fas fa-angle-left"></i> Per month </button></li>
+                    <li><button data-bs-toggle="tab" data-bs-target="#tab2">Per Year <i class="fas fa-angle-right"></i></button></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab1">
+
+                        <div class="row gy-6">
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Free</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">0</span>
+                                        <span class="pricing-plan__period">/mo</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Courses included: 1</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Try for free, forever!</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-primary btn-hover-secondary" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center plan-active" data-aos="fade-up" data-aos-duration="1000">
+
+                                    <div class="pricing-plan__ribbon">
+                                        <span>Popular Choice</span>
+                                    </div>
+
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Started</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">19</span>
+                                        <span class="pricing-plan__period">/mo</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Courses included: 3</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Learner Record</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-secondary btn-hover-white" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Team</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">29</span>
+                                        <span class="pricing-plan__period">/mo</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Courses included: 10</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Learner Record</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-primary btn-hover-secondary" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Enterprise</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">39</span>
+                                        <span class="pricing-plan__period">/mo</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Unlimited Courses</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Learner Record</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-primary btn-hover-secondary" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="tab2">
+
+                        <div class="row gy-6">
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Free</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">0</span>
+                                        <span class="pricing-plan__period">/yr</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Courses included: 1</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Try for free, forever!</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-primary btn-hover-secondary" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center plan-active" data-aos="fade-up" data-aos-duration="1000">
+
+                                    <div class="pricing-plan__ribbon">
+                                        <span>Popular Choice</span>
+                                    </div>
+
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Started</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">190</span>
+                                        <span class="pricing-plan__period">/yr</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Courses included: 3</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Learner Record</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-secondary btn-hover-white" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Team</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">290</span>
+                                        <span class="pricing-plan__period">/yr</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Courses included: 10</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Learner Record</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-primary btn-hover-secondary" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+
+                                <!-- Membership plans Tabs Start -->
+                                <div class="pricing-plan text-center" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="pricing-plan__header">
+                                        <h4 class="pricing-plan__title">Enterprise</h4>
+                                    </div>
+                                    <div class="pricing-plan__wrap">
+                                        <span class="pricing-plan__currency">$</span>
+                                        <span class="pricing-plan__price">390</span>
+                                        <span class="pricing-plan__period">/yr</span>
+                                    </div>
+                                    <div class="pricing-plan__body">
+                                        <ul class="pricing-plan__features">
+                                            <li>Unlimited Courses</li>
+                                            <li>Individual Course</li>
+                                            <li>Full Access to Single Course</li>
+                                            <li>Learner Record</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-plan__footer">
+                                        <a class="pricing-plan__btn btn btn-primary btn-hover-secondary" href="#">Get started</a>
+                                    </div>
+                                </div>
+                                <!-- Membership plans Tabs End -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Membership plans Tabs End -->
+
+        </div>
+    </div>
+    <!-- Membership plans Section End -->
+
+
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+        <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}

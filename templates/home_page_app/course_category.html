@@ -1,0 +1,1169 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<style>
+    /* WhatsApp button */
+    .whatsapp-button {
+    position: fixed;
+    bottom: 116px;
+    right: 34px;
+    z-index: 100;
+    font-size: 60px;
+    color: #00b58b;
+    cursor: pointer;
+    }
+
+    .whatsapp-chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background: #00b58b;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    z-index: 101;
+    }
+
+    .whatsapp-chat-popup .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .whatsapp-chat-popup .chat-body {
+    margin-top: 10px;
+    background-color: #a9cf46;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    .whatsapp-chat-popup a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: #00b58b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
+
+    /* btn green style */
+    .btn-green{
+    background-color: #00b58b;
+    color: #ffffff;
+    border-color: #00b58b;
+    }
+
+    .btn-green:hover{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus{
+    background-color: #1a4d3b;
+    color: #ffffff;
+    border-color: #1a4d3b;
+    }
+
+    .btn-green:focus, .btn-green.focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+
+    .btn-green.disabled, .btn-green:disabled {
+    color: #fff;
+    background-color: #00b58b;
+    border-color: #00b58b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+    .show > .btn-green.dropdown-toggle {
+    color: #fff;
+    background-color: #1a4d3b;
+    border-color: #1a4d3b;
+    }
+    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-green.dropdown-toggle:focus {
+    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
+    box-shadow: 0 0 0 0.2rem #1a4d3b;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-04">
+        <div class="page-banner__wrapper">
+
+            <div class="page-banner__shape-01"></div>
+            <div class="page-banner__shape-02"></div>
+            <div class="page-banner__shape-03"></div>
+
+            <div class="container">
+
+                <!-- Page Breadcrumb Start -->
+                <div class="page-breadcrumb">
+                    <ul class="breadcrumb">
+                        
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb End -->
+
+                <!-- Page Banner Caption Start -->
+                <div class="page-banner__caption-02">
+                    <h2 class="page-banner__main-title-02">Art & Design Courses</h2>
+                </div>
+                <!-- Page Banner Caption End -->
+
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+     
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+ 
+    <!-- Courses Category Start -->
+        <div class="courses-category-section section-padding-02">
+            <div class="container">
+
+                <!-- Courses Tabs Menu Start -->
+                <div class="courses-tab-menu-03">
+                    <ul class="nav">
+                        <li><button class="active" data-bs-toggle="tab" data-bs-target="#popular">Most <mark>popular</mark></button></li>
+                        <li><button data-bs-toggle="tab" data-bs-target="#trending">Trending</button></li>
+                    </ul>
+                </div>
+                <!-- Courses Tabs Menu End -->
+
+                <div class="tab-content course-tab-active swiper-button-style swiper-dots-style">
+                    <div class="tab-pane fade show active" id="popular">
+
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 1 %}"><img src="{% static "home_page_app/images/courses/courses-1.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 1 %}">Successful Negotiation: Master Your Negotiating Skills</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$39.<small class="separator">00</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 2 %}"><img src="{% static "home_page_app/images/courses/courses-2.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 2 %}">Time Management Mastery: Do More, Stress Less</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$29.<small class="separator">99</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 3 %}"><img src="{% static "home_page_app/images/courses/courses-3.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 3 %}">Angular – The Complete Guide (2020 Edition)</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$49.<small class="separator">99</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 4 %}"><img src="{% static "home_page_app/images/courses/courses-4.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 4 %}">Consulting Approach to Problem Solving</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 5 %}"><img src="{% static "home_page_app/images/courses/courses-5.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 5 %}">The Business Intelligence Analyst Course 2020</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 6 %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 6 %}">Become a Product Manager | Learn the Skills & Get the Job</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 7 %}"><img src="{% static "home_page_app/images/courses/courses-7.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 7 %}">Mechanical Engineering and Electrical Engineering Explained</a></h3>
+                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$84.<small class="separator">00</small></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 8 %}"><img src="{% static "home_page_app/images/courses/courses-8.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 8 %}">Learn Algebra The Easy Way!</a></h3>
+                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$45.<small class="separator">00</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 9 %}"><img src="{% static "home_page_app/images/courses/courses-9.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 9 %}">Essential Digital Tools for Student Engagement</a></h3>
+                                            <a href="#" class="course-info__instructor">Donald Logan</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 100%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 10 %}"><img src="{% static "home_page_app/images/courses/courses-10.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 10 %}">Adobe Lightroom For Beginners : Complete Photo/Image Editing</a></h3>
+                                            <a href="#" class="course-info__instructor">Alex Itzel</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 100%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="trending">
+
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 11 %}"><img src="{% static "home_page_app/images/courses/courses-11.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="hot">New</span>
+                                                <span class="onsale">-39%</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 11  %}">Mastering Data Modeling Fundamentals</a></h3>
+                                            <a href="#" class="course-info__instructor">Owen Christ</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$46.<small class="separator">00</small></span>
+                                                <span class="regular-price">$76.<small class="separator">00</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 12 %}"><img src="{% static "home_page_app/images/courses/courses-12.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="onsale">-51%</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 12  %}">Fundamentals of Accounting</a></h3>
+                                            <a href="#" class="course-info__instructor">Owen Christ</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$15.<small class="separator">00</small></span>
+                                                <span class="regular-price">$31.<small class="separator">00</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 13 %}"><img src="{% static "home_page_app/images/courses/courses-1.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 13  %}">Successful Negotiation: Master Your Negotiating Skills</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$39.<small class="separator">00</small></span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 14 %}"><img src="{% static "home_page_app/images/courses/courses-2.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 14 %}">Time Management Mastery: Do More, Stress Less</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$29.<small class="separator">00</small></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 15 %}"><img src="{% static "home_page_app/images/courses/courses-13.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="hot">New</span>
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 15  %}">Adobe Illustrator CC – Essentials Training Course0</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 100%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 16  %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 16 %}">Consulting Approach to Problem Solving</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 100%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 17 %}"><img src="{% static "home_page_app/images/courses/courses-3.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 17 %}">Angular – The Complete Guide (2020 Edition)</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$84.<small class="separator">00</small></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 18 %}"><img src="{% static "home_page_app/images/courses/courses-5.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 18 %}">The Business Intelligence Analyst Course 2020</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 80%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 19  %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                            <div class="course-header__badge">
+                                                <span class="free">Free</span>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-all">All Levels</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 19 %}">Become a Product Manager | Learn the Skills & Get the Job</a></h3>
+                                            <a href="#" class="course-info__instructor">parra</a>
+                                            <div class="course-info__price">
+                                                <span class="free">Free</span>
+                                            </div>
+                                            <div class="course-info__rating">
+
+                                                <div class="rating-star">
+                                                    <div class="rating-label" style="width: 100%;"></div>
+                                                </div>
+
+                                                <span>(2)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <!-- Course Start -->
+                                    <div class="course-item">
+                                        <div class="course-header">
+                                            <div class="course-header__thumbnail ">
+                                                <a href="{% url "home_page_app:course_detail" 20  %}"><img src="{% static "home_page_app/images/courses/courses-7.jpg"%}" alt="courses" width="258" height="173"></a>
+                                            </div>
+                                        </div>
+                                        <div class="course-info">
+                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 20 %}">Mechanical Engineering and Electrical Engineering Explained</a></h3>
+                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
+                                            <div class="course-info__price">
+                                                <span class="sale-price">$84.<small class="separator">00</small></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Course End -->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-button-next"><i class="fas fa-angle-right"></i></div>
+                    <div class="swiper-button-prev"><i class="fas fa-angle-left"></i></div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Courses Category End -->
+
+        <!-- Courses Category Featured Start -->
+        <div class="courses-category-section section-padding-02">
+            <div class="container">
+
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h2 class="section-title__title"><mark>New</mark> Courses</h2>
+                </div>
+                <!-- Section Title End -->
+
+                <div class="row gy-6">
+                    <div class="col-xl-3 col-md-6">
+
+                        <!-- Course Start -->
+                        <div class="course-item">
+                            <div class="course-header">
+                                <div class="course-header__thumbnail ">
+                                    <a href="{% url "home_page_app:course_detail" 1 %}"><img src="{% static "home_page_app/images/courses/courses-1.jpg"%}" alt="courses" width="258" height="173"></a>
+                                </div>
+                            </div>
+                            <div class="course-info">
+                                <span class="course-info__badge-text badge-all">All Levels</span>
+                                <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 1 %}">Successful Negotiation: Master Your Negotiating Skills</a></h3>
+                                <a href="#" class="course-info__instructor">parra</a>
+                                <div class="course-info__price">
+                                    <span class="sale-price">$39.<small class="separator">00</small></span>
+                                </div>
+                                <div class="course-info__rating">
+
+                                    <div class="rating-star">
+                                        <div class="rating-label" style="width: 80%;"></div>
+                                    </div>
+
+                                    <span>(2)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Course End -->
+
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+
+                        <!-- Course Start -->
+                        <div class="course-item">
+                            <div class="course-header">
+                                <div class="course-header__thumbnail ">
+                                    <a href="{% url "home_page_app:course_detail" 2 %}"><img src="{% static "home_page_app/images/courses/courses-2.jpg"%}" alt="courses" width="258" height="173"></a>
+                                </div>
+                            </div>
+                            <div class="course-info">
+                                <span class="course-info__badge-text badge-all">All Levels</span>
+                                <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 2 %}">Time Management Mastery: Do More, Stress Less</a></h3>
+                                <a href="#" class="course-info__instructor">parra</a>
+                                <div class="course-info__price">
+                                    <span class="sale-price">$29.<small class="separator">99</small></span>
+                                </div>
+                                <div class="course-info__rating">
+
+                                    <div class="rating-star">
+                                        <div class="rating-label" style="width: 80%;"></div>
+                                    </div>
+
+                                    <span>(2)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Course End -->
+
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+
+                        <!-- Course Start -->
+                        <div class="course-item">
+                            <div class="course-header">
+                                <div class="course-header__thumbnail ">
+                                    <a href="{% url "home_page_app:course_detail" 3 %}"><img src="{% static "home_page_app/images/courses/courses-3.jpg"%}" alt="courses" width="258" height="173"></a>
+                                </div>
+                            </div>
+                            <div class="course-info">
+                                <span class="course-info__badge-text badge-beginner">Beginner</span>
+                                <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 3 %}">Angular – The Complete Guide (2020 Edition)</a></h3>
+                                <a href="#" class="course-info__instructor">parra</a>
+                                <div class="course-info__price">
+                                    <span class="sale-price">$49.<small class="separator">99</small></span>
+                                </div>
+                                <div class="course-info__rating">
+
+                                    <div class="rating-star">
+                                        <div class="rating-label" style="width: 80%;"></div>
+                                    </div>
+
+                                    <span>(2)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Course End -->
+
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+
+                        <!-- Course Start -->
+                        <div class="course-item">
+                            <div class="course-header">
+                                <div class="course-header__thumbnail ">
+                                    <a href="{% url "home_page_app:course_detail" 4 %}"><img src="{% static "home_page_app/images/courses/courses-4.jpg"%}" alt="courses" width="258" height="173"></a>
+                                </div>
+                                <div class="course-header__badge">
+                                    <span class="free">Free</span>
+                                </div>
+                            </div>
+                            <div class="course-info">
+                                <span class="course-info__badge-text badge-beginner">All Levels</span>
+                                <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 4 %}">Consulting Approach to Problem Solving</a></h3>
+                                <a href="#" class="course-info__instructor">parra</a>
+                                <div class="course-info__price">
+                                    <span class="free">Free</span>
+                                </div>
+                                <div class="course-info__rating">
+
+                                    <div class="rating-star">
+                                        <div class="rating-label" style="width: 80%;"></div>
+                                    </div>
+
+                                    <span>(2)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Course End -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Courses Category Featured End -->
+
+        <!-- Courses Category Start -->
+        <div class="courses-category-section section-padding-02">
+            <div class="container">
+
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h2 class="section-title__title"><mark>Free </mark> Courses</h2>
+                </div>
+                <!-- Section Title End -->
+
+                <!-- Courses Popular Topic List Start -->
+                <div class="course-popular-topic-list">
+                    <a href="{% url "home_page_app:course_detail" 1 %}" class="popular-topic-link">Windows 10</a>
+                    <a href="{% url "home_page_app:course_detail" 2 %}" class="popular-topic-link">Microsoft word</a>
+                    <a href="{% url "home_page_app:course_detail" 3 %}" class="popular-topic-link">Microsoft Excel</a>
+                    <a href="{% url "home_page_app:course_detail" 4 %}" class="popular-topic-link">Microsoft Access</a>
+                    <a href="{% url "home_page_app:course_detail" 5 %}" class="popular-topic-link">Microsoft Power Point</a>
+                    <a href="{% url "home_page_app:course_detail" 6 %}" class="popular-topic-link">Microsoft Publisher</a>
+                </div>
+                <!-- Courses Popular Topic List End -->
+
+            </div>
+        </div>
+        <!-- Courses Category Featured End -->
+
+        <!-- Courses Instructor Start -->
+        <div class="courses-section section-padding-02">
+            <div class="container">
+
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h2 class="section-title__title"><mark>Popular </mark> Instructors</h2>
+                </div>
+                <!-- Section Title End -->
+
+                <div class="instructor-active swiper-button-style swiper-dots-style">
+                    <div class="instructor-wrapper position-relative">
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <!-- Instructor Start -->
+                                <div class="swiper-slide instructor-item-02">
+                                    <a class="instructor-item-02__link" href="#">
+                                        <div class="instructor-item-02__header">
+                                            <div class="instructor-item-02__image">
+                                                <img src="{% static "home_page_app/images/instructor/instructor-02.jpg" %}" alt="Instructor" width="70" height="70">
+                                            </div>
+                                            <div class="instructor-item-02__content text-start">
+                                                <h4 class="instructor-item-02__name">Emilee Logan</h4>
+                                                <p class="instructor-item-02__designation">Master of Education Degree</p>
+                                                <div class="instructor-item-02__rating justify-content-start">
+
+                                                    <div class="rating-star">
+                                                        <div class="rating-label" style="width: 80%;"></div>
+                                                    </div>
+
+                                                    <div class="rating-average">4.67/<span>5</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="instructor-item-02__footer">
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-file-alt"></i> <span class="value">15 courses</span></div>
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-user"></i> <span class="value">77 students</span></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Instructor End -->
+
+                                <!-- Instructor Start -->
+                                <div class="swiper-slide instructor-item-02">
+                                    <a class="instructor-item-02__link" href="#">
+                                        <div class="instructor-item-02__header">
+                                            <div class="instructor-item-02__image">
+                                                <img src="{% static "home_page_app/images/instructor/instructor-01.jpg" %}" alt="Instructor" width="70" height="70">
+                                            </div>
+                                            <div class="instructor-item-02__content text-start">
+                                                <h4 class="instructor-item-02__name">Tomi Hensley</h4>
+                                                <p class="instructor-item-02__designation">Ph.D.</p>
+                                                <div class="instructor-item-02__rating justify-content-start">
+
+                                                    <div class="rating-star">
+                                                        <div class="rating-label" style="width: 80%;"></div>
+                                                    </div>
+
+                                                    <div class="rating-average">5.0/<span>5</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="instructor-item-02__footer">
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-file-alt"></i> <span class="value">8 courses</span></div>
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-user"></i> <span class="value">0 students</span></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Instructor End -->
+
+                                <!-- Instructor Start -->
+                                <div class="swiper-slide instructor-item-02">
+                                    <a class="instructor-item-02__link" href="#">
+                                        <div class="instructor-item-02__header">
+                                            <div class="instructor-item-02__image">
+                                                <img src="{% static "home_page_app/images/instructor/instructor-03.jpg" %}" alt="Instructor" width="70" height="70">
+                                            </div>
+                                            <div class="instructor-item-02__content text-start">
+                                                <h4 class="instructor-item-02__name">Nahla Jones</h4>
+                                                <p class="instructor-item-02__designation">Master's Degree</p>
+                                                <div class="instructor-item-02__rating justify-content-start">
+
+                                                    <div class="rating-star">
+                                                        <div class="rating-label" style="width: 80%;"></div>
+                                                    </div>
+
+                                                    <div class="rating-average">5.0/<span>5</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="instructor-item-02__footer">
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-file-alt"></i> <span class="value">11 courses</span></div>
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-user"></i> <span class="value">3 students</span></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Instructor End -->
+
+                                <!-- Instructor Start -->
+                                <div class="swiper-slide instructor-item-02">
+                                    <a class="instructor-item-02__link" href="#">
+                                        <div class="instructor-item-02__header">
+                                            <div class="instructor-item-02__image">
+                                                <img src="{% static "home_page_app/images/instructor/instructor-04.jpg" %}" alt="Instructor" width="70" height="70">
+                                            </div>
+                                            <div class="instructor-item-02__content text-start">
+                                                <h4 class="instructor-item-02__name">Alex Itzel</h4>
+                                                <p class="instructor-item-02__designation">Photographer</p>
+                                                <div class="instructor-item-02__rating justify-content-start">
+
+                                                    <div class="rating-star">
+                                                        <div class="rating-label" style="width: 80%;"></div>
+                                                    </div>
+
+                                                    <div class="rating-average">4.67/<span>5</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="instructor-item-02__footer">
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-file-alt"></i> <span class="value">9 courses</span></div>
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-user"></i> <span class="value">10 students</span></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Instructor End -->
+
+                                <!-- Instructor Start -->
+                                <div class="swiper-slide instructor-item-02">
+                                    <a class="instructor-item-02__link" href="#">
+                                        <div class="instructor-item-02__header">
+                                            <div class="instructor-item-02__image">
+                                                <img src="{% static "home_page_app/images/instructor/instructor-05.jpg" %}" alt="Instructor" width="70" height="70">
+                                            </div>
+                                            <div class="instructor-item-02__content text-start">
+                                                <h4 class="instructor-item-02__name">Owen Christ</h4>
+                                                <p class="instructor-item-02__designation">Master of Education Degree</p>
+                                                <div class="instructor-item-02__rating justify-content-start">
+
+                                                    <div class="rating-star">
+                                                        <div class="rating-label" style="width: 80%;"></div>
+                                                    </div>
+
+                                                    <div class="rating-average">4.75/<span>5</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="instructor-item-02__footer">
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-file-alt"></i> <span class="value">42 courses</span></div>
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-user"></i> <span class="value">101 students</span></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Instructor End -->
+
+                                <!-- Instructor Start -->
+                                <div class="swiper-slide instructor-item-02">
+                                    <a class="instructor-item-02__link" href="#">
+                                        <div class="instructor-item-02__header">
+                                            <div class="instructor-item-02__image">
+                                                <img src="{% static "home_page_app/images/instructor/instructor-06.jpg" %}" alt="Instructor" width="70" height="70">
+                                            </div>
+                                            <div class="instructor-item-02__content text-start">
+                                                <h4 class="instructor-item-02__name">Donald Logan</h4>
+                                                <p class="instructor-item-02__designation">Master's Degree, Entrepreneur</p>
+                                                <div class="instructor-item-02__rating justify-content-start">
+
+                                                    <div class="rating-star">
+                                                        <div class="rating-label" style="width: 80%;"></div>
+                                                    </div>
+
+                                                    <div class="rating-average">4.67/<span>5</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="instructor-item-02__footer">
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-file-alt"></i> <span class="value">12 courses</span></div>
+                                            <div class="instructor-item-02__meta"> <i class="fas fa-user"></i> <span class="value">9 students</span></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Instructor End -->
+                            </div>
+                        </div>
+
+                        <div class="swiper-button-next"><i class="fas fa-angle-right"></i></div>
+                        <div class="swiper-button-prev"><i class="fas fa-angle-left"></i></div>
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- Courses Instructor Category Featured End -->
+
+
+
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="toggleChatPopup()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
+        <div class="chat-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
+        </div>
+        <div class="chat-body">
+        <p>ASC ????</p>
+        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
+        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
+        </div>
+    </div>
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+                const spinner = button.querySelector('.spinner-border');
+                const buttonText = button.querySelector('.button-text');
+    
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Processing...';
+                button.disabled = true;
+            });
+            });
+        });
+    
+        function toggleChatPopup() {
+            const chatPopup = document.getElementById('whatsapp-chat-popup');
+            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+        }
+        </script>
+
+
+</main>
+{% endblock %}
