@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import string
+import secrets
+import os
+
+
+# Function to generate a random SECRET_KEY
+def generate_secret_key(length=50):
+    alphabet = string.ascii_letters + string.digits + '!@#$%^&*(-_=+)'
+    return ''.join(secrets.choice(alphabet) for _ in range(length))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +29,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6k8!nqnjfn7jo7w=ne$bn96ug3zig*i7v4^)!a4(0k+4*9p@rb'
+# Set SECRET_KEY using environment variable or generate a random one
+SECRET_KEY = os.environ.get("SECRET_KEY", generate_secret_key())
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Ensure SECRET_KEY is set
+if not SECRET_KEY:
+    raise ValueError("The SECRET_KEY environment variable is not set.")
 
-ALLOWED_HOSTS = ['.vercel.app']
+# DEBUG settings
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
+# ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
 
 
 # Application definition
