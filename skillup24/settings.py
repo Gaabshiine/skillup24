@@ -41,7 +41,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 # ALLOWED_HOSTS setting
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "skillup24.vercel.app *.vercel.app localhost").split(" ")
 
-
+"""
 # Logging
 LOGGING = {
     'version': 1,
@@ -61,6 +61,7 @@ LOGGING = {
         },
     },
 }
+"""
 
 # Application definition
 INSTALLED_APPS = [
