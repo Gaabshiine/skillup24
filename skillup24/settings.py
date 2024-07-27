@@ -35,7 +35,7 @@ if not SECRET_KEY:
     raise ValueError("The SECRET_KEY environment variable is not set.")
 
 # DEBUG settings
-
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 # DEBUG = True
 
 # ALLOWED_HOSTS setting
