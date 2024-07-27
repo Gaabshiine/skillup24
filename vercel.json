@@ -7,7 +7,6 @@
             "config": {
                 "maxLambdaSize": "15mb",
                 "runtime": "python3.11",
-                "includeFiles": ["staticfiles/**", "templates/**"],
                 "excludeFiles": [
                     "**/node_modules/**",
                     "**/*.pyc",
@@ -15,8 +14,6 @@
                     "tests/**",
                     "*.md",
                     "*.txt",
-                    ".git/**",
-                    "new_env/**",
                     "db.sqlite3",
                     "debug.log"
                 ]
