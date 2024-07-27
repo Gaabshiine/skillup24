@@ -8,7 +8,18 @@
                 "maxLambdaSize": "15mb",
                 "runtime": "python3.11",
                 "includeFiles": ["staticfiles/**", "templates/**"],
-                "excludeFiles": ["**/node_modules/**", "**/*.pyc", "**/__pycache__/**", "tests/**", "*.md", "*.txt"]
+                "excludeFiles": [
+                    "**/node_modules/**",
+                    "**/*.pyc",
+                    "**/__pycache__/**",
+                    "tests/**",
+                    "*.md",
+                    "*.txt",
+                    ".git/**",
+                    "new_env/**",
+                    "db.sqlite3",
+                    "debug.log"
+                ]
             }
         }
     ],

@@ -62,6 +62,7 @@ LOGGING = {
     },
 }
 
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.sitemaps',
@@ -74,6 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',  # Add whitenoise app
 ]
 
 # Add WhiteNoise to middleware
