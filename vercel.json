@@ -5,8 +5,24 @@
             "src": "skillup24/wsgi.py",
             "use": "@vercel/python",
             "config": {
-                "maxLambdaSize": "50mb", 
-                "runtime": "python3.11"
+                "maxLambdaSize": "50mb",  
+                "runtime": "python3.11",
+                "includeFiles": ["staticfiles/**/*.css", "staticfiles/**/*.js", "templates/**/*.html"], 
+                "excludeFiles": [
+                    "**",
+                    "!staticfiles/**/*.css",
+                    "!staticfiles/**/*.js",
+                    "!templates/**/*.html",
+                    "**/*.pyc",
+                    "**/__pycache__/**",
+                    "tests/**",
+                    "*.md",
+                    "*.txt",
+                    ".git/**",
+                    "new_env/**",
+                    "db.sqlite3",
+                    "debug.log"
+                ]
             }
         }
     ],
