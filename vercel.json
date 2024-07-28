@@ -15,10 +15,6 @@
         "src": "/(.*)",
         "dest": "skillup24/wsgi.py"
       }
-    ],
-    "ignore": [
-      "db.sqlite3",
-      "debug.log"
     ]
   }
   
