@@ -1,45 +1,24 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "skillup24/wsgi.py",
-            "use": "@vercel/python",
-            "config": {
-                "maxLambdaSize": "50mb",
-                "runtime": "python3.11",
-                "excludeFiles": [
-                    "static/**",
-                    "staticfiles/**",
-                    "templates/**",
-                    "**/*.pyc",
-                    "**/__pycache__/**",
-                    "tests/**",
-                    "*.txt",
-                    "db.sqlite3"
-                ]
-            }
+      {
+        "src": "skillup24/wsgi.py",
+        "use": "@vercel/python",
+        "config": {
+          "maxLambdaSize": "50mb",
+          "runtime": "python3.11"
         }
+      }
     ],
     "routes": [
-        {
-            "src": "/static/(.*)",
-            "dest": "/static/$1",
-            "headers": { "cache-control": "max-age=31536000, immutable" }
-        },
-        {
-            "src": "/(.*)",
-            "dest": "skillup24/wsgi.py"
-        }
+      {
+        "src": "/(.*)",
+        "dest": "skillup24/wsgi.py"
+      }
     ],
-    "static": {
-        "public": "static",
-        "headers": [
-            {
-                "source": "**/*",
-                "headers": [
-                    { "key": "Cache-Control", "value": "max-age=31536000, immutable" }
-                ]
-            }
-        ]
-    }
-}
+    "ignore": [
+      "db.sqlite3",
+      "debug.log"
+    ]
+  }
+  
