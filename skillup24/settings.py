@@ -34,20 +34,23 @@ SECRET_KEY = os.getenv("SECRET_KEY", generate_secret_key())
 if not SECRET_KEY:
     raise ValueError("The SECRET_KEY environment variable is not set.")
 
-# DEBUG settings
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'  # Ensures boolean True/False
+# # DEBUG settings
+# DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'  # Ensures boolean True/False
 
-# ALLOWED_HOSTS setting
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split()  # Split string into a list
+# # ALLOWED_HOSTS setting
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split()  # Split string into a list
 
-# Include Vercel's dynamic URL if it exists
-VERCEL_URL = os.getenv('VERCEL_URL')
-if VERCEL_URL:
-    ALLOWED_HOSTS.append(VERCEL_URL)
+# # Include Vercel's dynamic URL if it exists
+# VERCEL_URL = os.getenv('VERCEL_URL')
+# if VERCEL_URL:
+#     ALLOWED_HOSTS.append(VERCEL_URL)
 
 
+DEBUG = True  # Make sure this aligns with your environment variable
 
-"""
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 localhost').split()
+
+
 # Logging
 LOGGING = {
     'version': 1,
@@ -67,7 +70,7 @@ LOGGING = {
         },
     },
 }
-"""
+
 
 # Application definition
 INSTALLED_APPS = [
