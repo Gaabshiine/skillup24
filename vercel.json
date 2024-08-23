@@ -6,7 +6,10 @@
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "50mb",
-        "runtime": "python3.11"
+        "runtime": "python3.11",
+        "env": {
+          "PIP_NO_BUILD_ISOLATION": "false"
+        }
       }
     }
   ],
@@ -15,6 +18,5 @@
       "src": "/(.*)",
       "dest": "skillup24/wsgi.py"
     }
-  ],
-  "cache": false
+  ]
 }
