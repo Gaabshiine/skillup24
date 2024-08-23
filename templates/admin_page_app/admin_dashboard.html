@@ -1,0 +1,268 @@
+{% extends "admin_base.html" %}
+{% load static %}
+
+{% block wrapper %}
+<div class="wrapper">
+    {% include "admin_page_partials/left_sidebar.html" %}
+
+    <div class="content-page">
+        <div class="content">
+            {% include "admin_page_partials/topbar.html" %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Skillup 24</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                                    <li class="breadcrumb-item active">Dashboard</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Dashboard</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-account-multiple widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Registered Students">Registered Students</h5>
+                                <h3 class="mt-3 mb-3">{{ registered_students_count }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 7.00%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-teach widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Registered Instructors">Registered Instructors</h5>
+                                <h3 class="mt-3 mb-3">{{ registered_instructors_count }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 4.87%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="mdi mdi-book-multiple widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Total Courses">Total Courses</h5>
+                                <h3 class="mt-3 mb-3">{{ total_courses_count }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 7.00%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="uil-book-open widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Total Categories">Total Categories</h5>
+                                <h3 class="mt-3 mb-3">{{ total_categories_count }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 4.87%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="uil-dollar-sign widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Revenue">Total Revenue</h5>
+                                <h3 class="mt-3 mb-3">${{ total_revenue|floatformat:2 }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 7.00%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-4">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                
+                                <div class="float-end">
+                                    <i class="mdi mdi-school widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Total Enrollments">Total Enrollments</h5>
+                                <h3 class="mt-3 mb-3">{{ total_enrollments_count }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 7.00%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-4">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <i class="uil-clock widget-icon"></i>
+                                </div>
+                                <h5 class="text-muted fw-normal mt-0" title="Pending Payments">Pending Payments</h5>
+                                <h3 class="mt-3 mb-3">{{ pending_payments_count }}</h3>
+                                <p class="mb-0 text-muted">
+                                    <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 4.87%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="row mt-4">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Revenue Over Time</h4>
+                                        <canvas id="revenueChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Enrollment by Category</h4>
+                                        <canvas id="enrollmentChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Top 5 Courses by Enrollment</h4>
+                                        <canvas id="topCoursesChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- container -->
+        </div> <!-- content -->
+        
+        {% include "admin_page_partials/footer.html" %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js_files %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Revenue Over Time (Line Chart)
+        var ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(ctxRevenue, {
+            type: 'line',
+            data: {
+                labels: {{ revenue_labels|safe }},
+                datasets: [{
+                    label: 'Revenue',
+                    data: {{ revenue_values|safe }},
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    tension: 0.4,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointBorderColor: 'rgba(75, 192, 192, 1)',
+                    pointHoverBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointHoverBorderColor: 'rgba(75, 192, 192, 1)'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Enrollment by Category (Donut Chart)
+        var ctxEnrollment = document.getElementById('enrollmentChart').getContext('2d');
+        var enrollmentChart = new Chart(ctxEnrollment, {
+            type: 'doughnut',
+            data: {
+                labels: {{ category_labels|safe }},
+                datasets: [{
+                    label: 'Enrollments',
+                    data: {{ enrollment_values|safe }},
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+
+        // Top 5 Courses by Enrollment (Bar Chart)
+        var ctxTopCourses = document.getElementById('topCoursesChart').getContext('2d');
+        var topCoursesChart = new Chart(ctxTopCourses, {
+            type: 'bar',
+            data: {
+                labels: {{ top_courses_labels|safe }},
+                datasets: [{
+                    label: 'Enrollments',
+                    data: {{ top_courses_values|safe }},
+                    backgroundColor: 'rgba(153, 102, 255, 1)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block title %} Purchase History - Skillup 24 {% endblock %}
+
+{% block dashboard_content %}
+<div class="dashboard-content">
+    <div class="container">
+        <h4 class="dashboard-title">Purchase History</h4>
+        
+        <!-- Dashboard Purchase History Start -->
+        <div class="dashboard-purchase-history">
+            {% if purchases %}
+            <div class="dashboard-table table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="product">Course</th>
+                            <th class="price text-center">Amount</th>
+                            <th class="status text-center">Status</th>
+                            <th class="date text-center">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                        <tr>
+                            <td class="product">
+                                <div class="cart-product">
+                                    <div class="cart-product__thumbnail">
+                                        <img src="{{ purchase.course_image_url }}" alt="Course Image" width="70" height="81">
+                                    </div>
+                                    <div class="cart-product__content">
+                                        <h3 class="cart-product__name">{{ purchase.course_name }}</h3>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="price text-center">
+                                <div class="cart-product__price">
+                                    <span class="sale-price">${{ purchase.total_amount }}.<small class="separator">00</small></span>
+                                </div>
+                            </td>
+                            <td class="status text-center">
+                                <div class="status-indicator" style="
+                                    display: inline-block;
+                                    padding: 5px 10px;
+                                    border-radius: 4px;
+                                    color: white;
+                                    font-weight: bold;
+                                    background-color: {% if purchase.status == 'approved' %}#28a745{% elif purchase.status == 'pending' %}#ffc107{% else %}#dc3545{% endif %};
+                                ">
+                                    {{ purchase.status|capfirst }}
+                                </div>
+                            </td>
+                            <td class="date text-center">
+                                {{ purchase.payment_date|date:"F j, Y" }}
+                            </td>
+                         
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                Sorry, no purchase history found.
+            </div>
+            {% endif %}
+        </div>
+        <!-- Dashboard Purchase History End -->
+    </div>
+</div>
+{% endblock %}

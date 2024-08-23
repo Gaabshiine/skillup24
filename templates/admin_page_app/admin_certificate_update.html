@@ -1,0 +1,87 @@
+{% extends "admin_base.html" %}
+
+{% block wrapper %}
+<div class="wrapper">
+    {% include "admin_page_partials/left_sidebar.html" %}
+    <div class="content-page">
+        <div class="content">
+            {% include "admin_page_partials/topbar.html" %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="#">Skillup 24</a></li>
+                                    <li class="breadcrumb-item active">Update Certificate</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Update Certificate</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="updateCertificateForm" method="post" action="{% url 'admin_page_app:update_certificate' certificate.id %}">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="issue_date" class="form-label">Issue Date</label>
+                                        <input type="date" id="issue_date" name="issue_date" class="form-control" value="{{ certificate.issue_date }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="student" class="form-label">Student</label>
+                                        <select id="student" name="student" class="form-control" required>
+                                            {% for student in students %}
+                                                <option value="{{ student.id }}" {% if certificate.student_id == student.id %}selected{% endif %}>
+                                                    {{ student.first_name }} {{ student.middle_name }} {{ student.last_name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="course" class="form-label">Course</label>
+                                        <select id="course" name="course" class="form-control" required>
+                                            {% for course in courses %}
+                                                <option value="{{ course.id }}" {% if certificate.course_id == course.id %}selected{% endif %}>
+                                                    {{ course.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="text-sm-end mt-4">
+                                        <button id="updateButtonCertificate" class="btn btn-primary" type="submit">
+                                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                            <span class="button-text">Update Certificate</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- container -->
+        </div> <!-- content -->
+        {% include "admin_page_partials/footer.html" %}
+    </div> <!-- end content-page -->
+</div> <!-- end wrapper -->
+{% endblock %}
+
+{% block js_files %}
+<script>
+    document.getElementById('updateCertificateForm').addEventListener('submit', function() {
+        var updateButtonCertificate = document.getElementById('updateButtonCertificate');
+        var spinner = updateButtonCertificate.querySelector('.spinner-border');
+        var buttonText = updateButtonCertificate.querySelector('.button-text');
+
+        // Show spinner and hide text
+        spinner.classList.remove('d-none');
+        buttonText.textContent = 'Updating...';
+
+        // Disable the button to prevent multiple submissions
+        updateButtonCertificate.disabled = true;
+    });
+</script>
+{% endblock %}

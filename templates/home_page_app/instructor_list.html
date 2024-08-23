@@ -1,0 +1,96 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+<!-- Add any additional CSS files if necessary -->
+{% endblock %}
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Instructors</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    <!-- Banner End -->
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock %}
+    <!-- Offcanvas End -->
+
+    <!-- Instructors Section Start -->
+    <div class="instructors-section section-padding-01">
+        <div class="container custom-container">
+
+            <div class="archive-filter-bar">
+                <p>We found <span>{{ instructor_counts }}</span> instructors available for you</p>
+            </div>
+
+            <div class="row g-6">
+                {% for instructor in instructors %}
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- Instructor Start -->
+                    <div class="instructor-item" data-aos="fade-up" data-aos-duration="1000">
+                        <a class="instructor-item__link" href="{% url "home_page_app:instructor_detail" instructor.id %}">
+                            <div class="instructor-item__header">
+                                <div class="instructor-item__image">
+                                    <img src="{{ instructor.image_url }}" alt="Instructor" width="140" height="140">
+                                </div>
+                                <div class="instructor-item__content">
+                                    <h4 class="instructor-item__name">{{ instructor.first_name }} {{ instructor.last_name }}</h4>
+                                    <p class="instructor-item__designation">{{ instructor.department }}</p>
+                                    <div class="instructor-item__rating">
+                                       
+                                        {% for _ in instructor.full_stars %}
+                                            <i class="fas fa-star me-1" style="color:#ffde59"></i>
+                                        {% endfor %}
+                                        {% if instructor.half_star %}
+                                            <i class="fas fa-star-half-alt me-1"  style="color:#ffde59"></i>
+                                        {% endif %}
+                                        {% for _ in instructor.empty_stars %}
+                                            <i class="far fa-star me-1"  style="color:#ffde59"></i>
+                                        {% endfor %}
+                                       
+                                        <div class="ms-2 rating-average">{{ instructor.average_rating|floatformat:1 }}/<span>5</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instructor-item__footer">
+                                <div class="instructor-item__meta"><i class="fas fa-file-alt"></i> <span class="value">{{ instructor.total_courses }} courses</span></div>
+                                <div class="instructor-item__meta"><i class="fas fa-user"></i> <span class="value">{{ instructor.total_students }} students</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Instructor End -->
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Instructors Section End -->
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock %}
+    <!-- Footer End -->
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+</main>
+{% endblock %}

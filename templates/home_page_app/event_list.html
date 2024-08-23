@@ -1,0 +1,56 @@
+{% extends "home_base.html" %}
+{% load static %}
+{% block main %}
+<main class="main-wrapper">
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Events</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    
+    <div class="event-section overflow-visible section-padding-01 pt-0 mt-5">
+        <div class="container custom-container">
+            <div class="events-list-wrapper">
+                {% for event in events %}
+                <div class="event-list-item" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="event-list-item__image">
+                        <a href="{% url 'home_page_app:event_detail' event.id %}">
+                            <img src="{{ MEDIA_URL }}{{ event.course_image }}" alt="{{ event.name }}" width="270" height="171">
+                        </a>
+                    </div>
+                    <div class="event-list-item__content">
+                        <div class="event-list-item__content-wrapper">
+                            <h3 class="event-list-item__title"><a href="{% url 'home_page_app:event_detail' event.id %}">{{ event.name }}</a></h3>
+                            {% if not hide_amount %}
+                            <div class="event-list-item__price">${{ event.course_amount }}</div>
+                            {% endif %}
+                            <div class="event-list-item__excerpt">
+                                <p>{{ event.description|truncatewords:30 }}</p>
+                            </div>
+                        </div>
+                        <div class="event-list-item__content-meta">
+                            <ul class="event-list-item__meta-items">
+                                <li class="event-list-item__meta-item"><span class="meta-label"><i class="meta-label-icon fas fa-map-marker-alt"></i></span><span class="meta-value">{{ event.event_place }}</span></li>
+                                <li class="event-list-item__meta-item"><span class="meta-label"><i class="meta-label-icon fas fa-calendar"></i></span><span class="meta-value">{{ event.event_date }}</span></li>
+                                <li class="event-list-item__meta-item"><span class="meta-label"><i class="meta-label-icon fas fa-clock"></i></span><span class="meta-value">{{ event.event_time }}</span></li>
+                                <li class="event-list-item__meta-item"><span class="meta-label"><i class="meta-label-icon fas fa-info-circle"></i></span><span class="meta-value">{{ event.event_status }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

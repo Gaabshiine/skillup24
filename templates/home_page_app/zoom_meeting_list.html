@@ -1,0 +1,193 @@
+{% extends "home_base.html" %}
+
+{% load static %}
+{% block css_files %}
+
+
+{% endblock %}
+
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock  %}
+    <!-- Header End -->
+
+    <!-- Banner Start -->
+    {% block banner %}
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+
+                <!-- Page Banner Caption Start -->
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Zoom Meetings and Webinars</h2>
+                </div>
+                <!-- Page Banner Caption End -->
+
+            </div>
+        </div>
+    </div>
+    {% endblock  %}
+    <!-- Banner End -->
+     
+
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock  %}
+    <!-- Offcanvas End -->
+     
+ 
+
+    <!-- Zoom Meetings Section Start -->
+    <div class="zoom-meetings-section section-padding-01">
+        <div class="container custom-container">
+
+            <div class="row gy-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 1 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-01.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 1 %}">Marketing Committee Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">95671010984</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Nov 10, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 45m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 2 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-02.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 2 %}">Executive Assistant Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">95242815687</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Dec 22, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 1h:20m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 3 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-03.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 3 %}">Website Renovation Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">98912356536</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Dec 20, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 30m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 4 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-04.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 4 %}">Teacher Leader Team Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">93842220661</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Dec 30, 2020 3:24 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 1h:15m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 5 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-05.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 5 %}">Team member responsibilities</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">91453356292</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Nov 10, 2020 3:27 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 1h:30m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Zoom Meetings Item Start -->
+                    <div class="zoom-meetings-item">
+                        <div class="zoom-meetings-item__thumbnail">
+                            <a href="{% url "home_page_app:zoom_meeting_detail" 6 %}"><img src="{% static "home_page_app/images/zoom-meetings/zoom-meeting-06.jpg" %}" alt="Zoom Meetings" width="370" height="246"></a>
+                        </div>
+                        <div class="zoom-meetings-item__caption">
+                            <h2 class="zoom-meetings-item__title"><a href="{% url "home_page_app:zoom_meeting_detail" 6 %}">Strategic Planning Meeting</a></h2>
+                            <div class="zoom-meetings-item__id">
+                                <span class="label">Meeting ID: </span>
+                                <span class="value">99005309720</span>
+                            </div>
+                            <div class="zoom-meetings-item__meta">
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-calendar"></i> Nov 10, 2020 3:20 PM</p>
+                                <p class="zoom-meetings-item__meta-action"><i class="fas fa-clock"></i> 40m</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoom Meetings Item Start -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Zoom Meetings Section End -->
+
+
+    <!-- Footer Start -->
+    {% block footer %}
+    {% include 'home_page_partials/main_footer.html' %}
+    {% endblock  %}
+    <!-- Footer End -->
+
+    
+
+    {% include "home_page_partials/arrow_up_down.html" %}
+
+    
+
+
+</main>
+{% endblock %}
