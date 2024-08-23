@@ -1,0 +1,168 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block title %} Skillup 24 - Enrolled Courses {% endblock %}
+
+{% block dashboard_content %}
+<div class="dashboard-content">
+    <div class="container">
+        <h4 class="dashboard-title">Enrolled Courses</h4>
+
+        <!-- Dashboard Tabs Start -->
+        <ul class="nav nav-tabs mb-4" id="enrolledCoursesTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="all-courses-tab" data-bs-toggle="tab" href="#all-courses" role="tab" aria-controls="all-courses" aria-selected="true">All Courses</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="active-courses-tab" data-bs-toggle="tab" href="#active-courses" role="tab" aria-controls="active-courses" aria-selected="false">Active Courses</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="completed-courses-tab" data-bs-toggle="tab" href="#completed-courses" role="tab" aria-controls="completed-courses" aria-selected="false">Completed Courses</a>
+            </li>
+        </ul>
+        <!-- Dashboard Tabs End -->
+
+        <!-- Tab Content Start -->
+        <div class="tab-content" id="enrolledCoursesTabsContent">
+            <!-- All Courses Section Start -->
+            <div class="tab-pane fade show active" id="all-courses" role="tabpanel" aria-labelledby="all-courses-tab">
+                {% if all_courses %}
+                    {% for course in all_courses %}
+                        <div class="dashboard-course-item">
+                            <a class="dashboard-course-item__link" href="{% url 'home_page_app:course_detail' course.course_id %}">
+                                <div class="dashboard-course-item__thumbnail">
+                                    <img src="{{ course.course_image_url }}" alt="{{ course.course_name }}" width="260" height="160">
+                                </div>
+                                <div class="dashboard-course-item__content">
+                                    <h3 class="dashboard-course-item__title">{{ course.course_name }}</h3>
+                                    <div class="dashboard-course-item__meta">
+                                        <ul class="dashboard-course-item__meta-list">
+                                            <li>
+                                                <span class="meta-label">Total Lessons:</span>
+                                                <span class="meta-value">{{ course.total_lessons }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="meta-label">Completed Lessons:</span>
+                                                <span class="meta-value">{{ course.completed_lessons }}/{{ course.total_lessons }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="meta-label">Status:</span>
+                                                {% if course.status == 'approved' %}
+                                                    <span class="meta-value text-white px-2 py-1 rounded bg-success">Active</span>
+                                                {% elif course.status == 'pending' %}
+                                                    <span class="meta-value text-white px-2 py-1 rounded bg-warning">Pending</span>
+                                                {% else %}
+                                                    <span class="meta-value text-white px-2 py-1 rounded bg-danger">Rejected</span>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dashboard-course-item__progress-bar-wrap">
+                                        <div class="dashboard-course-item__progress-bar">
+                                            <div class="dashboard-course-item__progress-bar-line" style="width: {{ course.progress }}%;"></div>
+                                        </div>
+                                        <div class="dashboard-course-item__progress-bar-text">{{ course.progress }}% Complete</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No courses enrolled.</p>
+                {% endif %}
+            </div>
+            <!-- All Courses Section End -->
+
+            <!-- Active Courses Section Start -->
+            <div class="tab-pane fade" id="active-courses" role="tabpanel" aria-labelledby="active-courses-tab">
+                {% if active_courses %}
+                    {% for course in active_courses %}
+                        <div class="dashboard-course-item">
+                            <a class="dashboard-course-item__link" href="{% url 'home_page_app:course_detail' course.course_id %}">
+                                <div class="dashboard-course-item__thumbnail">
+                                    <img src="{{ course.course_image_url }}" alt="{{ course.course_name }}" width="260" height="160">
+                                </div>
+                                <div class="dashboard-course-item__content">
+                                    <h3 class="dashboard-course-item__title">{{ course.course_name }}</h3>
+                                    <div class="dashboard-course-item__meta">
+                                        <ul class="dashboard-course-item__meta-list">
+                                            <li>
+                                                <span class="meta-label">Total Lessons:</span>
+                                                <span class="meta-value">{{ course.total_lessons }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="meta-label">Completed Lessons:</span>
+                                                <span class="meta-value">{{ course.completed_lessons }}/{{ course.total_lessons }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="meta-label">Status:</span>
+                                                <span class="meta-value text-white px-2 py-1 rounded bg-success">Active</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dashboard-course-item__progress-bar-wrap">
+                                        <div class="dashboard-course-item__progress-bar">
+                                            <div class="dashboard-course-item__progress-bar-line" style="width: {{ course.progress }}%;"></div>
+                                        </div>
+                                        <div class="dashboard-course-item__progress-bar-text">{{ course.progress }}% Complete</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No active courses.</p>
+                {% endif %}
+            </div>
+            <!-- Active Courses Section End -->
+
+            <!-- Completed Courses Section Start -->
+            <div class="tab-pane fade" id="completed-courses" role="tabpanel" aria-labelledby="completed-courses-tab">
+                {% if completed_courses %}
+                    {% for course in completed_courses %}
+                        <div class="dashboard-course-item">
+                            <a class="dashboard-course-item__link" href="{% url 'home_page_app:course_detail' course.course_id %}">
+                                <div class="dashboard-course-item__thumbnail">
+                                    <img src="{{ course.course_image_url }}" alt="{{ course.course_name }}" width="260" height="160">
+                                </div>
+                                <div class="dashboard-course-item__content">
+                                    <h3 class="dashboard-course-item__title">{{ course.course_name }}</h3>
+                                    <div class="dashboard-course-item__meta">
+                                        <ul class="dashboard-course-item__meta-list">
+                                            <li>
+                                                <span class="meta-label">Total Lessons:</span>
+                                                <span class="meta-value">{{ course.total_lessons }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="meta-label">Completed Lessons:</span>
+                                                <span class="meta-value">{{ course.completed_lessons }}/{{ course.total_lessons }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="meta-label">Status:</span>
+                                                <span class="meta-value text-white px-2 py-1 rounded bg-success">Completed</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dashboard-course-item__progress-bar-wrap">
+                                        <div class="dashboard-course-item__progress-bar">
+                                            <div class="dashboard-course-item__progress-bar-line" style="width: 100%;"></div>
+                                        </div>
+                                        <div class="dashboard-course-item__progress-bar-text">100% Complete</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No completed courses.</p>
+                {% endif %}
+            </div>
+            <!-- Completed Courses Section End -->
+
+        </div>
+        <!-- Tab Content End -->
+
+    </div>
+</div>
+
+{% endblock %}

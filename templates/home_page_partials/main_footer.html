@@ -7,17 +7,19 @@
         <div class="container">
             <div class="row gy-6">
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <!-- Footer Widget Start -->
                     <div class="footer-widget">
-                        <a href="{% url 'home_page_app:home' %}" class="footer-widget__logo"><img src="{% static "home_page_app/images/logo.png" %}" width="296" height="100" alt="Logo"></a>
+                        <a href="{% url 'home_page_app:home' %}" class="footer-widget__logo">
+                            <img src="{% static 'home_page_app/images/logo.png' %}" width="296" height="100" alt="Logo">
+                        </a>
 
                         <div class="footer-widget__info">
                             <span class="title">Call us</span>
                             <span class="number">800 388 80 90</span>
                         </div>
                         <div class="footer-widget__info">
-                            <p>58 Howard Street #2 San Francisco</p>
+                            <p>58 Bakaro Street #2 Deg Howlwdaag</p>
                             <p>skillup24@gmail.com</p>
                         </div>
 
@@ -31,52 +33,44 @@
                     <!-- Footer Widget End -->
                 </div>
 
-                <div class="col-md-8">
-                    <div class="row gy-6">
-
-                        <div class="col-sm-4">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="footer-widget__title">About</h4>
-
-                                <ul class="footer-widget__link">
-                                    <li><a href="{% url 'home_page_app:about' %}">About Us</a></li>
-                                    <li><a href="{% url 'home_page_app:course_list' %}">Courses</a></li>
-                                    <li><a href="{% url 'home_page_app:instructor_list' %}">Instructor</a></li>
-                                    <li><a href="{% url 'home_page_app:event_list' %}">Events</a></li>
-                                </ul>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-                        <div class="col-sm-4">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="footer-widget__title">Links</h4>
-
-                                <ul class="footer-widget__link">
-                                    <li><a href="#">Gallery</a></li>
-                                    <li><a href="#">Partners</a></li>
-                                    <li><a href="#">Career</a></li>
-                                </ul>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-                        <div class="col-sm-4">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget">
-                                <h4 class="footer-widget__title">Support</h4>
-
-                                <ul class="footer-widget__link">
-                                    <li><a href="#">Documentation</a></li>
-                                    <li><a href="{% url 'home_page_app:faqs' %}">FAQs</a></li>
-                                    <li><a href="#">Forum</a></li>
-                                    <li><a href="{% url "home_page_app:sitemap" %}">Sitemap</a></li>
-                                </ul>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-
+                <div class="col-md-3">
+                    <!-- Footer Widget Start -->
+                    <div class="footer-widget">
+                        <h4 class="footer-widget__title">Explore</h4>
+                        <ul class="footer-widget__link">
+                            <li><a href="{% url 'home_page_app:about' %}">About Us</a></li>
+                            <li><a href="{% url 'home_page_app:course_list' %}">Courses</a></li>
+                            <li><a href="{% url 'home_page_app:instructor_list' %}">Instructors</a></li>
+                            <li><a href="{% url 'home_page_app:event_list' %}">Events</a></li>
+                        </ul>
                     </div>
+                    <!-- Footer Widget End -->
+                </div>
+
+                <div class="col-md-3">
+                    <!-- Footer Widget Start -->
+                    <div class="footer-widget">
+                        <h4 class="footer-widget__title">Help & Support</h4>
+                        <ul class="footer-widget__link">
+                            <li><a href="{% url 'home_page_app:contact' %}">Contact Us</a></li>
+                            <li><a href="{% url 'account_app:reset_password_request' %}">Reset Password</a></li>
+                            <li><a href="{% url 'home_page_app:sitemap' %}">Sitemap</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Widget End -->
+                </div>
+
+                <div class="col-md-3">
+                    <!-- Footer Widget Start -->
+                    <div class="footer-widget">
+                        <h4 class="footer-widget__title">Legal</h4>
+                        <ul class="footer-widget__link">
+                            <li><a href="#">Terms of Use</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Widget End -->
                 </div>
 
             </div>
@@ -84,16 +78,11 @@
     </div>
     <!-- Footer Widget Area End -->
 
-    <!-- Footer Copyright Area End -->
+    <!-- Footer Copyright Area Start -->
     <div class="footer-copyright">
         <div class="container">
             <div class="copyright-wrapper text-center">
-                <ul class="footer-widget__link flex-row gap-8 justify-content-center">
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-                {% comment %} automatically year {% endcomment %}
-                <p class="footer-widget__copyright mt-0">&copy; {% now "Y" %} SkillUp 24. All Rights Reserved.</p>
+                <p class="footer-widget__copyright mt-0">&copy; {% now 'Y' %} SkillUp 24. All Rights Reserved.</p>
             </div>
         </div>
     </div>

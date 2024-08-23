@@ -1,96 +1,7 @@
 {% extends "home_base.html" %}
 {% load static %}
 {% block css_files %}
-<style>
-        /* WhatsApp button */
-    .whatsapp-button {
-    position: fixed;
-    bottom: 116px;
-    right: 34px;
-    z-index: 100;
-    font-size: 60px;
-    color: #00b58b;
-    cursor: pointer;
-    }
 
-    .whatsapp-chat-popup {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 300px;
-    background: #00b58b;
-    color: white;
-    border-radius: 10px;
-    padding: 10px;
-    display: none;
-    z-index: 101;
-    }
-
-    .whatsapp-chat-popup .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
-
-    .whatsapp-chat-popup .chat-body {
-    margin-top: 10px;
-    background-color: #a9cf46;
-    padding: 10px;
-    border-radius: 5px;
-    }
-
-    .whatsapp-chat-popup a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    background: #00b58b;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    }
-
-    /* btn green style */
-    .btn-green{
-    background-color: #00b58b;
-    color: #ffffff;
-    border-color: #00b58b;
-    }
-
-    .btn-green:hover{
-    background-color: #1a4d3b;
-    color: #ffffff;
-    border-color: #1a4d3b;
-    }
-
-    .btn-green:focus{
-    background-color: #1a4d3b;
-    color: #ffffff;
-    border-color: #1a4d3b;
-    }
-
-    .btn-green:focus, .btn-green.focus {
-    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
-    box-shadow: 0 0 0 0.2rem #1a4d3b;
-    }
-
-    .btn-green.disabled, .btn-green:disabled {
-    color: #fff;
-    background-color: #00b58b;
-    border-color: #00b58b;
-    }
-    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
-    .show > .btn-green.dropdown-toggle {
-    color: #fff;
-    background-color: #1a4d3b;
-    border-color: #1a4d3b;
-    }
-    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
-    .show > .btn-green.dropdown-toggle:focus {
-    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
-    box-shadow: 0 0 0 0.2rem #1a4d3b;
-    }
-</style>
 
 {% endblock %}
 
@@ -118,19 +29,24 @@
                             <!-- Slider Caption Start -->
                             <div class="slider-caption">
                                 <h3 class="slider-caption__sub-title">Start to success</h3>
-                                <h2 class="slider-caption__main-title">Access To <mark>5500+</mark> Courses from <mark>480</mark> Instructors & Institutions</h2>
+                                <h2 class="slider-caption__main-title">Access To <mark>{{all_courses_count}}+</mark> Courses from <mark>{{instructor_counts}}+</mark> Instructors</h2>
                                 <p>Take your learning organisation to the next level.</p>
                             </div>
                             <!-- Slider Caption End -->
 
                             <!-- Slider Search Start -->
                             <div class="slider-search">
-                                <form action="#">
-                                    <input class="slider-search__field" placeholder="What do you want to learn?">
-                                    <button type="submit" class="slider-search__submit">
-                                        <i class="search-btn-icon fas fa-search"></i>
-                                    </button>
-                                </form>
+                                <!-- Header Search Start -->
+                                <div class="header-serach">
+                                    <form action="{% url 'home_page_app:search_results' %}" method="GET" onsubmit="sliderSpinner(this);">
+                                        <input type="text" name="q" class="slider-search__field" placeholder="What do you want to learn?">
+                                        <button class="slider-search__submit" type="submit">
+                                            <i class="fas fa-search" id="sliderIcon"></i>
+                                            <i class="fas fa-spinner fa-spin" id="searchSpinner" style="display: none;"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <!-- Header Search End -->
                             </div>
                             <!-- Slider Search End -->
 
@@ -159,8 +75,16 @@
                                     </svg>
                                 </div>
                                 <div class="slider-image-widget__caption">
-                                    <h4 class="slider-image-widget__title">Tomorrow is our <strong>"When I Grow Up" Spirit Day!</strong></h4>
-                                </div>
+                                    {% if latest_event %}
+                                        <h4 class="slider-image-widget__title">
+                                            <a href="{% url 'home_page_app:event_detail' latest_event.id %}" class="text-decoration-none">
+                                                <strong>Exciting News</strong> {{ latest_event.name }}
+                                            </a>
+                                        </h4>
+                                    {% else %}
+                                        <h4 class="slider-image-widget__title">No upcoming events</h4>
+                                    {% endif %}
+                                </div>                                
                             </div>
                         </div>
                         <!-- Slider Image End -->
@@ -229,7 +153,7 @@
                             </svg>
                         </div>
                         <div class="features-item__caption">
-                            <h3 class="features-item__title">Earn Certificates And Degrees</h3>
+                            <h3 class="features-item__title">Earn Diplomas & Certificates</h3>
                         </div>
                     </div>
                     <!-- Features Item End -->
@@ -275,7 +199,7 @@
                             </svg>
                         </div>
                         <div class="features-item__caption">
-                            <h3 class="features-item__title">Master at Different Areas</h3>
+                            <h3 class="features-item__title">Advance Your Expertise</h3>
                         </div>
                     </div>
                     <!-- Features Item End -->
@@ -287,1201 +211,160 @@
      <!-- Features Section End -->
 
      <!-- Course Section Start -->
-     {% block course %}
-      
-        <div class="courses-section section-padding-02">
-            <div class="container">
+    {% block course %}
+    <div class="courses-section section-padding-02">
+        <div class="container">
 
-                <div class="row">
-                    <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6">
 
-                        <!-- Section Title Start -->
-                        <div class="section-title" data-aos="fade-up" data-aos-duration="1000">
-                            <h2 class="section-title__title">Explore <mark>New</mark> Courses </h2>
-                        </div>
-                        <!-- Section Title End -->
-
+                    <!-- Section Title Start -->
+                    <div class="section-title" data-aos="fade-up" data-aos-duration="1000">
+                        <h2 class="section-title__title">Explore <mark>New</mark> Courses </h2>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="courses-tab-menu" data-aos="fade-up" data-aos-duration="1000">
-                            <ul class="nav justify-content-lg-end">
-                                <li><button class="active" data-bs-toggle="tab" data-bs-target="#tab1">All</button></li>
-                                <li><button data-bs-toggle="tab" data-bs-target="#tab2">Trending</button></li>
-                                <li><button data-bs-toggle="tab" data-bs-target="#tab3">Free</button></li>
-                                <li><button data-bs-toggle="tab" data-bs-target="#tab4">New</button></li>
-                            </ul>
-                        </div>
+                    <!-- Section Title End -->
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="courses-tab-menu" data-aos="fade-up" data-aos-duration="1000">
+                        <ul class="nav justify-content-lg-end">
+                            <li><button class="active" data-bs-toggle="tab" data-bs-target="#tab1">All</button></li>
+                            <li><button data-bs-toggle="tab" data-bs-target="#tab2">Premium</button></li>
+                            <li><button data-bs-toggle="tab" data-bs-target="#tab3">Free</button></li>
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-                <div class="tab-content course-tab-active swiper-button-style" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="tab-pane fade show active" id="tab1">
-
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 1 %}"><img src="{% static "home_page_app/images/courses/courses-1.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 1 %}">Successful Negotiation: Master Your Negotiating Skills</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$39.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
+            <div class="tab-content course-tab-active swiper-button-style" data-aos="fade-up" data-aos-duration="1000">
+                <!-- All Courses Tab -->
+                <div class="tab-pane fade show active" id="tab1">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            {% for course in all_courses %}
+                            <div class="swiper-slide">
+                                <!-- Course Start -->
+                                <div class="course-item">
+                                    <div class="course-header">
+                                        <div class="course-header__thumbnail">
+                                            <a href="{% url 'home_page_app:course_detail' course.id %}">
+                                                <img src="{{ course.image_url }}" alt="courses" width="258" height="173">
+                                            </a>
                                         </div>
                                     </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 2 %}"><img src="{% static "home_page_app/images/courses/courses-2.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
+                                    <div class="course-info">
+                                        <span class="course-info__badge-text badge-all">All Levels</span>
+                                        <h3 class="course-info__title">
+                                            <a href="{% url 'home_page_app:course_detail' course.id %}">{{ course.name }}</a>
+                                        </h3>
+                                        <a href="#" class="course-info__instructor">{{ course.instructor_first_name }} {{ course.instructor_last_name }}</a>
+                                        <div class="course-info__price">
+                                            {% if course.category_is_free == 1 %}
+                                            <span class="free">Free</span>
+                                            {% else %}
+                                            <span class="sale-price">${{ course.course_amount|floatformat:2 }}</span>
+                                            {% endif %}
                                         </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 2 %}">Time Management Mastery: Do More, Stress Less</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$29.<small class="separator">99</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
+                                        <div class="course-info__rating">
+                                            <div class="rating-star">
+                                                <div class="new-rating-label" style="width: {{ course.rating_width }}%;"></div>
+                                            </div>                                    
+                                            <span>({{ course.rating_count }})</span>
                                         </div>
                                     </div>
-                                    <!-- Course End -->
-
                                 </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 3 %}"><img src="{% static "home_page_app/images/courses/courses-3.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 3 %}">Angular – The Complete Guide (2020 Edition)</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$49.<small class="separator">99</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 4 %}"><img src="{% static "home_page_app/images/courses/courses-4.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 4 %}">Consulting Approach to Problem Solving</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 5 %}"><img src="{% static "home_page_app/images/courses/courses-5.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 5 %}">The Business Intelligence Analyst Course 2020</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 6 %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 6 %}">Become a Product Manager | Learn the Skills & Get the Job</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 7 %}"><img src="{% static "home_page_app/images/courses/courses-7.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 7 %}">Mechanical Engineering and Electrical Engineering Explained</a></h3>
-                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$84.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 8 %}"><img src="{% static "home_page_app/images/courses/courses-8.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 8 %}">Learn Algebra The Easy Way!</a></h3>
-                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$45.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 9 %}"><img src="{% static "home_page_app/images/courses/courses-9.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 9 %}">Essential Digital Tools for Student Engagement</a></h3>
-                                            <a href="#" class="course-info__instructor">Donald Logan</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 10 %}"><img src="{% static "home_page_app/images/courses/courses-10.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 10 %}">Adobe Lightroom For Beginners : Complete Photo/Image Editing</a></h3>
-                                            <a href="#" class="course-info__instructor">Alex Itzel</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
+                                <!-- Course End -->
                             </div>
+                            {% endfor %}
+
                         </div>
-
+                        
                     </div>
-                    <div class="tab-pane fade" id="tab2">
-
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 11 %}"><img src="{% static "home_page_app/images/courses/courses-11.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                                <span class="onsale">-39%</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 11  %}">Mastering Data Modeling Fundamentals</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$46.<small class="separator">00</small></span>
-                                                <span class="regular-price">$76.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 12 %}"><img src="{% static "home_page_app/images/courses/courses-12.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="onsale">-51%</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 12  %}">Fundamentals of Accounting</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$15.<small class="separator">00</small></span>
-                                                <span class="regular-price">$31.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 13 %}"><img src="{% static "home_page_app/images/courses/courses-1.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 13  %}">Successful Negotiation: Master Your Negotiating Skills</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$39.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 14 %}"><img src="{% static "home_page_app/images/courses/courses-2.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 14 %}">Time Management Mastery: Do More, Stress Less</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$29.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 15 %}"><img src="{% static "home_page_app/images/courses/courses-13.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 15  %}">Adobe Illustrator CC – Essentials Training Course0</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 16  %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 16 %}">Consulting Approach to Problem Solving</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 17 %}"><img src="{% static "home_page_app/images/courses/courses-3.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 17 %}">Angular – The Complete Guide (2020 Edition)</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$84.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 18 %}"><img src="{% static "home_page_app/images/courses/courses-5.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 18 %}">The Business Intelligence Analyst Course 2020</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 19  %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 19 %}">Become a Product Manager | Learn the Skills & Get the Job</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 20  %}"><img src="{% static "home_page_app/images/courses/courses-7.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 20 %}">Mechanical Engineering and Electrical Engineering Explained</a></h3>
-                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$84.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="tab3">
-
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 21  %}"><img src="{% static "home_page_app/images/courses/courses-13.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 21 %}">Diloma in computer base</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 22 %}"><img src="{% static "home_page_app/images/courses/courses-4.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 22 %}">Consulting Approach to Problem Solving</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 23 %}"><img src="{% static "home_page_app/images/courses/courses-14.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 23 %}">Time Management for Professional Productivity</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 24 %}"><img src="{% static "home_page_app/images/courses/courses-9.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 24 %}">Essential Digital Tools for Student Engagement</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 25 %}"><img src="{% static "home_page_app/images/courses/courses-8.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 25 %}">The Business Intelligence Analyst Course 2020</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 26 %}"><img src="{% static "home_page_app/images/courses/courses-15.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-intermediate">Intermediate</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 26 %}">Become a Product Manager | Learn the Skills & Get the Job</a></h3>
-                                            <a href="#" class="course-info__instructor">Donald Logan</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 27 %}"><img src="{% static "home_page_app/images/courses/courses-16.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 27 %}">Introduction to Web Development</a></h3>
-                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail">
-                                                <a href="{% url "home_page_app:course_detail" 28 %}"><img src="{% static "home_page_app/images/courses/courses-17.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="onsale">-100%</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 28 %}">Analytic Techniques for Business Specialization</a></h3>
-                                            <a href="#" class="course-info__instructor">Oliver Porter</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$00.<small class="separator">00</small></span>
-                                                <span class="regular-price">$39.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 29 %}"><img src="{% static "home_page_app/images/courses/courses-18.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 29 %}">How To Sing #1: Complete Vocal Warm ups & Voice Physiology</a></h3>
-                                            <a href="#" class="course-info__instructor">Emilee Logan</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$19.<small class="separator">99</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 30 %}"><img src="{% static "home_page_app/images/courses/courses-6.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 30 %}">Become a Product Manager | Learn the Skills & Get the Job</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="tab4">
-
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 31 %}"><img src="{% static "home_page_app/images/courses/courses-19.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 31 %}">The Complete 2020 Web Development Bootcamp</a></h3>
-                                            <a href="#" class="course-info__instructor">Donald Logan</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$45.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 32 %}"><img src="{% static "home_page_app/images/courses/courses-20.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-intermediate">Intermediate</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 32 %}">Sales Training: Practical Sales Techniques</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$36.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 33 %}"><img src="{% static "home_page_app/images/courses/courses-21.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 33 %}">The Business Intelligence Analyst Course 2020</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$39.<small class="separator">99</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 34 %}"><img src="{% static "home_page_app/images/courses/courses-22.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-intermediate">Intermediate</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 34 %}">The Complete Graphic Design Theory for Beginners Course</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$45.<small class="separator">99</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 35 %}"><img src="{% static "home_page_app/images/courses/courses-23.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 35 %}">Graphic Design Bootcamp: Photoshop, Illustrator, InDesign</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$29.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 36 %}"><img src="{% static "home_page_app/images/courses/courses-13.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                                <span class="free">Free</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 36 %}">Adobe Illustrator CC – Essentials Training Course</a></h3>
-                                            <a href="#" class="course-info__instructor">parra</a>
-                                            <div class="course-info__price">
-                                                <span class="free">Free</span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 37 %}"><img src="{% static "home_page_app/images/courses/courses-24.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                                <span class="onsale">-43%</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-intermediate">Intermediate</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 37 %}">Public Relations: Media Crisis Communications</a></h3>
-                                            <a href="#" class="course-info__instructor">Emilee Logan</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$45.<small class="separator">00</small></span>
-                                                <span class="regular-price">$79.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 38 %}"><img src="{% static "home_page_app/images/courses/courses-25.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 38 %}">Learn Big Data: The Hadoop Ecosystem Masterclass</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$21.<small class="separator">00</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 39 %}"><img src="{% static "home_page_app/images/courses/courses-26.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                                <span class="onsale">-39%</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-beginner">Beginner</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 39 %}">Mastering Data Modeling Fundamentals</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$46.<small class="separator">00</small></span>
-                                                <span class="regular-price">$76.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Course Start -->
-                                    <div class="course-item">
-                                        <div class="course-header">
-                                            <div class="course-header__thumbnail ">
-                                                <a href="{% url "home_page_app:course_detail" 40 %}"><img src="{% static "home_page_app/images/courses/courses-27.jpg"%}" alt="courses" width="258" height="173"></a>
-                                            </div>
-                                            <div class="course-header__badge">
-                                                <span class="hot">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="course-info">
-                                            <span class="course-info__badge-text badge-all">All Levels</span>
-                                            <h3 class="course-info__title"><a href="{% url "home_page_app:course_detail" 40  %}">Communication Skills Machine: Master Persuasion</a></h3>
-                                            <a href="#" class="course-info__instructor">Owen Christ</a>
-                                            <div class="course-info__price">
-                                                <span class="sale-price">$35.<small class="separator">00</small></span>
-                                            </div>
-                                            <div class="course-info__rating">
-
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-
-                                                <span>(2)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Course End -->
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                
-
                     <div class="swiper-button-next"><i class="fas fa-angle-right"></i></div>
                     <div class="swiper-button-prev"><i class="fas fa-angle-left"></i></div>
                 </div>
 
+                <!-- Premium Courses Tab -->
+                <div class="tab-pane fade" id="tab2">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            {% for course in premium_courses %}
+                            <div class="swiper-slide">
+                                <!-- Course Start -->
+                                <div class="course-item">
+                                    <div class="course-header">
+                                        <div class="course-header__thumbnail">
+                                            <a href="{% url 'home_page_app:course_detail' course.id %}"><img src="{{ course.image_url }}" alt="courses" width="258" height="173"></a>
+                                        </div>
+                                    </div>
+                                    <div class="course-info">
+                                        <span class="course-info__badge-text badge-all">All Levels</span>
+                                        <h3 class="course-info__title"><a href="{% url 'home_page_app:course_detail' course.id %}">{{ course.name }}</a></h3>
+                                        <a href="#" class="course-info__instructor">{{ course.instructor_first_name }} {{ course.instructor_last_name }}</a>
+                                        <div class="course-info__price">
+                                            <span class="sale-price">${{ course.course_amount|floatformat:2 }}</span>
+                                        </div>
+                                        <div class="course-info__rating">
+                                            <div class="rating-star">
+                                                <div class="new-rating-label" style="width: {{ course.rating_width }}%;"></div>
+                                            </div>                                    
+                                            <span>({{ course.rating_count }})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Course End -->
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+                    <div class="swiper-button-next"><i class="fas fa-angle-right"></i></div>
+                    <div class="swiper-button-prev"><i class="fas fa-angle-left"></i></div>
+                </div>
+
+                <!-- Free Courses Tab -->
+                <div class="tab-pane fade" id="tab3">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            {% for course in free_courses %}
+                            <div class="swiper-slide">
+                                <!-- Course Start -->
+                                <div class="course-item">
+                                    <div class="course-header">
+                                        <div class="course-header__thumbnail">
+                                            <a href="{% url 'home_page_app:course_detail' course.id %}"><img src="{{ course.image_url }}" alt="courses" width="258" height="173"></a>
+                                        </div>
+                                    </div>
+                                    <div class="course-info">
+                                        <span class="course-info__badge-text badge-all">All Levels</span>
+                                        <h3 class="course-info__title"><a href="{% url 'home_page_app:course_detail' course.id %}">{{ course.name }}</a></h3>
+                                        <a href="#" class="course-info__instructor">{{ course.instructor_first_name }} {{ course.instructor_last_name }}</a>
+                                        <div class="course-info__price">
+                                            <span class="free">Free</span>
+                                        </div>
+                                        <div class="course-info__rating">
+                                            <div class="rating-star">
+                                                <div class="new-rating-label" style="width: {{ course.rating_width }}%;"></div>
+                                            </div>                                    
+                                            <span>({{ course.rating_count }})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Course End -->
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+                    <div class="swiper-button-next"><i class="fas fa-angle-right"></i></div>
+                    <div class="swiper-button-prev"><i class="fas fa-angle-left"></i></div>
+                </div>
             </div>
         </div>
-      
-     {% endblock  %}
-     <!-- Course Section End -->
+    </div>
+    {% endblock %}
+    <!-- Course Section End -->
+
 
      <!-- Call To Action Start -->
      {% block call_to_action %}
@@ -1509,7 +392,10 @@
                         <h3 class="call-to-action__main-title">Finding Your Right Courses</h3>
                     </div>
                     <div class="call-to-action__btn">
-                        <a href="course-category.html" class="btn btn-secondary btn-hover-primary">Get started</a>
+                        <a href="{% url 'account_app:add_student_from_slider' %}" class="btn btn-secondary btn-hover-primary" onclick="showSpinner(this); return false;">
+                            <span class="btn-text">Get started</span>
+                            <i class="fas fa-spinner fa-spin" style="display: none;"></i>
+                        </a>
                     </div>
 
                 </div>
@@ -1525,213 +411,58 @@
 
     <!-- Category Start-->
     {% block category %}
-
-    <div class="category-seaction section-padding-02">
+    <div class="category-section section-padding-02">
         <div class="container">
-
             <div class="row">
                 <div class="col-sm-8">
                     <!-- Section Title Start -->
                     <div class="section-title" data-aos="fade-up" data-aos-duration="1000">
-                        <h2 class="section-title__title">Browse <mark>Browse </mark></h2>
+                        <h2 class="section-title__title">Browse <mark>Categories</mark></h2>
                     </div>
                     <!-- Section Title End -->
                 </div>
-                {% comment %} <div class="col-sm-4">
-                    <!-- Category Start -->
-                    <div class="section-btn-02 text-sm-end" data-aos="fade-up" data-aos-duration="1000">
-                        <a class="btn btn-light btn-hover-primary" href="#">View all courses</a>
-                    </div>
-                    <!-- Category End -->
-                </div> {% endcomment %}
             </div>
 
             <!-- Category Title End -->
             <div class="category-active" data-aos="fade-up" data-aos-duration="1000">
                 <div class="swiper">
                     <div class="swiper-wrapper">
+                        {% for category in all_categories %}
                         <div class="swiper-slide">
-
                             <!-- Category Item Start -->
                             <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
+                                <a class="category-item__link" href="{% url 'home_page_app:course_category' category.id %}">
                                     <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-1.jpg" %}" alt="Category" width="258" height="318">
+                                        <img src="{{ category.image_url }}" alt="{{ category.name }}" width="258" height="318">
                                     </div>
                                     <div class="category-item__caption">
-                                        <h3 class="category-item__name">Art & Design</h3>
+                                        <h3 class="category-item__name">{{ category.name }}</h3>
                                     </div>
                                 </a>
                             </div>
                             <!-- Category Item End -->
-
                         </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-2.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Business</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-3.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Data Science</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-4.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Development</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-5.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Finance</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-6.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Health & Fitness</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-7.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Lifestyle</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-8.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Marketing</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-9.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Music</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
-                        <div class="swiper-slide">
-
-                            <!-- Category Item Start -->
-                            <div class="category-item">
-                                <a class="category-item__link" href="course-category.html">
-                                    <div class="category-item__image">
-                                        <img src="{% static "home_page_app/images/category/category-1.jpg" %}" alt="Category" width="258" height="318">
-                                    </div>
-                                    <div class="category-item__caption">
-                                        <h3 class="category-item__name">Personal Development</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Category Item End -->
-
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
             <!-- Category End -->
-
         </div>
     </div>
+    {% endblock %}
 
-    {% endblock  %}
 
 
-      <!-- Testimonial Section Start -->
-      {% block testimonial %}
-
-      <div class="testimonial-section section-padding-02">
+    <!-- Testimonial Section Start -->
+    {% block testimonial %}
+    <div class="testimonial-section section-padding-02">
         <div class="container">
             <div class="row gy-10">
                 <div class="col-lg-3 col-md-6">
                     <!-- Section Title Start -->
                     <div class="section-title" data-aos="fade-up" data-aos-duration="1000">
                         <h2 class="section-title__title">People Say <br> About <mark>Skillup 24</mark> </h2>
-                        <p>One-stop solution for any eLearning center, online courses. People love Skillup 24 because they can create their sites with ease here.</p>
+                        <p>Skillup24 is your comprehensive eLearning platform designed to empower learners and educators alike. Whether you're looking to advance your career, acquire new skills, or share your knowledge with others, Skillup24 provides all the tools you need.</p>
                     </div>
                     <!-- Section Title End -->
 
@@ -1743,124 +474,47 @@
 
                     <div class="testimonial-active swiper-dots-style" data-aos="fade-up" data-aos-duration="1000">
                         <div class="swiper">
+                            
+                            
+                            <!-- Below block updated with student profile image -->
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-quote-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50px" height="40px" viewBox="0 0 50 40">
-                                                <path d="M21.8750977,2.18046875 C22.4503906,2.18046875 22.9167969,1.7140625 22.9167969,1.13876953 C22.9167969,0.563476562 22.4503906,0.0970703125 21.8750977,0.0970703125 C9.79960938,0.110839844 0.0138671875,9.89658203 2.76635467e-06,21.9720703 L2.76635467e-06,28.2220703 C-0.01796875,34.56875 5.11230469,39.728418 11.4588867,39.7465793 C17.8055664,39.7645508 22.9652344,34.6342773 22.9833957,28.2876953 C23.0013672,21.9410156 17.8710938,16.7813477 11.5245117,16.7632813 C7.77705078,16.7526367 4.25966797,18.5698242 2.10009766,21.6325195 C2.29296875,10.8446289 11.0853516,2.19580078 21.8750977,2.18046875 Z"></path>
-                                                <path d="M38.5416992,16.7638672 C34.8157227,16.7667969 31.3244141,18.5832031 29.1833984,21.6326172 C29.3763672,10.8446289 38.16875,2.19580078 48.9583984,2.18056641 C49.5336914,2.18056641 50.0000977,1.71416016 50.0000977,1.13886719 C50.0000977,0.563574219 49.5336914,0.0971679688 48.9583984,0.0971679688 C36.8829102,0.1109375 27.097168,9.89667969 27.0833984,21.972168 L27.0833984,28.222168 C27.0833984,34.5503906 32.2134766,39.6804687 38.5416992,39.6804687 C44.8699219,39.6804687 50.0000977,34.5503906 50.0000977,28.222168 C50.0000977,21.8939453 44.8700195,16.7638672 38.5416992,16.7638672 Z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="testimonial-main-content">
-                                            <div class="testimonial-caption">
-                                                <h3 class="testimonial-caption__title">Great quality!</h3>
-                                                <p>I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!</p>
+                                {% if reviews %}
+                                    {% for review in reviews %}
+                                    <div class="swiper-slide">
+                                        <!-- Testimonial Item Start -->
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-quote-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50px" height="40px" viewBox="0 0 50 40">
+                                                    <path d="M21.8750977,2.18046875 C22.4503906,2.18046875 22.9167969,1.7140625 22.9167969,1.13876953 C22.9167969,0.563476562 22.4503906,0.0970703125 21.8750977,0.0970703125 C9.79960938,0.110839844 0.0138671875,9.89658203 2.76635467e-06,21.9720703 L2.76635467e-06,28.2220703 C-0.01796875,34.56875 5.11230469,39.728418 11.4588867,39.7465793 C17.8055664,39.7645508 22.9652344,34.6342773 22.9833957,28.2876953 C23.0013672,21.9410156 17.8710938,16.7813477 11.5245117,16.7632813 C7.77705078,16.7526367 4.25966797,18.5698242 2.10009766,21.6325195 C2.29296875,10.8446289 11.0853516,2.19580078 21.8750977,2.18046875 Z"></path>
+                                                    <path d="M38.5416992,16.7638672 C34.8157227,16.7667969 31.3244141,18.5832031 29.1833984,21.6326172 C29.3763672,10.8446289 38.16875,2.19580078 48.9583984,2.18056641 C49.5336914,2.18056641 50.0000977,1.71416016 50.0000977,1.13886719 C50.0000977,0.563574219 49.5336914,0.0971679688 48.9583984,0.0971679688 C36.8829102,0.1109375 27.097168,9.89667969 27.0833984,21.972168 L27.0833984,28.222168 C27.0833984,34.5503906 32.2134766,39.6804687 38.5416992,39.6804687 C44.8699219,39.6804687 50.0000977,34.5503906 50.0000977,28.222168 C50.0000977,21.8939453 44.8700195,16.7638672 38.5416992,16.7638672 Z"></path>
+                                                </svg>
                                             </div>
-                                            <div class="testimonial-info">
-                                                <div class="testimonial-info__image">
-                                                    <img src="{% static "home_page_app/images/avatar/avatar-01.jpg" %}" alt="Avatar" width="60" height="60">
+                                            <div class="testimonial-main-content">
+                                                <div class="testimonial-caption">
+                                                    <h3 class="testimonial-caption__title">{{ review.course_name }}</h3>
+                                                    <p>{{ review.review_text }}</p>
                                                 </div>
-                                                <div class="testimonial-info__caption">
-                                                    <h5 class="testimonial-info__name">Oliver Beddows</h5>
-                                                    <p class="testimonial-info__designation">/ Designer, Manchester</p>
+                                                <div class="testimonial-info">
+                                                    <div class="testimonial-info__image">
+                                                        <img src="{{ review.student_profile_image_url }}" alt="Avatar" width="60" height="60">
+                                                    </div>
+                                                    <div class="testimonial-info__caption">
+                                                        <h5 class="testimonial-info__name">{{ review.student_name }}</h5>
+                                                        <p class="testimonial-info__designation">{{ review.time_ago }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Testimonial Item End -->
                                     </div>
-                                    <!-- Testimonial Item End -->
-
+                                    {% endfor %}
+                                {% else %}
+                                <div class="">
+                                    <h4>No reviews yet.</h4>
                                 </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-quote-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50px" height="40px" viewBox="0 0 50 40">
-                                                <path d="M21.8750977,2.18046875 C22.4503906,2.18046875 22.9167969,1.7140625 22.9167969,1.13876953 C22.9167969,0.563476562 22.4503906,0.0970703125 21.8750977,0.0970703125 C9.79960938,0.110839844 0.0138671875,9.89658203 2.76635467e-06,21.9720703 L2.76635467e-06,28.2220703 C-0.01796875,34.56875 5.11230469,39.728418 11.4588867,39.7465793 C17.8055664,39.7645508 22.9652344,34.6342773 22.9833957,28.2876953 C23.0013672,21.9410156 17.8710938,16.7813477 11.5245117,16.7632813 C7.77705078,16.7526367 4.25966797,18.5698242 2.10009766,21.6325195 C2.29296875,10.8446289 11.0853516,2.19580078 21.8750977,2.18046875 Z"></path>
-                                                <path d="M38.5416992,16.7638672 C34.8157227,16.7667969 31.3244141,18.5832031 29.1833984,21.6326172 C29.3763672,10.8446289 38.16875,2.19580078 48.9583984,2.18056641 C49.5336914,2.18056641 50.0000977,1.71416016 50.0000977,1.13886719 C50.0000977,0.563574219 49.5336914,0.0971679688 48.9583984,0.0971679688 C36.8829102,0.1109375 27.097168,9.89667969 27.0833984,21.972168 L27.0833984,28.222168 C27.0833984,34.5503906 32.2134766,39.6804687 38.5416992,39.6804687 C44.8699219,39.6804687 50.0000977,34.5503906 50.0000977,28.222168 C50.0000977,21.8939453 44.8700195,16.7638672 38.5416992,16.7638672 Z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="testimonial-main-content">
-                                            <div class="testimonial-caption">
-                                                <h3 class="testimonial-caption__title">Code Quality</h3>
-                                                <p>I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!</p>
-                                            </div>
-                                            <div class="testimonial-info">
-                                                <div class="testimonial-info__image">
-                                                    <img src="{% static "home_page_app/images/avatar/avatar-02.jpg" %}" alt="Avatar" width="60" height="60">
-                                                </div>
-                                                <div class="testimonial-info__caption">
-                                                    <h5 class="testimonial-info__name">Madley Pondor</h5>
-                                                    <p class="testimonial-info__designation">/ Reporter, San Diego</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Testimonial Item End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-quote-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50px" height="40px" viewBox="0 0 50 40">
-                                                <path d="M21.8750977,2.18046875 C22.4503906,2.18046875 22.9167969,1.7140625 22.9167969,1.13876953 C22.9167969,0.563476562 22.4503906,0.0970703125 21.8750977,0.0970703125 C9.79960938,0.110839844 0.0138671875,9.89658203 2.76635467e-06,21.9720703 L2.76635467e-06,28.2220703 C-0.01796875,34.56875 5.11230469,39.728418 11.4588867,39.7465793 C17.8055664,39.7645508 22.9652344,34.6342773 22.9833957,28.2876953 C23.0013672,21.9410156 17.8710938,16.7813477 11.5245117,16.7632813 C7.77705078,16.7526367 4.25966797,18.5698242 2.10009766,21.6325195 C2.29296875,10.8446289 11.0853516,2.19580078 21.8750977,2.18046875 Z"></path>
-                                                <path d="M38.5416992,16.7638672 C34.8157227,16.7667969 31.3244141,18.5832031 29.1833984,21.6326172 C29.3763672,10.8446289 38.16875,2.19580078 48.9583984,2.18056641 C49.5336914,2.18056641 50.0000977,1.71416016 50.0000977,1.13886719 C50.0000977,0.563574219 49.5336914,0.0971679688 48.9583984,0.0971679688 C36.8829102,0.1109375 27.097168,9.89667969 27.0833984,21.972168 L27.0833984,28.222168 C27.0833984,34.5503906 32.2134766,39.6804687 38.5416992,39.6804687 C44.8699219,39.6804687 50.0000977,34.5503906 50.0000977,28.222168 C50.0000977,21.8939453 44.8700195,16.7638672 38.5416992,16.7638672 Z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="testimonial-main-content">
-                                            <div class="testimonial-caption">
-                                                <h3 class="testimonial-caption__title">Customer Support</h3>
-                                                <p>Very good and fast support during the week. They know what you need, exactly when you need it.</p>
-                                            </div>
-                                            <div class="testimonial-info">
-                                                <div class="testimonial-info__image">
-                                                    <img src="{% static "home_page_app/images/avatar/avatar-03.jpg" %}" alt="Avatar" width="60" height="60">
-                                                </div>
-                                                <div class="testimonial-info__caption">
-                                                    <h5 class="testimonial-info__name">Mina Hollace</h5>
-                                                    <p class="testimonial-info__designation">/ Reporter, London</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Testimonial Item End -->
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-quote-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50px" height="40px" viewBox="0 0 50 40">
-                                                <path d="M21.8750977,2.18046875 C22.4503906,2.18046875 22.9167969,1.7140625 22.9167969,1.13876953 C22.9167969,0.563476562 22.4503906,0.0970703125 21.8750977,0.0970703125 C9.79960938,0.110839844 0.0138671875,9.89658203 2.76635467e-06,21.9720703 L2.76635467e-06,28.2220703 C-0.01796875,34.56875 5.11230469,39.728418 11.4588867,39.7465793 C17.8055664,39.7645508 22.9652344,34.6342773 22.9833957,28.2876953 C23.0013672,21.9410156 17.8710938,16.7813477 11.5245117,16.7632813 C7.77705078,16.7526367 4.25966797,18.5698242 2.10009766,21.6325195 C2.29296875,10.8446289 11.0853516,2.19580078 21.8750977,2.18046875 Z"></path>
-                                                <path d="M38.5416992,16.7638672 C34.8157227,16.7667969 31.3244141,18.5832031 29.1833984,21.6326172 C29.3763672,10.8446289 38.16875,2.19580078 48.9583984,2.18056641 C49.5336914,2.18056641 50.0000977,1.71416016 50.0000977,1.13886719 C50.0000977,0.563574219 49.5336914,0.0971679688 48.9583984,0.0971679688 C36.8829102,0.1109375 27.097168,9.89667969 27.0833984,21.972168 L27.0833984,28.222168 C27.0833984,34.5503906 32.2134766,39.6804687 38.5416992,39.6804687 C44.8699219,39.6804687 50.0000977,34.5503906 50.0000977,28.222168 C50.0000977,21.8939453 44.8700195,16.7638672 38.5416992,16.7638672 Z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="testimonial-main-content">
-                                            <div class="testimonial-caption">
-                                                <h3 class="testimonial-caption__title">Great quality!</h3>
-                                                <p>I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!</p>
-                                            </div>
-                                            <div class="testimonial-info">
-                                                <div class="testimonial-info__image">
-                                                    <img src="{% static "home_page_app/images/avatar/avatar-04.jpg" %}" alt="Avatar" width="60" height="60">
-                                                </div>
-                                                <div class="testimonial-info__caption">
-                                                    <h5 class="testimonial-info__name">Luvic Dubble</h5>
-                                                    <p class="testimonial-info__designation">/ Designer, Manchester</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Testimonial Item End -->
-
-                                </div>
+                                {% endif %}
                             </div>
+                            
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
@@ -1869,9 +523,9 @@
             </div>
         </div>
     </div>
+    {% endblock %}
+    <!-- Testimonial Section End -->
 
-      {% endblock  %}
-      <!-- Testimonial Section End -->
 
 
       <!-- Banner Start -->
@@ -1887,7 +541,10 @@
                 <div class="banner-caption-03">
                     <h3 class="banner-caption-03__title">Achieve Your Goals With SkillUp 24</h3>
                     <p>Create an account to receive our newsletter, course recommendations and promotions.</p>
-                    <a href="#" class="banner-caption-03__btn btn btn-primary btn-hover-secondary">Register for free</a>
+                    <a href="{% url 'account_app:add_student_from_slider' %}" class="banner-caption-03__btn btn btn-primary btn-hover-secondary" onclick="showSpinner(this); return false;">
+                        <span class="btn-text">Register for free</span>
+                        <i class="fas fa-spinner fa-spin" style="display: none;"></i>
+                    </a>
                 </div>
 
                 <div class="banner-big-box__image" style="background-image: url({% static "home_page_app/images/banner-image-03.jpg" %});"></div>
@@ -1900,297 +557,133 @@
       {% endblock  %}
       <!-- Banner End -->
 
-        <!-- Partner Section Start -->
-      {% block partner %}
-      <div class="partners-seaction section-padding-01">
+    <!-- Partner Section Start -->
+
+    <!-- FAQ Section Start -->
+    {% block partner %}
+
+    <div class="partners-section section-padding-01">
         <div class="container">
-            <div class="row gy-8 align-items-center">
+            <div class="row gy-8 align-items-center" id="faq">
                 <div class="col-lg-3 col-md-6">
+                    
                     <!-- Section Title Start -->
-                    <div class="section-title" data-aos="fade-up" data-aos-duration="1000">
-                        <h2 class="section-title__title">Who Will You <br> Learn <mark>With?</mark> </h2>
-                        <p>You can list your partners or instructors's brands here to show off your site's reputation and students can trust you more.</p>
+                    <div class="section-title">
+                        <h2 class="section-title__title">Frequently Asked <mark>Questions</mark></h2>
                     </div>
                     <!-- Section Title End -->
 
                     <div class="section-btn" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="#" class="btn btn-light btn-hover-primary">View all Partners</a>
+                        <a href="#" class="btn btn-light btn-hover-primary">View All FAQs</a>
                     </div>
                 </div>
 
                 <div class="col-lg-9">
 
-                    <!-- Partners Logo Wrapper Start -->
-                    <div class="partner-logo-wrapper" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- FAQ Accordion Start -->
+                    <div class="accordion faq-accordion" id="faqAccordion">
 
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-01.jpg" %}" alt="Brand Logo" width="68" height="92">
+                        {% for faq in faqs %}
+                        <!-- FAQ Item Start -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ faq.id }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ faq.id }}" aria-expanded="false" aria-controls="collapse{{ faq.id }}">
+                                    {{ faq.question }}
+                                </button>
+                            </h2>
+                            <div id="collapse{{ faq.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ faq.id }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>{{ faq.answer }}</p>
+                                    {% if faq.video_url %}
+                                    <div class="faq-video">
+                                        <a href="#" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#faqVideoModal{{ faq.id }}">
+                                            <i class="fas fa-play-circle"></i> Watch Video
+                                        </a>
+                                    </div>
+                                    <!-- Video Modal -->
+                                    <div class="modal fade" id="faqVideoModal{{ faq.id }}" tabindex="-1" aria-labelledby="faqVideoModalLabel{{ faq.id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="faqVideoModalLabel{{ faq.id }}">{{ faq.question }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{ faq.video_url|safe }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-02.jpg"%}" alt="Brand Logo" width="122" height="70">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-03.jpg"%}" alt="Brand Logo" width="105" height="108">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-04.jpg"%}" alt="Brand Logo" width="78" height="91">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-05.jpg"%}" alt="Brand Logo" width="76" height="91">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-06.jpg"%}" alt="Brand Logo" width="99" height="71">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-07.jpg"%}" alt="Brand Logo" width="93" height="72">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-08.jpg"%}" alt="Brand Logo" width="77" height="72">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-09.jpg"%}" alt="Brand Logo" width="75" height="92">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-10.jpg"%}" alt="Brand Logo" width="87" height="75">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-11.jpg"%}" alt="Brand Logo" width="87" height="78">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
-
-                        <!-- Partners Logo Start -->
-                        <div class="partner-logo">
-                            <div class="partner-logo__logo">
-                                <img src="{% static "home_page_app/images/partners-logo/client-logo-12.jpg"%}" alt="Brand Logo" width="107" height="69">
-                            </div>
-                        </div>
-                        <!-- Partners Logo End -->
+                        <!-- FAQ Item End -->
+                        {% endfor %}
 
                     </div>
-                    <!-- Partners Logo Wrapper End -->
+                    <!-- FAQ Accordion End -->
 
                 </div>
             </div>
         </div>
     </div>
-      {% endblock  %}
-        <!-- Partner Section End -->
+    {% endblock %}
+    <!-- FAQ Section End -->
 
-        <!-- Review Section Start -->
-        {% block review %}
-        <div class="testimonial-section bg-color-07 section-padding-01 scene">
 
-            <div class="container custom-container">
 
-                <!-- Testimonial Icon Start -->
-                <div class="testimonial-icon text-center">
-                    <img src="{% static "home_page_app/images/testiomonial-icon.png" %}" alt="Icon" width="114" height="75">
-                </div>
-                <!-- Testimonial Icon End -->
-
-                <!-- Section Title Start -->
-                <div class="section-title text-center">
-                    <h2 class="section-title__title-03">Loved by 200,000+ students</h2>
-                    <p>The magic is in the reviews. What our learners say</p>
-                </div>
-                <!-- Section Title End -->
-
-                <div class="row gy-8 gy-md-14 testimonial-items-wrapper">
-                    <div class="col-lg-6">
-                        <!-- Testimonial Item Start -->
-                        <div class="testimonial-item-03" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="testimonial-caption-03">
-                                <p>I Great course to help me understand WordPress templates. I have created templates in Joomla for years and this is so so much easier! </p>
-                            </div>
-                            <div class="testimonial-info">
-                                <div class="testimonial-info__image">
-                                    <img src="{% static "home_page_app/images/avatar/avatar-01.jpg" %}" alt="Avatar" width="60" height="60">
-                                </div>
-                                <div class="testimonial-info__caption">
-                                    <h5 class="testimonial-info__name">Oliver Beddows</h5>
-                                    <p class="testimonial-info__designation">/ Designer, Manchester</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Testimonial Item End -->
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- Testimonial Item Start -->
-                        <div class="testimonial-item-03" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="testimonial-caption-03">
-                                <p>I Great course to help me understand WordPress templates. I have created templates in Joomla for years and this is so so much easier! </p>
-                            </div>
-                            <div class="testimonial-info">
-                                <div class="testimonial-info__image">
-                                    <img src="{% static "home_page_app/images/avatar/avatar-02.jpg" %}" alt="Avatar" width="60" height="60">
-                                </div>
-                                <div class="testimonial-info__caption">
-                                    <h5 class="testimonial-info__name">Oliver Beddows</h5>
-                                    <p class="testimonial-info__designation">/ Designer, Manchester</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Testimonial Item End -->
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- Testimonial Item Start -->
-                        <div class="testimonial-item-03" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="testimonial-caption-03">
-                                <p>I Great course to help me understand WordPress templates. I have created templates in Joomla for years and this is so so much easier! </p>
-                            </div>
-                            <div class="testimonial-info">
-                                <div class="testimonial-info__image">
-                                    <img src="{% static "home_page_app/images/avatar/avatar-04.jpg" %}" alt="Avatar" width="60" height="60">
-                                </div>
-                                <div class="testimonial-info__caption">
-                                    <h5 class="testimonial-info__name">Oliver Beddows</h5>
-                                    <p class="testimonial-info__designation">/ Designer, Manchester</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Testimonial Item End -->
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- Testimonial Item Start -->
-                        <div class="testimonial-item-03" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="testimonial-caption-03">
-                                <p>I Great course to help me understand WordPress templates. I have created templates in Joomla for years and this is so so much easier! </p>
-                            </div>
-                            <div class="testimonial-info">
-                                <div class="testimonial-info__image">
-                                    <img src="{% static "home_page_app/images/avatar/avatar-03.jpg" %}" alt="Avatar" width="60" height="60">
-                                </div>
-                                <div class="testimonial-info__caption">
-                                    <h5 class="testimonial-info__name">Oliver Beddows</h5>
-                                    <p class="testimonial-info__designation">/ Designer, Manchester</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Testimonial Item End -->
-                    </div>
-                </div>
-
-                <div class="testimonial-btn text-center mt-14" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="#" class="btn btn-white btn-hover-primary">View all reviews</a>
-                </div>
-
-            </div>
-
-            <div class="testimonial-section__shape-05" data-depth="-0.2">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50px" height="39px" viewBox="0 0 50 39">
-                    <path class="shape" d="M50,31.4121777 L50,38.8589862 L-5.51381163e-12,38.8589862 L-5.51381163e-12,31.4121777 L50,31.4121777 Z M50,16.2218438 L50,23.6686523 L-1.64490643e-12,23.6686523 L-1.64490643e-12,16.2218438 L50,16.2218438 Z M50,0 L50,7.44680851 L-3.58113539e-12,7.44680851 L-3.58113539e-12,0 L50,0 Z"></path>
-                </svg>
-            </div>
-            <div class="testimonial-section__shape-06" data-depth="0.2"></div>
-            <div class="testimonial-section__shape-07" data-depth="-0.2"></div>
-            <div class="testimonial-section__shape-08" data-depth="0.2"></div>
-            <div class="testimonial-section__shape-09" data-depth="-0.2"></div>
-
-            <img class="testimonial-section__shape-10" src="{% static "home_page_app/images/testiomonial-image-02.png" %}" alt="testiomonial" width="146" height="179">
-            <img class="testimonial-section__shape-11" src="{% static "home_page_app/images/testiomonial-image-01.png" %}" alt="testiomonial" width="168" height="214">
-
-        </div>
-        {% endblock  %}
 
         <!-- Footer Start -->
         {% block footer %}
         {% include 'home_page_partials/main_footer.html' %}
         {% endblock  %}
         <!-- Footer End -->
-         <!-- WhatsApp Button -->
-        <div class="whatsapp-button" onclick="toggleChatPopup()">
-            <i class="fab fa-whatsapp"></i>
-        </div>
-
-        <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
-            <div class="chat-header">
-            <i class="fab fa-whatsapp"></i>
-            <span>WhatsApp</span>
-            <i class="fas fa-times" onclick="toggleChatPopup()"></i>
-            </div>
-            <div class="chat-body">
-            <p>ASC ????</p>
-            <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
-            <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
-            </div>
-        </div>
+       
 
         {% include "home_page_partials/arrow_up_down.html" %}
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              document.querySelectorAll('form').forEach(form => {
-                form.addEventListener('submit', function () {
-                  const button = form.querySelector('button[type="submit"]');
-                  const spinner = button.querySelector('.spinner-border');
-                  const buttonText = button.querySelector('.button-text');
-        
-                  spinner.classList.remove('d-none');
-                  buttonText.textContent = 'Processing...';
-                  button.disabled = true;
-                });
-              });
-            });
-        
-            function toggleChatPopup() {
-              const chatPopup = document.getElementById('whatsapp-chat-popup');
-              chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+            function sliderSpinner(form) {
+                // Hide the search icon
+                document.getElementById('sliderIcon').style.display = 'none';
+                // Show the spinner icon
+                document.getElementById('searchSpinner').style.display = 'inline-block';
             }
-          </script>
+        </script>
 
 
 </main>
+
+<script>
+    function showSpinner(element) {
+        // Hide the "Get started" text
+        element.querySelector('.btn-text').style.display = 'none';
+        // Show the spinner icon
+        element.querySelector('.fa-spinner').style.display = 'inline-block';
+        // Change the link text to "Starting..."
+        element.querySelector('.fa-spinner').insertAdjacentText('afterend', ' Starting...');
+        // Optionally, redirect to the URL after a short delay
+        setTimeout(function() {
+            window.location.href = element.href;
+        }, 500); // Delay in milliseconds before redirecting
+    }
+</script>
+
+<script>
+    function showSpinner(element) {
+        // Hide the "Register for free" text
+        element.querySelector('.btn-text').style.display = 'none';
+        // Show the spinner icon
+        element.querySelector('.fa-spinner').style.display = 'inline-block';
+        // Change the link text to "Registering..."
+        element.querySelector('.fa-spinner').insertAdjacentText('afterend', ' Registering...');
+        // Optionally, redirect to the URL after a short delay
+        setTimeout(function() {
+            window.location.href = element.href;
+        }, 500); // Delay in milliseconds before redirecting
+    }
+</script>
+
+
 {% endblock %}

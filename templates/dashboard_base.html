@@ -32,9 +32,32 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/ion.rangeSlider.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/select2.min.css">
+    
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/style.css">
+
+    <style>
+        .spinner-border {
+          border: 2px solid rgba(255, 255, 255, 0.6);
+          border-top: 2px solid transparent;
+          border-radius: 50%;
+          width: 1rem;
+          height: 1rem;
+          vertical-align: middle; /* Align spinner vertically with text */
+          margin-right: 8px; /* Space between spinner and text */
+          animation: spinner-border 0.75s linear infinite;
+      }
+      
+      @keyframes spinner-border {
+          to {
+              transform: rotate(360deg);
+          }
+      }
+      .btn-primary:disabled {
+          cursor: not-allowed; /* Change cursor when disabled */
+      }
+  </style>
 </head>
 
 <body class="dashboard-page dashboard-nav-fixed">
@@ -49,7 +72,7 @@
                     <button class="toggle-close" data-bs-dismiss="offcanvas"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="dashboard-nav__logo">
-                    <a class="logo" href="{% url "home_page_app:student_dashboard" 1 %}"><img src="{% static 'home_page_app/images/logo.png' %}" style="width:13rem" alt="Logo"></a>
+                    <a class="logo" href="{% url "home_page_app:student_dashboard" student_user.id %}"><img src="{% static 'home_page_app/images/logo.png' %}" style="width:13rem" alt="Logo"></a>
                 </div>
             </div>
             <!-- Dashboard Nav Header End -->
@@ -59,18 +82,29 @@
                 <!-- Dashboard Nav Menu Start -->
                 <div class="dashboard-nav__menu">
                     <ul class="dashboard-nav__menu-list">
-                        <li><a href="{% url "home_page_app:student_dashboard" 1 %}"><i class="edumi edumi-layers"></i><span class="text">Dashboard</span></a></li>
-                        <li><a href="{% url "home_page_app:student_profile" 1 %}"><i class="edumi edumi-follower"></i><span class="text">My Profile</span></a></li>
-                        <li><a href="{% url "home_page_app:enrolled_courses" 1 %}"><i class="edumi edumi-open-book"></i><span class="text">Enrolled Courses</span></a></li>
-                        <li><a href="{% url "home_page_app:wish_list" 1 %}"><i class="edumi edumi-heart"></i><span class="text">Wishlist</span></a></li>
-                        <li><a href="{% url "home_page_app:review" 1 %}"><i class="edumi edumi-star"></i><span class="text">Reviews</span></a></li>
-                        <li><a href="{% url "home_page_app:quiz_attempts" 1 %}"><i class="edumi edumi-help"></i><span class="text">My Quiz Attempts</span></a></li>
-                        <li><a href="{% url "home_page_app:purchase_history" 1 %}"><i class="edumi edumi-shopping-cart"></i><span class="text">Purchase History</span></a></li>
-                        <li><a href="{% url 'home_page_app:certificates' 1 %}"><i class="fas fa-award"></i><span class="text">Certificates</span></a></li>
+                        <li><a href="{% url 'home_page_app:student_dashboard' student_user.id %}" class="{% if request.resolver_match.url_name == 'student_dashboard' %}active{% endif %}"><i class="edumi edumi-layers"></i><span class="text">Dashboard</span></a></li>
+                        <li><a href="{% url 'account_app:update_student_and_profile_by_user' %}" class="{% if request.resolver_match.url_name == 'update_student_and_profile_by_user' %}active{% endif %}"><i class="edumi edumi-follower"></i><span class="text">My Profile</span></a></li>
+                        <li>
+                            <a href="{% url 'home_page_app:enrolled_courses' %}" class="{% if request.resolver_match.url_name == 'enrolled_courses' %}active{% endif %}">
+                                <i class="edumi edumi-open-book"></i>
+                                <span class="text">Enrolled Courses</span>
+                            </a>
+                        </li>
+                
+                        <li><a href="{% url 'home_page_app:review' %}" class="{% if request.resolver_match.url_name == 'review' %}active{% endif %}"><i class="edumi edumi-star"></i><span class="text">Reviews</span></a></li>
+                        <li><a href="{% url 'home_page_app:purchase_history' %}" class="{% if request.resolver_match.url_name == 'purchase_history' %}active{% endif %}"><i class="edumi edumi-shopping-cart"></i><span class="text">Purchase History</span></a></li>
+                        <li>
+                            <a href="{% url 'home_page_app:certificates' %}" class="{% if request.resolver_match.url_name == 'certificates' %}active{% endif %}">
+                                <i class="fas fa-award"></i><span class="text">Certificates</span>
+                            </a>
+                        </li>
                     </ul>
-               
+                    
+                                    
                     <ul class="dashboard-nav__menu-list">
-                        <li><a href="{% url "home_page_app:home" %}"><i class="edumi edumi-sign-out"></i><span class="text">Logout</span></a></li>
+                        <!-- icon mdi reset password -->
+                        <li><a href="{% url "account_app:reset_password_request" %}"><i class="fas fa-redo-alt"></i><span class="text">Reset Password</span></a></li>
+                        <li><a href="{% url "account_app:logout" %}"><i class="edumi edumi-sign-out"></i><span class="text">Logout</span></a></li>
                     </ul>
                 </div>
                 <!-- Dashboard Nav Menu End -->
@@ -102,10 +136,18 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
                 <div class="dashboard-menu__search">
-                    <form action="#">
-                        <input type="text" placeholder="Search…">
-                        <button class="search-btn"><i class="fas fa-search"></i></button>
-                    </form>
+                    <!-- Header Search Start -->
+                    <div class="header-serach">
+                        <form action="{% url 'home_page_app:search_results' %}" method="GET" id="search-form">
+                            <input type="text" name="q" class="header-serach__input" style="text-indent: 30px;" placeholder="Search...">
+                            <button class="header-serach__btn" type="submit">
+                                <i class="fas fa-search"></i> <!-- Original search icon -->
+                                <i class="spinner-border d-none text-success"></i> <!-- Spinner, initially hidden -->
+                                
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Header Search End -->
                 </div>
             </div>
         </div>
@@ -131,10 +173,15 @@
                     </div>
                     <div class="dashboard-header__user">
                         <div class="dashboard-header__user-avatar">
-                            <img src="{% static 'home_page_app/images/avatar/avatar-02.jpg' %}" alt="Avatar" width="90" height="90">
+                            {% if student_profile_picture_url %}
+                                <img src="{{ student_profile_picture_url }}"  alt="Avatar" width="90" height="90" >
+                            {% else %}
+                                <img src="{% static 'home_page_app/images/avatar-placeholder.jpg' %}" alt="Avatar" width="90" height="90" >
+                            {% endif %}
                         </div>
                         <div class="dashboard-header__user-info">
-                            <h4 class="dashboard-header__user-name"><span class="welcome-text">Howdy,</span> Adeniyi David</h4>
+                            <h4 class="dashboard-header__user-name"><span class="welcome-text">{{ student_user.first_name }} </span> {{ student_user.middle_name }} {{ student_user.last_name }}</h4>
+                             
                             <div class="dashboard-header__user-rating">
                                 <div class="rating-star">
                                     <div class="rating-label" style="width: 100%;"></div>
@@ -164,13 +211,23 @@
     </main>
     <!-- Dashboard Main Wrapper End -->
 
+    <!-- contact icons Start -->
+    <div class="edumall-demo-option">
+
+        <div class="edumall-demo-option__toolbar">
+            <a class="toolbar-action" href="https://wa.me/+252615272255" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="left" title="Facebook"><i class="fab fa-whatsapp fs-5" style=""></i></a>
+            <a class="toolbar-action" href="https://facebook.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="left" title="Facebook"><i class="fab fa-facebook fs-5"></i></a>
+            <a class="toolbar-action" href="https://youtube.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="left" title="Youtube"><i class="fab fa-youtube fs-5"></i></a>
+        </div>
+
+    </div>
+
     <!-- JS Vendor, Plugins & Activation Script Files -->
     <!-- Vendors JS -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/vendor/modernizr-3.11.7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/vendor/jquery-migrate-3.3.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/vendor/bootstrap.bundle.min.js"></script>
-
 
     <!-- Plugins JS -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/aos.js"></script>
@@ -190,5 +247,25 @@
 
     <!-- Activation JS -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchForm = document.getElementById('search-form');
+            const searchButton = searchForm.querySelector('.header-serach__btn');
+            const searchIcon = searchButton.querySelector('.fa-search');
+            const spinner = searchButton.querySelector('.spinner-border');
+        
+            searchForm.addEventListener('submit', function() {
+                // Hide the search icon and show the spinner
+                searchIcon.classList.add('d-none');
+                spinner.classList.remove('d-none');
+        
+                // Disable the button to prevent multiple submissions
+                searchButton.disabled = true;
+            });
+        });
+        
+        
+    </script>
 </body>
 </html>

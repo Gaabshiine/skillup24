@@ -18,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&amp;display=swap" rel="stylesheet">
 
+    
     <!-- Vendor CSS (Bootstrap & Icon Font) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/vendor/fontawesome-all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/vendor/edumall-icon.css">
@@ -25,7 +26,7 @@
 
     <!-- Plugins CSS (All Plugins Files) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/aos.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/swiper-bundle.min.css"  />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/perfect-scrollbar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/jquery.powertip.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/plugins/glightbox.min.css">
@@ -36,6 +37,37 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/css/style.css">
+
+    <!-- Custom CSS -->
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+    <style>
+        .spinner-border {
+          border: 2px solid rgba(255, 255, 255, 0.6);
+          border-top: 2px solid transparent;
+          border-radius: 50%;
+          width: 1rem;
+          height: 1rem;
+          vertical-align: middle; /* Align spinner vertically with text */
+          margin-right: 8px; /* Space between spinner and text */
+          animation: spinner-border 0.75s linear infinite;
+      }
+      
+      @keyframes spinner-border {
+          to {
+              transform: rotate(360deg);
+          }
+      }
+      .btn-primary:disabled {
+          cursor: not-allowed; /* Change cursor when disabled */
+      }
+  </style>
 
     {% block css_files %}{% endblock %}
 
@@ -114,146 +146,35 @@
 
     </main>
     {% endblock main %}
+
+    <!-- contact icons Start -->
+    <div class="edumall-demo-option">
+
+        <div class="edumall-demo-option__toolbar">
+            <a class="toolbar-action" href="https://wa.me/+252615272255" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="left" title="Facebook"><i class="fab fa-whatsapp fs-5" style=""></i></a>
+            <a class="toolbar-action" href="https://facebook.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="left" title="Facebook"><i class="fab fa-facebook fs-5"></i></a>
+            <a class="toolbar-action" href="https://youtube.com/" target="_blank" data-bs-tooltip="tooltip" data-bs-placement="left" title="Youtube"><i class="fab fa-youtube fs-5"></i></a>
+        </div>
+
+    </div>
+    <!-- contact icons End -->
     
 
+    <!-- login Modal Start -->
+    {% include "account_app_partials/login_student.html" %}
 
 
-    <!-- Log In Modal Start -->
-    <div class="modal fade" id="loginModal">
-        <div class="modal-dialog modal-dialog-centered modal-login">
+    
+        
+    <!-- login Modal End -->
 
-            <!-- Modal Wrapper Start -->
-            <div class="modal-wrapper">
-                <button class="modal-close" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
-
-                <!-- Modal Content Start -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Login</h5>
-                        <p class="modal-description">Don't have an account yet? <button data-bs-toggle="modal" data-bs-target="#registerModal">Sign up for free</button></p>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#">
-                            <div class="modal-form">
-                                <label class="form-label">Username or email</label>
-                                <input type="text" class="form-control" placeholder="Your username or email">
-                            </div>
-                            <div class="modal-form">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="modal-form d-flex justify-content-between flex-wrap gap-2">
-                                <div class="form-check">
-                                    <input type="checkbox" id="rememberme">
-                                    <label for="rememberme">Remember me</label>
-                                </div>
-                                <div class="text-end">
-                                    <a class="modal-form__link" href="#">Forgot your password?</a>
-                                </div>
-                            </div>
-                            <div class="modal-form">
-                                <button class="btn btn-primary btn-hover-secondary w-100">Log In</button>
-                            </div>
-                        </form>
-
-                        <div class="modal-social-option">
-                            <p>or Log-in with</p>
-
-                            <ul class="modal-social-btn">
-                                <li><a href="#" class="btn facebook"><i class="fab fa-facebook-square"></i> Gacebook</a></li>
-                                <li><a href="#" class="btn google"><i class="fab fa-google"></i> Google</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Content End -->
-
-            </div>
-            <!-- Modal Wrapper End -->
-
-        </div>
-    </div>
-    <!-- Log In Modal End -->
+    
 
 
     
     <!-- Registeration Modal Start -->
-    <div class="modal fade" id="registerModal">
-        <div class="modal-dialog modal-dialog-centered modal-register">
-
-            <!-- Modal Wrapper Start -->
-            <div class="modal-wrapper">
-                <button class="modal-close" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
-
-                <!-- Modal Content Start -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Sign Up</h5>
-                        <p class="modal-description">Already have an account? <button data-bs-toggle="modal" data-bs-target="#loginModal">Log in</button></p>
-                    </div>
-                    <div class="modal-body">
-
-                        <form action="#">
-                            <div class="row gy-5">
-                                <div class="col-md-6">
-                                    <div class="modal-form">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="modal-form">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="modal-form">
-                                        <label class="form-label">Username</label>
-                                        <input type="text" class="form-control" placeholder="username">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="modal-form">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" placeholder="Your Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="modal-form">
-                                        <label class="form-label">Password</label>
-                                        <input type="password" class="form-control" placeholder="Password">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="modal-form">
-                                        <label class="form-label">Re-Enter Password</label>
-                                        <input type="password" class="form-control" placeholder="Re-Enter Password">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal-form form-check">
-                                        <input type="checkbox" id="privacy">
-                                        <label for="privacy">Accept the Terms and Privacy Policy</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal-form">
-                                        <button class="btn btn-primary btn-hover-secondary w-100">Register</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-                <!-- Modal Content End -->
-
-            </div>
-            <!-- Modal Wrapper End -->
-
-        </div>
-    </div>
+    {% include "account_app_partials/register_student_by_user.html" %}
+    
     <!-- Registeration Modal End -->
 
 
@@ -268,7 +189,7 @@
     <!-- Plugins JS -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/parallax.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/jquery.powertip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/plugins/nice-select.min.js"></script>
@@ -283,8 +204,92 @@
 
     <!-- Activation JS -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/home_page_app/js/main.js"></script>
+
+    
+    
+
+    <!-- Custom login JS -->
+    <script>
+        // Custom JS
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginButton = document.getElementById('loginButton');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const generalError = document.getElementById('generalError');
+
+            loginButton.addEventListener('click', function(event) {
+                let isValid = true;
+
+                // Clear previous errors
+                emailError.textContent = '';
+                passwordError.textContent = '';
+                generalError.style.display = 'none';
+
+                // Email validation
+                if (!validateEmail(emailInput.value)) {
+                    emailError.textContent = 'Please enter a valid email address.';
+                    isValid = false;
+                }
+
+                // Password validation
+                if (passwordInput.value.trim() === '') {
+                    passwordError.textContent = 'Password cannot be empty.';
+                    isValid = false;
+                }
+
+                // If there are errors, prevent form submission
+                if (!isValid) {
+                    return;
+                }
+
+                // AJAX request to server for login
+                const formData = new FormData();
+                formData.append('email_address', emailInput.value);
+                formData.append('password', passwordInput.value);
+                
+                fetch("{% url 'account_app:login' %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest'  // Make sure to set this header
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirect to the appropriate page
+                        window.location.href = data.redirect_url;
+                    } else {
+                        generalError.textContent = data.error;
+                        generalError.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+        });
+
+        
+
+    </script>
+    
+
+        
     
     {% block js_files %}{% endblock %}
 </body>
 
 </html>
+                                            
+
+
+

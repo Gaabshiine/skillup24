@@ -2,7 +2,7 @@
 
 {% load static %}
 {% block css_files %}
-<style>
+{% comment %} <style>
     /* WhatsApp button */
     .whatsapp-button {
     position: fixed;
@@ -91,7 +91,7 @@
     -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
     box-shadow: 0 0 0 0.2rem #1a4d3b;
     }
-</style>
+</style> {% endcomment %}
 
 {% endblock %}
 
@@ -232,46 +232,11 @@
     {% endblock  %}
     <!-- Footer End -->
 
-    <!-- WhatsApp Button -->
-    <div class="whatsapp-button" onclick="toggleChatPopup()">
-        <i class="fab fa-whatsapp"></i>
-    </div>
 
-    <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
-        <div class="chat-header">
-        <i class="fab fa-whatsapp"></i>
-        <span>WhatsApp</span>
-        <i class="fas fa-times" onclick="toggleChatPopup()"></i>
-        </div>
-        <div class="chat-body">
-        <p>ASC ????</p>
-        <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
-        <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
-        </div>
-    </div>
 
     {% include "home_page_partials/arrow_up_down.html" %}
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function () {
-                const button = form.querySelector('button[type="submit"]');
-                const spinner = button.querySelector('.spinner-border');
-                const buttonText = button.querySelector('.button-text');
-    
-                spinner.classList.remove('d-none');
-                buttonText.textContent = 'Processing...';
-                button.disabled = true;
-            });
-            });
-        });
-    
-        function toggleChatPopup() {
-            const chatPopup = document.getElementById('whatsapp-chat-popup');
-            chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
-        }
-        </script>
+   
 
 
 </main>

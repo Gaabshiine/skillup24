@@ -27,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Set SECRET_KEY using environment variable or generate a random one
 SECRET_KEY = os.getenv("SECRET_KEY", generate_secret_key())
 
+# --------------------------------------------------- start when in Production ----------------------------------------------------
 # Ensure SECRET_KEY is set
 if not SECRET_KEY:
     raise ValueError("The SECRET_KEY environment variable is not set.")
@@ -42,14 +43,18 @@ VERCEL_URL = os.getenv('VERCEL_URL')
 if VERCEL_URL:
     ALLOWED_HOSTS.append(VERCEL_URL)
 
+# ----------------------------------------------------- end when in Production -------------------------------------------------------
 
-# # When the debug in development is True, the ALLOWED_HOSTS should be set to ['*']
+
+
+
+# -------------------------------------------------When the debug in development is True ---------------------------------------------
 # DEBUG = True  # Make sure this aligns with your environment variable
 
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 localhost').split()
 
 
-# Logging
+# # # Logging
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': False,
@@ -69,12 +74,14 @@ if VERCEL_URL:
 #     },
 # }
 
+# --------------------------------------- End when the debug in the development True -------------------------------------------
 
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'account_app',
     'home_page_app',
+    'admin_page_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,14 +92,16 @@ INSTALLED_APPS = [
 
 # Add WhiteNoise to middleware
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_page_app.middleware.AdminAccessMiddleware',  # Add your middleware here
+    'account_app.middleware.AuthenticationMiddleware',  # Add your middleware here
 ]
 
 ROOT_URLCONF = 'skillup24.urls'
@@ -108,6 +117,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Add custom context processors
+                'admin_page_app.context_processors.admin_context',
+                'account_app.context_processors.instructor_context',
+                'account_app.context_processors.student_context',
+                'home_page_app.context_processors.course_context_processor',
+                'home_page_app.context_processors.category_context_processor',
+                'home_page_app.context_processors.instructors_context_processor',
+                'home_page_app.context_processors.instructor_rating_display',
+                'home_page_app.context_processors.certificates_context_processor',
+                'home_page_app.context_processors.reviews_context_processor',
+                'home_page_app.context_processors.faq_context_processor',
+                'home_page_app.context_processors.event_context_processor',
             ],
         },
     },
@@ -119,9 +140,19 @@ WSGI_APPLICATION = 'skillup24.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fahad2023_skillup24',
+        'USER': 'fahad2023_skillup24',
+        'PASSWORD': 'Bwz36&f30',
+        'HOST': 'fahad2023.helioho.st',
+        'PORT': '3306',
     }
+}
+
+# Message
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
 }
 
 # Password validation
@@ -149,8 +180,6 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-# Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
@@ -158,9 +187,36 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# WhiteNoise settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+# Media files (Images, Videos, etc)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Sessions
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds (2 * 7 * 24 * 60 * 60)
+SESSION_SAVE_EVERY_REQUEST = True  # Save the session to the database on every request
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Session will not expire when the browser closes
+
+BUNNY_STREAM_API_KEY = 'd1570f59-756f-4b5f-9f6acf2bcc8f-6e9d-496d'
+BUNNY_STREAM_LIBRARY_ID = '292395'
+BUNNY_STREAM_CDN_HOSTNAME = 'vz-43911117-675.b-cdn.net'
+
+
+# For persistent sessions, consider using the database session backend
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'abdisalanabdukadir@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'zbgc lshe blbq yvon')
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

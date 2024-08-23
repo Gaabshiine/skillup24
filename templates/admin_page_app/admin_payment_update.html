@@ -1,0 +1,219 @@
+{% extends "admin_base.html" %}
+{% load static %}
+
+{% block wrapper %}
+<div class="wrapper">
+    {% include "admin_page_partials/left_sidebar.html" %}
+    <div class="content-page">
+        <div class="content">
+            {% include "admin_page_partials/topbar.html" %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="#">Skillup 24</a></li>
+                                    <li class="breadcrumb-item active">Update Payment</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Update Payment</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="paymentUpdateForm" method="post" action="{% url 'admin_page_app:update_payment' payment.id %}">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="student" class="form-label">Student<span class="text-danger">*</span></label>
+                                                <select data-toggle="select2" id="student" name="student" class="form-select" required>
+                                                    <option value="">Select a student</option>
+                                                    {% for student in students %}
+                                                    <option value="{{ student.id }}" {% if student.id == payment.student_id %}selected{% endif %}>{{ student.first_name }} {{ student.last_name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="error-message text-danger" id="studentError" style="display: none; margin-top: 0.25rem;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="course" class="form-label">Course<span class="text-danger">*</span></label>
+                                                <select data-toggle="select2" id="course" name="course" class="form-select" required>
+                                                    <option value="">Select a course</option>
+                                                    {% for course in courses %}
+                                                    <option value="{{ course.id }}" {% if course.id == payment.course_id %}selected{% endif %}>{{ course.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="error-message text-danger" id="courseError" style="display: none; margin-top: 0.25rem;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="discount" class="form-label">Discount (%)<span class="text-danger">*</span></label>
+                                                <input type="text" id="discount" name="discount" class="form-control" value="{{ payment.discount }}" required>
+                                                <div class="error-message text-danger" id="discountError" style="display: none; margin-top: 0.25rem;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="expected_course_amount" class="form-label">Expected Course Amount</label>
+                                                <input type="text" id="expected_course_amount" name="expected_course_amount" class="form-control" value="{{ payment.expected_course_amount }}" required readonly>
+                                                <div class="error-message text-danger" id="expected_course_amountError" style="display: none; margin-top: 0.25rem;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="total_paid_amount" class="form-label">Total Paid Amount</label>
+                                                <input type="text" id="total_paid_amount" name="total_paid_amount" class="form-control" value="{{ payment.total_amount }}" required readonly>
+                                                <div class="error-message text-danger" id="total_paid_amountError" style="display: none; margin-top: 0.25rem;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-12">
+                                            <div class="text-sm-end">
+                                                <button class="btn btn-primary btn-with-spinner" type="submit">
+                                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                    <span class="button-text">Update Payment</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- container -->
+        </div> <!-- content -->
+        {% include "admin_page_partials/footer.html" %}
+    </div> <!-- end content-page -->
+</div> <!-- end wrapper -->
+{% endblock %}
+
+{% block right_sidebar %}
+{% include "admin_page_partials/right_sidebar.html" %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+    
+                const submitButton = form.querySelector('button[type="submit"]');
+                if (!submitButton) {
+                    return;
+                }
+    
+                // Prevent duplicate submissions
+                if (submitButton.disabled) {
+                    return;
+                }
+    
+                handleButtonLoadingState(submitButton);
+    
+                // Mark the button as disabled to prevent additional clicks
+                submitButton.disabled = true;
+    
+                const formData = new FormData(form);
+    
+                // Clear previous error messages
+                document.querySelectorAll('.error-message').forEach(el => {
+                    el.style.display = 'none';
+                    el.textContent = ''; // Clear the text content as well
+                });
+    
+                // Send data using fetch API
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                        'X-Requested-With': 'XMLHttpRequest' // Mark the request as AJAX
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Redirect or show success message
+                            window.location.href = data.redirect_url;
+                        } else {
+                            // Reset button if there was an error
+                            resetButtonLoadingState(submitButton);
+                            submitButton.disabled = false; // Re-enable button for retry
+                            // Show error messages
+                            if (data.errors) {
+                                for (let field in data.errors) {
+                                    const errorElement = document.getElementById(`${field}Error`);
+                                    if (errorElement) {
+                                        errorElement.textContent = data.errors[field];
+                                        errorElement.style.display = 'block'; // Show the error message as a block element
+                                    } else {
+                                        alert(data.errors[field]); // Fallback for any missing error fields
+                                    }
+                                }
+                            } else if (data.error) {
+                                alert(data.error);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An unexpected error occurred.');
+                        // Reset button on catch error
+                        resetButtonLoadingState(submitButton);
+                        submitButton.disabled = false; // Re-enable button for retry
+                    });
+            });
+        });
+    
+        // Function to handle button loading state
+        function handleButtonLoadingState(button) {
+            const originalText = button.textContent.trim();
+            const loadingText = getLoadingText(originalText);
+    
+            // Show spinner and update button text
+            const spinner = button.querySelector('.spinner-border');
+            if (spinner) {
+                spinner.classList.remove('d-none');
+            }
+            button.querySelector('.button-text').textContent = loadingText;
+        }
+    
+        // Function to reset button loading state
+        function resetButtonLoadingState(button) {
+            const originalText = button.dataset.originalText;
+            const spinner = button.querySelector('.spinner-border');
+    
+            if (spinner) {
+                spinner.classList.add('d-none');
+            }
+            button.querySelector('.button-text').textContent = originalText;
+        }
+    
+        // Function to derive the loading text based on the original text
+        function getLoadingText(originalText) {
+            if (originalText.endsWith('e')) {
+                return `${originalText.slice(0, -1)}ing...`;
+            } else if (originalText.endsWith('y')) {
+                return `${originalText.slice(0, -1)}ying...`;
+            }
+            return `${originalText}ing...`;
+        }
+    
+        // Store original text for all buttons
+        const allButtons = document.querySelectorAll('button');
+        allButtons.forEach(button => {
+            button.dataset.originalText = button.textContent.trim();
+        });
+    });
+</script>    
+
+{% endblock %}

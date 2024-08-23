@@ -9,47 +9,29 @@
     </div>
 
     <div class="offcanvas-body">
-        {% if user.is_authenticated %}
-        <div class="offcanvas-user-profile d-lg-none mb-4 d-flex align-items-center">
-            <div class="offcanvas-user__avatar">
-                <img src="{% static 'home_page_app/images/avatar/avatar-02.jpg' %}" alt="Avatar" class="rounded-circle" width="40" height="40">
-            </div>
-            <div class="offcanvas-user__info ms-2 d-flex align-items-center">
-                <p class="text-light mb-0 me-2">Abdisalan Abdukadir</p>
-                <div class="dropdown">
-                    <a class="dropdown-toggle text-decoration-none text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="{% url "home_page_app:student_profile" 1 %}">Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url "home_page_app:student_dashboard" 1 %}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
+        {% if student_user %}
+        <div class="header-user__profile dropdown">
+            <a class="header-user__avatar dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if student_profile_picture_url %}
+                <img src="{{ student_profile_picture_url }}" alt="profile-image" width="40" height="40" class="rounded-circle">  &nbsp; {{ student_user.first_name }} {{ student_user.middle_name }} 
+            {% else %}
+                <img src="{% static 'home_page_app/images/avatar-placeholder.jpg' %}" width="40" height="40" alt="Default Avatar" class="rounded-circle"> &nbsp; {{ student_user.first_name }} {{ student_user.middle_name }} 
+            {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="{% url "account_app:update_student_and_profile_by_user" %}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url "home_page_app:student_dashboard" student_user.id %}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{% url "account_app:logout" %}">Logout</a></li>
+            </ul>
         </div>
-        {% endif %}
         <nav class="canvas-menu">
             <ul class="offcanvas-menu">
                 <li><a class="active" href="{% url 'home_page_app:home' %}"><span>Home</span></a></li>
-                {% if user.is_authenticated %}
-                <li><a href="{% url "home_page_app:student_dashboard" 1 %}"><span>My Dashboard</span></a></li>
-                {% else %}
-                <li>
-                    <a href="#"><span>Category</span></a>
-                    <ul class="sub-menu">
-                        <li><a href="{% url "home_page_app:course_category" 1 %}"><span>Diloma in Architectural Designing</span></a></li>
-                        <li><a href="{% url "home_page_app:course_category" 2 %}"><span>Diloma in Structural Engineering</span></a></li>
-                        <li><a href="{% url "home_page_app:course_category" 3 %}"><span>Diloma In BIM Manager</span></a></li>
-                        <li><a href="{% url "home_page_app:course_category" 4 %}"><span>Diloma in Construction magagment skills</span></a></li>
-                        <li><a href="{% url "home_page_app:course_category" 5 %}"><span>Diloma in computer base</span></a></li>
-                        <li><a href="{% url "home_page_app:course_category" 6 %}"><span>Computerized Accounting</span></a></li>
-                    </ul>
-                </li>
-                {% endif %}
+                <li><a href="{% url "home_page_app:student_dashboard" student_user.id %}"><span>My Dashboard</span></a></li>
                 <li>
                     <a class="" href="#"><span>Features</span></a>
                     <ul class="sub-menu">
                         <li><a class="" href="{% url 'home_page_app:event_list' %}"><span>Events</span></a></li>
-                        <li><a class="" href="{% url 'home_page_app:zoom_meeting_list' %}"><span>Zoom Meetings</span></a></li>
                     </ul>
                 </li>
                 <li>
@@ -57,27 +39,61 @@
                     <ul class="sub-menu">
                         <li><a class="" href="{% url 'home_page_app:about' %}"><span>About us</span></a></li>
                         <li><a class="" href="{% url 'home_page_app:contact' %}"><span>Contact us</span></a></li>
-                        <li><a class="" href="{% url 'home_page_app:membership' %}"><span>Membership plans</span></a></li>
-                        <li><a class="" href="{% url 'home_page_app:faqs' %}"><span>FAQs</span></a></li>
                         <li><a class="" href="{% url 'home_page_app:instructor_list' %}"><span>Our Instructors</span></a></li>
                         <li><a class="" href="{% url "home_page_app:course_list" %}"><span>Courses</span></a></li>
-                        <li><a class="" href="{% url "home_page_app:student_dashboard" 1 %}"><span>Student Dashboard</span></a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
+        {% endif %}
+
+        {% if not student_user %}
+        <nav class="canvas-menu">
+            <ul class="offcanvas-menu">
+                <li><a class="active" href="{% url 'home_page_app:home' %}"><span>Home</span></a></li>
+                <li>
+                    <a href="#"><span>Category</span></a>
+                    
+                    <ul class="sub-menu">
+                        {% for category in all_categories %}
+                        <li>
+                            <a href="{% url 'home_page_app:course_category' category.id %}">{{ category.name }} <span class="toggle-sub-menu"></span></a>
+                        
+                            
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li>
+                    <a class="" href="#"><span>Features</span></a>
+                    <ul class="sub-menu">
+                        <li><a class="" href="{% url 'home_page_app:event_list' %}"><span>Events</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="" href="#"><span>Pages</span></a>
+                    <ul class="sub-menu">
+                        <li><a class="" href="{% url 'home_page_app:about' %}"><span>About us</span></a></li>
+                        <li><a class="" href="{% url 'home_page_app:contact' %}"><span>Contact us</span></a></li>
+                        <li><a class="" href="{% url 'home_page_app:instructor_list' %}"><span>Our Instructors</span></a></li>
+                        <li><a class="" href="{% url "home_page_app:course_list" %}"><span>Courses</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
     </div>
 
+    {% if not student_user %}
     <!-- Header User Button Start -->
-    <div class="offcanvas-user d-lg-none">
-        {% if not user.is_authenticated %}
+    <div class="offcanvas-user"> 
         <div class="offcanvas-user__button">
             <button class="offcanvas-user__login btn btn-secondary btn-hover-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
         </div>
         <div class="offcanvas-user__button">
             <button class="offcanvas-user__signup btn btn-primary btn-hover-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Sign Up</button>
         </div>
-        {% endif %}
     </div>
     <!-- Header User Button End -->
+    {% endif %}
 </div>

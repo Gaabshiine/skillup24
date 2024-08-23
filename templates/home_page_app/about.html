@@ -2,96 +2,7 @@
 
 {% load static %}
 {% block css_files %}
-<style>
-    /* WhatsApp button */
-    .whatsapp-button {
-    position: fixed;
-    bottom: 116px;
-    right: 34px;
-    z-index: 100;
-    font-size: 60px;
-    color: #00b58b;
-    cursor: pointer;
-    }
 
-    .whatsapp-chat-popup {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 300px;
-    background: #00b58b;
-    color: white;
-    border-radius: 10px;
-    padding: 10px;
-    display: none;
-    z-index: 101;
-    }
-
-    .whatsapp-chat-popup .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
-
-    .whatsapp-chat-popup .chat-body {
-    margin-top: 10px;
-    background-color: #a9cf46;
-    padding: 10px;
-    border-radius: 5px;
-    }
-
-    .whatsapp-chat-popup a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    background: #00b58b;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    }
-
-    /* btn green style */
-    .btn-green{
-    background-color: #00b58b;
-    color: #ffffff;
-    border-color: #00b58b;
-    }
-
-    .btn-green:hover{
-    background-color: #1a4d3b;
-    color: #ffffff;
-    border-color: #1a4d3b;
-    }
-
-    .btn-green:focus{
-    background-color: #1a4d3b;
-    color: #ffffff;
-    border-color: #1a4d3b;
-    }
-
-    .btn-green:focus, .btn-green.focus {
-    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
-    box-shadow: 0 0 0 0.2rem #1a4d3b;
-    }
-
-    .btn-green.disabled, .btn-green:disabled {
-    color: #fff;
-    background-color: #00b58b;
-    border-color: #00b58b;
-    }
-    .btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
-    .show > .btn-green.dropdown-toggle {
-    color: #fff;
-    background-color: #1a4d3b;
-    border-color: #1a4d3b;
-    }
-    .btn-green:not(:disabled):not(.disabled):active:focus, .btn-green:not(:disabled):not(.disabled).active:focus,
-    .show > .btn-green.dropdown-toggle:focus {
-    -webkit-shadow: 0 0 0 0.2rem #1a4d3b;
-    box-shadow: 0 0 0 0.2rem #1a4d3b;
-    }
-</style>
 
 {% endblock %}
 
@@ -142,7 +53,15 @@
                                     </svg>
                                 </div>
                                 <div class="about-image-widget__caption">
-                                    <h4 class="about-image-widget__title">Tomorrow is our <strong>"When I Grow Up" Spirit Day!</strong></h4>
+                                    {% if latest_event %}
+                                        <h4 class="slider-image-widget__title">
+                                            <a href="{% url 'home_page_app:event_detail' latest_event.id %}" class="text-decoration-none">
+                                                <strong>Exciting News</strong> {{ latest_event.name }}
+                                            </a>
+                                        </h4>
+                                    {% else %}
+                                        <h4 class="slider-image-widget__title">No upcoming events</h4>
+                                    {% endif %}
                                 </div>
                             </div>
 
@@ -286,12 +205,15 @@
                         <!-- Section Title Start -->
                         <div class="section-title" data-aos="fade-up" data-aos-duration="1000">
                             <h2 class="section-title__title">What Our <br> Learners <mark>Say</mark></h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum esti</p>
+                            <p>Skillup24 is your comprehensive eLearning platform designed to empower learners and educators alike. Whether you're looking to advance your career, acquire new skills, or share your knowledge with others, Skillup24 provides all the tools you need. Our platform is loved by users worldwide for its user-friendly interface, diverse course offerings, and seamless site creation experience.</p>
                         </div>
                         <!-- Section Title End -->
 
                         <div class="section-btn" data-aos="fade-up" data-aos-duration="1000">
-                            <a href="#" class="btn  btn-light btn-hover-primary">View all</a>
+                            <a href="{% url 'account_app:add_student_from_slider' %}" class="btn btn-light btn-hover-primary" onclick="replaceJoinUsButtonWithSpinner(this);">
+                                <span id="join-us-text">Join Us</span>
+                                <i class="fas fa-spinner fa-spin" id="join-us-spinner" style="display: none;"></i>
+                            </a>
                         </div>
                     </div>
 
@@ -301,132 +223,42 @@
                     <div class="testimonial-active-03 swiper-dots-style" data-aos="fade-up" data-aos-duration="1000">
                         <div class="swiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item-02 testimonial-item-bg">
-
-                                        <div class="testimonial-image">
-                                            <img src="{% static "home_page_app/images/avatar/avatar-01.jpg" %}" alt="Avatar" width="70" height="70">
+                                {% if reviews %}
+                                    {% for review in reviews %}
+                                    <div class="swiper-slide">
+                                        <!-- Testimonial Item Start -->
+                                        <div class="testimonial-item-02 testimonial-item-bg">
+                    
+                                            <div class="testimonial-image">
+                                                <img src="{{ review.student_profile_image_url }}" alt="Avatar" width="70" height="70">
+                                            </div>
+                    
+                                            <div class="testimonial-caption-02">
+                                                <p>{{ review.review_text }}</p>
+                                            </div>
+                    
+                                            <div class="testimonial-info-02__caption">
+                                                <h5 class="testimonial-info-02__name">{{ review.student_name }}</h5>
+                                                <p class="testimonial-info__designation">{{ review.time_ago }}</p>
+                                                <p class="testimonial-info-02__designation">{{ review.course_name }}</p>
+                                            </div>
+                    
                                         </div>
-
-                                        <div class="testimonial-caption-02">
-                                            <p>I don't have the time or money for a college education. My goal is to become a freelance web developer, and thanks to EduMall, I'm really close.</p>
-                                        </div>
-
-                                        <div class="testimonial-info-02__caption">
-                                            <h5 class="testimonial-info-02__name">Oliver Beddows</h5>
-                                            <p class="testimonial-info-02__designation">/ Designer, Manchester</p>
-                                        </div>
-
+                                        <!-- Testimonial Item End -->
                                     </div>
-                                    <!-- Testimonial Item End -->
+                                    {% endfor %}
+                                {% else %}
+                                <div class="">
+                                    <h4>No reviews yet.</h4>
                                 </div>
-                                <div class="swiper-slide">
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item-02 testimonial-item-bg">
-
-                                        <div class="testimonial-image">
-                                            <img src="{% static "home_page_app/images/avatar/avatar-02.jpg" %}" alt="Avatar" width="70" height="70">
-                                        </div>
-
-                                        <div class="testimonial-caption-02">
-                                            <p>I don't have the time or money for a college education. My goal is to become a freelance web developer, and thanks to EduMall, I'm really close.</p>
-                                        </div>
-
-                                        <div class="testimonial-info-02__caption">
-                                            <h5 class="testimonial-info-02__name">Oliver Beddows</h5>
-                                            <p class="testimonial-info-02__designation">/ Designer, Manchester</p>
-                                        </div>
-
-                                    </div>
-                                    <!-- Testimonial Item End -->
-                                </div>
-                                <div class="swiper-slide">
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item-02 testimonial-item-bg">
-
-                                        <div class="testimonial-image">
-                                            <img src="{% static "home_page_app/images/avatar/avatar-03.jpg" %}" alt="Avatar" width="70" height="70">
-                                        </div>
-
-                                        <div class="testimonial-caption-02">
-                                            <p>I don't have the time or money for a college education. My goal is to become a freelance web developer, and thanks to EduMall, I'm really close.</p>
-                                        </div>
-
-                                        <div class="testimonial-info-02__caption">
-                                            <h5 class="testimonial-info-02__name">Oliver Beddows</h5>
-                                            <p class="testimonial-info-02__designation">/ Designer, Manchester</p>
-                                        </div>
-
-                                    </div>
-                                    <!-- Testimonial Item End -->
-                                </div>
-                                <div class="swiper-slide">
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item-02 testimonial-item-bg">
-
-                                        <div class="testimonial-image">
-                                            <img src="{% static "home_page_app/images/avatar/avatar-04.jpg" %}" alt="Avatar" width="70" height="70">
-                                        </div>
-
-                                        <div class="testimonial-caption-02">
-                                            <p>I don't have the time or money for a college education. My goal is to become a freelance web developer, and thanks to EduMall, I'm really close.</p>
-                                        </div>
-
-                                        <div class="testimonial-info-02__caption">
-                                            <h5 class="testimonial-info-02__name">Oliver Beddows</h5>
-                                            <p class="testimonial-info-02__designation">/ Designer, Manchester</p>
-                                        </div>
-
-                                    </div>
-                                    <!-- Testimonial Item End -->
-                                </div>
-                                <div class="swiper-slide">
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item-02 testimonial-item-bg">
-
-                                        <div class="testimonial-image">
-                                            <img src="{% static "home_page_app/images/avatar/avatar-01.jpg" %}" alt="Avatar" width="70" height="70">
-                                        </div>
-
-                                        <div class="testimonial-caption-02">
-                                            <p>I don't have the time or money for a college education. My goal is to become a freelance web developer, and thanks to EduMall, I'm really close.</p>
-                                        </div>
-
-                                        <div class="testimonial-info-02__caption">
-                                            <h5 class="testimonial-info-02__name">Oliver Beddows</h5>
-                                            <p class="testimonial-info-02__designation">/ Designer, Manchester</p>
-                                        </div>
-
-                                    </div>
-                                    <!-- Testimonial Item End -->
-                                </div>
-                                <div class="swiper-slide">
-                                    <!-- Testimonial Item Start -->
-                                    <div class="testimonial-item-02 testimonial-item-bg">
-
-                                        <div class="testimonial-image">
-                                            <img src="{% static "home_page_app/images/avatar/avatar-02.jpg" %}" alt="Avatar" width="70" height="70">
-                                        </div>
-
-                                        <div class="testimonial-caption-02">
-                                            <p>I don't have the time or money for a college education. My goal is to become a freelance web developer, and thanks to EduMall, I'm really close.</p>
-                                        </div>
-
-                                        <div class="testimonial-info-02__caption">
-                                            <h5 class="testimonial-info-02__name">Oliver Beddows</h5>
-                                            <p class="testimonial-info-02__designation">/ Designer, Manchester</p>
-                                        </div>
-
-                                    </div>
-                                    <!-- Testimonial Item End -->
-                                </div>
+                                {% endif %}
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
                     <!-- Testimonial Active End -->
                 </div>
+                
             </div>
         </div>
     </div>
@@ -460,44 +292,46 @@
                 <div class="col-lg-6">
 
                     <!-- FAQ Accordion Start -->
-                    <div class="faq-accordion" data-aos="fade-up" data-aos-duration="1000">
-                        <div class="accordion" id="accordionFAQ">
-                            <div class="accordion-item">
-                                <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne">Which courses are included with my subscription?</button>
-                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFAQ">
-                                    <div class="accordion-body">
-                                        <p>Edumall is intended to be highly responsive and customizable for site building process. Thanks to its devoted, fastidious, and compact design, Atomlab can be considered among plenty of unique themes that serve to create highly responsive websites.</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="accordion faq-accordion" id="faqAccordion">
 
-                            <div class="accordion-item">
-                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo">Are the video courses downloadable?</button>
-                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                                    <div class="accordion-body">
-                                        <p>Edumall is intended to be highly responsive and customizable for site building process. Thanks to its devoted, fastidious, and compact design, Atomlab can be considered among plenty of unique themes that serve to create highly responsive websites.</p>
+                        {% for faq in faqs %}
+                        <!-- FAQ Item Start -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ faq.id }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ faq.id }}" aria-expanded="false" aria-controls="collapse{{ faq.id }}">
+                                    {{ faq.question }}
+                                </button>
+                            </h2>
+                            <div id="collapse{{ faq.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ faq.id }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>{{ faq.answer }}</p>
+                                    {% if faq.video_url %}
+                                    <div class="faq-video">
+                                        <a href="#" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#faqVideoModal{{ faq.id }}">
+                                            <i class="fas fa-play-circle"></i> Watch Video
+                                        </a>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">What do I need to get started?</button>
-                                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                                    <div class="accordion-body">
-                                        <p>Edumall is intended to be highly responsive and customizable for site building process. Thanks to its devoted, fastidious, and compact design, Atomlab can be considered among plenty of unique themes that serve to create highly responsive websites.</p>
+                                    <!-- Video Modal -->
+                                    <div class="modal fade" id="faqVideoModal{{ faq.id }}" tabindex="-1" aria-labelledby="faqVideoModalLabel{{ faq.id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="faqVideoModalLabel{{ faq.id }}">{{ faq.question }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{ faq.video_url|safe }}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour">Do I get feedback or critiques?</button>
-                                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                                    <div class="accordion-body">
-                                        <p>Edumall is intended to be highly responsive and customizable for site building process. Thanks to its devoted, fastidious, and compact design, Atomlab can be considered among plenty of unique themes that serve to create highly responsive websites.</p>
-                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
+                        <!-- FAQ Item End -->
+                        {% endfor %}
+
                     </div>
                     <!-- FAQ Accordion End -->
 
@@ -545,7 +379,7 @@
     </div>
     <!-- About Video End -->
 
-    <!-- Team Start -->
+    {% comment %} <!-- Team Start -->
     <div class="team-section section-padding-01">
         <div class="container custom-container">
 
@@ -731,7 +565,7 @@
 
         </div>
     </div>
-    <!-- Team End -->
+    <!-- Team End --> {% endcomment %}
 
 
     
@@ -741,47 +575,22 @@
         {% include 'home_page_partials/main_footer.html' %}
         {% endblock  %}
         <!-- Footer End -->
-         <!-- WhatsApp Button -->
-        <div class="whatsapp-button" onclick="toggleChatPopup()">
-            <i class="fab fa-whatsapp"></i>
-        </div>
+        
 
-        <div class="whatsapp-chat-popup" id="whatsapp-chat-popup">
-            <div class="chat-header">
-            <i class="fab fa-whatsapp"></i>
-            <span>WhatsApp</span>
-            <i class="fas fa-times" onclick="toggleChatPopup()"></i>
-            </div>
-            <div class="chat-body">
-            <p>ASC ????</p>
-            <p>Ma u baahan tahay in wax lagaa caawiyo?</p>
-            <a href="https://wa.me/+252615272255" target="_blank">Nala soo xiriir</a>
-            </div>
-        </div>
+       
 
         {% include "home_page_partials/arrow_up_down.html" %}
 
+        
+
+
+
+        </main>
+
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              document.querySelectorAll('form').forEach(form => {
-                form.addEventListener('submit', function () {
-                  const button = form.querySelector('button[type="submit"]');
-                  const spinner = button.querySelector('.spinner-border');
-                  const buttonText = button.querySelector('.button-text');
-        
-                  spinner.classList.remove('d-none');
-                  buttonText.textContent = 'Processing...';
-                  button.disabled = true;
-                });
-              });
-            });
-        
-            function toggleChatPopup() {
-              const chatPopup = document.getElementById('whatsapp-chat-popup');
-              chatPopup.style.display = chatPopup.style.display === 'none' || chatPopup.style.display === '' ? 'block' : 'none';
+            function replaceJoinUsButtonWithSpinner(button) {
+                document.getElementById('join-us-text').style.display = 'none';
+                document.getElementById('join-us-spinner').style.display = 'inline-block';
             }
-          </script>
-
-
-</main>
+        </script>
 {% endblock %}

@@ -7,10 +7,8 @@
     <title>{% block title %}Skillup 24{% endblock %}</title>
     <meta content="Skillup 24" name="author" />
 
-
-    {% block css %}{% endblock css %}
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{% static "admin_page_app/images/icon.svg" %} ">
+    <link rel="shortcut icon" href="{% static "admin_page_app/images/logo.png" %} ">
     
     <!-- third party css -->
     <link href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css" />
@@ -20,9 +18,13 @@
     <!-- third party css end -->
 
     <!-- App css -->
+     
     <link href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/css/app.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
     <link href="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    
+    {% block css_files %}{% endblock %}
+
     <!-- Custom Data Table CSS -->
     <style>
         .dataTables_wrapper .dataTables_info,
@@ -56,37 +58,34 @@
             outline: none !important;
             background-color: transparent !important;
         }
+
+        /* Spinner */
+        .spinner-border {
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            width: 1rem;
+            height: 1rem;
+            vertical-align: middle;
+            margin-right: 8px;
+            animation: spinner-border 0.75s linear infinite;
+        }
+        
+        @keyframes spinner-border {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        
     </style>
 
-    <style>
-        .btn .spinner-border {
-            margin-right: 6px; /* Adjust as necessary */
-            vertical-align: middle;
-          }
-        .deleteHover:hover{
-            background-color: #f9224a;
-        }  
-        .text-black {
-            color: #000 !important;
-          }
-          
-          .bluetext {
-            color: #23aa43;
-            font-weight: bold;
-          }
-          
-          .blueflagbg {
-            background-color: #23aa43;
-          }
-          
-          
-    </style>
 </head>
 <body class="loading"
 data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
 
-     <!-- Pre-loader -->
-     <div id="preloader">
+    <!-- Pre-loader -->
+    <div id="preloader">
         <div id="status">
             <div class="bouncing-loader">
                 <div></div>
@@ -102,9 +101,6 @@ data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebar
     <!-- right_sidebar -->
     {% block right_sidebar %}{% endblock  %}
     
-   
-
-
     <!-- footer -->
     {% block footer %}{% endblock %}
 
@@ -131,44 +127,19 @@ data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebar
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/pages/demo.dashboard-crm.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/pages/demo.form-wizard.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/pages/demo.dashboard.js"></script>
-
-    <!-- demo app -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/pages/demo.datatable-init.js"></script>
-    <!-- end demo js-->
-
 
     <!-- Todo js -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/ui/component.todo.js"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/app.js"></script>
 
-    <!-- third party js -->
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/vendor/apexcharts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
-    <!-- third party js ends -->
 
 
-    <script src="https://cdn.jsdelivr.net/gh/Gaabshiine/skillup24cdn/admin_page_app/js/app.js">
-      // JavaScript code to handle notifications visibility
-      document.addEventListener("DOMContentLoaded", function() {
-        const notificationBell = document.querySelector('.dripicons-bell.noti-icon');
-        const notificationBadge = document.querySelector('.noti-icon-badge');
-        
-        if (notificationBadge) {
-            notificationBell.classList.add('has-notifications');
-        }
-        
-        const clearAllBtn = document.querySelector('.noti-title a.text-dark');
-        clearAllBtn.addEventListener('click', function() {
-            const notifications = document.querySelectorAll('.dropdown-item.notify-item');
-            notifications.forEach(notification => {
-                notification.remove();
-            });
-            notificationBadge.remove();
-        });
-      });
-    </script>
+    {% block js_files %}{% endblock %}
 
 </body>
 </html>

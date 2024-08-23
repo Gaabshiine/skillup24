@@ -1,7 +1,7 @@
 {% extends 'dashboard_base.html' %}
 {% load static %}
 
-{% block title %}Certificates - Skillup 24{% endblock %}
+{% block title %}Skillup 24 - Certificates{% endblock %}
 
 {% block dashboard_content %}
 <!-- Dashboard Content Start -->
@@ -17,13 +17,17 @@
                     {% for certificate in certificates %}
                         <div class="col-md-4">
                             <div class="certificate-card">
-                                <div class="certificate-image">
-                                    <img src="{{ certificate.image.url }}" alt="Certificate Image" class="img-fluid">
-                                </div>
                                 <div class="certificate-info">
                                     <h5 class="certificate-title">{{ certificate.title }}</h5>
                                     <p class="certificate-date">{{ certificate.date_issued }}</p>
-                                    <a href="{{ certificate.download_url }}" class="btn btn-primary">Download</a>
+                                    {% if certificate.download_url %}
+                                        <a href="{{ certificate.download_url }}" class="btn btn-primary" onclick="showSpinner(this);">
+                                            <span class="download-text">Download</span>
+                                            <i class="fas fa-spinner fa-spin" style="display:none;"></i>
+                                        </a>
+                                    {% else %}
+                                        <span class="text-danger">Certificate not available</span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -33,9 +37,20 @@
                 <div class="alert alert-warning">Sorry, no certificates were found.</div>
             {% endif %}
         </div>
+        
         <!-- Dashboard Certificates End -->
     </div>
 
 </div>
 <!-- Dashboard Content End -->
+<script>
+    function showSpinner(anchor) {
+        // Hide the download text
+        anchor.querySelector('.download-text').style.display = 'none';
+        // Show the spinner icon
+        anchor.querySelector('.fa-spinner').style.display = 'inline-block';
+    }
+</script>
 {% endblock %}
+
+

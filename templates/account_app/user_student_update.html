@@ -1,0 +1,497 @@
+<!-- user_student_update.html -->
+{% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block title %}Skillup 24 - My Profile{% endblock %}
+{% block css_files %}
+
+
+
+{% endblock %}
+
+{% block js_files %}
+{% endblock %}
+
+{% block dashboard_content %}
+<!-- Dashboard Content Start -->
+<div class="dashboard-content">
+
+    <div class="container">
+        <h4 class="dashboard-title">Settings</h4>
+
+        <!-- Dashboard Settings Start -->
+        <div class="dashboard-settings">
+
+            <!-- Dashboard Tabs Start -->
+            <div class="dashboard-tabs-menu">
+                <ul>
+                    <li><a id="profile-tab" class="active" href="#">Profile</a></li>
+                </ul>
+            </div>
+            <!-- Dashboard Tabs End -->
+
+            <div id="profile-content">
+                <form id="studentUpdateForm" method="POST" onsubmit="replaceIconWithSpinner(this);">
+                    {% csrf_token %}
+                    <div class="row gy-6">
+                        <div class="col-lg-6">
+
+                            <!-- Dashboard Settings Info Start -->
+                            <div class="dashboard-content-box">
+                
+                                <h4 class="dashboard-content-box__title">Contact information</h4>
+                                <p>Provide your details below to update your account profile</p>
+                
+                                <div class="row gy-4">
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">First name</label>
+                                            <input type="text" name="first_name" class="form-control" value="{{ student.first_name }}">
+                                            <div class="error-message" id="first_name_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Middle name</label>
+                                            <input type="text" name="middle_name" class="form-control" value="{{ student.middle_name }}">
+                                            <div class="error-message" id="middle_name_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Last name</label>
+                                            <input type="text" name="last_name" class="form-control" value="{{ student.last_name }}">
+                                            <div class="error-message" id="last_name_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Phone Number</label>
+                                            <input type="text" name="phone_number" class="form-control" value="{{ student.phone_number }}">
+                                            <div class="error-message" id="phone_number_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Date of Birth</label>
+                                            <input type="date" name="date_of_birth" class="form-control" value="{{ student.date_of_birth }}">
+                                            <div class="error-message" id="date_of_birth_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Gender</label>
+                                            <select name="gender" class="form-control">
+                                                <option value="male" {% if student.gender == "male" %}selected{% endif %}>Male</option>
+                                                <option value="female" {% if student.gender == "female" %}selected{% endif %}>Female</option>
+                                            </select>
+                                            <div class="error-message" id="gender_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Address</label>
+                                            <textarea name="address" class="form-control">{{ student.address }}</textarea>
+                                            <div class="error-message" id="address_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Major</label>
+                                            <input type="text" name="major_or_department" class="form-control" value="{{ student.major }}">
+                                            <div class="error-message" id="major_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Bio</label>
+                                            <textarea name="bio" class="form-control">{{ profile.bio }}</textarea>
+                                            <div class="error-message" id="bio_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Twitter</label>
+                                            <input type="text" name="twitter" class="form-control" value="{{ profile.twitter }}">
+                                            <div class="error-message" id="twitter_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Facebook</label>
+                                            <input type="text" name="facebook" class="form-control" value="{{ profile.facebook }}">
+                                            <div class="error-message" id="facebook_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">LinkedIn</label>
+                                            <input type="text" name="linkedIn" class="form-control" value="{{ profile.linkedIn }}">
+                                            <div class="error-message" id="linkedIn_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <!-- Account Account details Start -->
+                                        <div class="dashboard-content__input">
+                                            <label class="form-label-02">Github</label>
+                                            <input type="text" name="github" class="form-control" value="{{ profile.github }}">
+                                            <div class="error-message" id="github_error"></div>
+                                        </div>
+                                        <!-- Account Account details End -->
+                                    </div>
+                                </div>
+                
+                            </div>
+                            <!-- Dashboard Settings Info End -->
+                
+                        </div>
+                        <div class="col-lg-6">
+
+                            <!-- Dashboard Settings Info Start -->
+                            <div class="dashboard-content-box">
+
+                                <h4 class="dashboard-content-box__title">Photo</h4>
+                                <p>Upload your profile photo.</p>
+
+                                <div id="dashboard-profile-cover-photo-editor" class="dashboard-settings-profile">
+
+                                    <!-- Profile Picture Upload -->
+                                    <input id="dashboard-profile-photo-dialogue-box" class="dashboard-settings-profile__input" type="file" name="profile_picture" accept=".png,.jpg,.jpeg" style="display:none;" />
+                                
+                                    <!-- Cover Photo Upload -->
+                                    <input id="dashboard-cover-photo-dialogue-box" class="dashboard-settings-profile__input" type="file" name="cover_photo" accept=".png,.jpg,.jpeg" style="display:none;" />
+                                
+                                    <!-- Cover Photo Area -->
+                                    <div id="dashboard-cover-area" class="dashboard-settings-profile__cover" data-fallback="{% static 'home_page_app/images/cover-photo.jpg' %}" style="background-image:url({% if student_cover_photo_url %}{{ student_cover_photo_url }}{% else %}{% static 'home_page_app/images/cover-photo.jpg' %}{% endif %})">
+                                        {% comment %} <button id="delete-cover-photo" class="cover-deleter">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button> {% endcomment %}
+                                        <div class="overlay">
+                                            <button id="cover-photo-uploader" class="cover-uploader" type="button" onclick="replaceCoverIconWithSpinner(this);">
+                                                <i class="fas fa-camera" id="cover-camera-icon"></i>&nbsp;
+                                                <i class="fas fa-spinner fa-spin" id="cover-spinner-icon" style="display: none;"></i>
+                                                <span>Update Cover Photo</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                
+                                    <!-- Profile Photo Area -->
+                                    <div id="profile-photo" class="dashboard-settings-profile__photo" style="background-image:url({% if student_profile_picture_url %}{{ student_profile_picture_url }}{% else %}{% static 'home_page_app/images/avatar-placeholder.jpg' %}{% endif %})">
+                                        
+                                        <div class="overlay">
+                                            <button id="profile-photo-uploader" class="border-0 bg-transparent" type="button" onclick="replaceProfileIconWithSpinner(this);">
+                                                <i class="fas fa-camera text-white" id="profile-camera-icon"></i>
+                                                <i class="fas fa-spinner fa-spin text-white" id="profile-spinner-icon" style="display: none;"></i>
+                                            </button>
+                                            {% comment %} <button id="delete-profile-photo" class="photo-deleter border-0 bg-transparent">
+                                                <i class="fas fa-trash-alt text-white"></i>
+                                            </button> {% endcomment %}
+                                        </div>
+                                    </div>
+                                
+                                
+                                    <div id="photo-meta-area" class="dashboard-settings-profile__photo-meta">
+                                        <img src="{% static 'home_page_app/images/info-icon.svg' %}" alt="icon" />
+                                        <span>Profile Photo Size: <strong>200x200</strong> pixels,</span>
+                                        <span>Cover Photo Size: <strong>700x430</strong> pixels,</span>
+                                        <span class="loader-area">Saving&hellip;</span>
+                                    </div>
+                                
+                                </div>
+                                
+            
+                                
+                                
+                                
+                                
+                                
+
+                                <div class="dashboard-settings-profile-info">
+                                    <label class="dashboard-settings-profile-info__display-name">Display name publicly as</label>
+                                    <select>
+                                        <option>student</option>
+                                        <option>{{student.first_name}}</option>
+                                        <option>{{student.last_name}}</option>
+                                        <option selected="selected">{{student.first_name}} {{student.last_name}}</option>
+                                        <option>{{student.last_name}} {{student.first_name}}</option>
+                                    </select>
+                                    <p class="dashboard-settings-profile-info__description">The display name is shown in all public fields, such as the author name, instructor name, student name, and name that will be printed on the certificate.</p>
+                                </div>
+
+                            </div>
+                            <!-- Dashboard Settings Info End -->
+
+                        </div>
+                    </div>
+
+                    <div class="dashboard-settings__btn">
+                        <button class="btn btn-primary btn-hover-secondary" type="submit">
+                            <i class="fas fa-save" id="save-icon"></i>
+                            <i class="fas fa-spinner fa-spin" id="spinner-icon" style="display: none;"></i>
+                            <span class="button-text">Update Profile</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileTab = document.getElementById('profile-tab');
+        const changePasswordTab = document.getElementById('change-password-tab');
+        const profileContent = document.getElementById('profile-content');
+        const changePasswordContent = document.getElementById('change-password-content');
+
+        profileTab.addEventListener('click', function() {
+            profileTab.classList.add('active');
+            changePasswordTab.classList.remove('active');
+            profileContent.style.display = 'block';
+            changePasswordContent.style.display = 'none';
+        });
+
+        changePasswordTab.addEventListener('click', function() {
+            changePasswordTab.classList.add('active');
+            profileTab.classList.remove('active');
+            profileContent.style.display = 'none';
+            changePasswordContent.style.display = 'block';
+        });
+    });
+</script>
+
+<script>
+    function replaceIconWithSpinner(form) {
+        // Hide the save icon
+        document.getElementById('save-icon').style.display = 'none';
+        // Show the spinner icon
+        document.getElementById('spinner-icon').style.display = 'inline-block';
+    }
+    function replaceCoverIconWithSpinner(button) {
+        // Hide the camera icon
+        document.getElementById('cover-camera-icon').style.display = 'none';
+        // Show the spinner icon
+        document.getElementById('cover-spinner-icon').style.display = 'inline-block';
+    }
+    
+    function replaceProfileIconWithSpinner(button) {
+        // Hide the camera icon
+        document.getElementById('profile-camera-icon').style.display = 'none';
+        // Show the spinner icon
+        document.getElementById('profile-spinner-icon').style.display = 'inline-block';
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('studentUpdateForm');
+    
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const formData = new FormData(form);
+    
+            fetch("{% url 'account_app:update_student_and_profile_by_user' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing error messages
+                document.querySelectorAll('.error-message').forEach(div => div.innerHTML = '');
+    
+                if (data.success) {
+                    // Show a success message
+                    alert(data.message); // Or update the UI with a success message
+                    // Reload the page to reflect updates
+                    location.reload();
+                } else if (data.errors) {
+                    // Display error messages under each corresponding input field
+                    for (const [field, error] of Object.entries(data.errors)) {
+                        const errorDiv = document.getElementById(`${field}_error`);
+                        if (errorDiv) {
+                            errorDiv.innerHTML = `<p class="text-danger">${error}</p>`;
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+    
+    
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileUploader = document.getElementById('profile-photo-uploader');
+        const profileInput = document.getElementById('dashboard-profile-photo-dialogue-box');
+        const profilePhoto = document.getElementById('profile-photo');
+        // const deleteProfilePhotoButton = document.getElementById('delete-profile-photo');
+    
+        const coverUploader = document.getElementById('cover-photo-uploader');
+        const coverInput = document.getElementById('dashboard-cover-photo-dialogue-box');
+        const coverPhoto = document.getElementById('dashboard-cover-area');
+        // const deleteCoverPhotoButton = document.getElementById('delete-cover-photo');
+    
+        const loaderArea = document.querySelector('.loader-area');
+    
+        // Profile Picture Upload
+        profileUploader.addEventListener('click', function() {
+            profileInput.click();
+        });
+    
+        profileInput.addEventListener('change', function() {
+            const formData = new FormData();
+            formData.append('profile_picture', profileInput.files[0]);
+    
+            loaderArea.style.display = 'inline-block';
+    
+            fetch("{% url 'account_app:upload_profile_picture' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                loaderArea.style.display = 'none';
+                if (data.profile_picture_url) {
+                    profilePhoto.style.backgroundImage = `url(${data.student_profile_picture_url})`;
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                loaderArea.style.display = 'none';
+                console.error('Error uploading profile picture:', error);
+            });
+        });
+    
+        // Cover Photo Upload
+        coverUploader.addEventListener('click', function() {
+            coverInput.click();
+        });
+    
+        coverInput.addEventListener('change', function() {
+            const formData = new FormData();
+            formData.append('cover_photo', coverInput.files[0]);
+    
+            loaderArea.style.display = 'inline-block';
+    
+            fetch("{% url 'account_app:upload_cover_photo' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                loaderArea.style.display = 'none';
+                if (data.cover_photo_url) {
+                    coverPhoto.style.backgroundImage = `url(${data.cover_photo_url})`;
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                loaderArea.style.display = 'none';
+                console.error('Error uploading cover photo:', error);
+            });
+        });
+    
+        // Delete Profile Photo
+        deleteProfilePhotoButton.addEventListener('click', function() {
+            const formData = new FormData();
+            formData.append('photo_type', 'profile_picture');
+    
+            fetch("{% url 'account_app:delete_photos' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    profilePhoto.style.backgroundImage = `url(${profilePhoto.dataset.fallback})`;
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting profile photo:', error);
+            });
+        });
+    
+        // Delete Cover Photo
+        deleteCoverPhotoButton.addEventListener('click', function() {
+            const formData = new FormData();
+            formData.append('photo_type', 'cover_photo');
+    
+            fetch("{% url 'account_app:delete_photos' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    coverPhoto.style.backgroundImage = `url(${coverPhoto.dataset.fallback})`;
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting cover photo:', error);
+            });
+        });
+    });
+</script>
+
+
+
+
+{% endblock %}

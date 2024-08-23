@@ -23,7 +23,6 @@
                 <span class="noti-icon-badge"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
-
                 <!-- item-->
                 <div class="dropdown-item noti-title">
                     <h5 class="m-0">
@@ -34,73 +33,6 @@
                         </span>Notification
                     </h5>
                 </div>
-
-                {% comment %} <div style="max-height: 230px;" data-simplebar>
-                    <!-- item-->
-                    <a href="#" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-primary">
-                            <i class="mdi mdi-comment-account-outline"></i>
-                        </div>
-                        <p class="notify-details">Caleb Flakelar commented on Admin
-                            <small class="text-muted">1 min ago</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-info">
-                            <i class="mdi mdi-account-plus"></i>
-                        </div>
-                        <p class="notify-details">New user registered.
-                            <small class="text-muted">5 hours ago</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon">
-                            <img src="{% static "admin_page_app/images/users/avatar-2.jpg" %}" class="img-fluid rounded-circle"
-                                alt="" />
-                        </div>
-                        <p class="notify-details">Cristina Pride</p>
-                        <p class="text-muted mb-0 user-msg">
-                            <small>Hi, How are you? What about our next meeting</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-primary">
-                            <i class="mdi mdi-comment-account-outline"></i>
-                        </div>
-                        <p class="notify-details">Caleb Flakelar commented on Admin
-                            <small class="text-muted">4 days ago</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon">
-                            <img src="{% static "admin_page_app/images/users/avatar-4.jpg" %} " class="img-fluid rounded-circle"
-                                alt="" />
-                        </div>
-                        <p class="notify-details">Karen Robinson</p>
-                        <p class="text-muted mb-0 user-msg">
-                            <small>Wow ! this admin looks good and awesome design</small>
-                        </p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-info">
-                            <i class="mdi mdi-heart"></i>
-                        </div>
-                        <p class="notify-details">Carlos Crouch liked
-                            <b>Admin</b>
-                            <small class="text-muted">13 days ago</small>
-                        </p>
-                    </a>
-                </div> {% endcomment %}
 
                 <!-- All-->
                 <a href="javascript:void(0);"
@@ -117,51 +49,7 @@
                 <i class="dripicons-view-apps noti-icon"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
-
-                {% comment %} <div class="p-2">
-                    <div class="row g-0">
-                        <div class="col">
-                            <a class="dropdown-icon-item" href="#">
-                                <img src="{% static "admin_page_app/images/brands/slack.png" %}" alt="slack">
-                                <span>Slack</span>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a class="dropdown-icon-item" href="#">
-                                <img src="{% static "admin_page_app/images/brands/github.png" %}" alt="Github">
-                                <span>GitHub</span>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a class="dropdown-icon-item" href="#">
-                                <img src="{% static "admin_page_app//images/brands/dribbble.png" %}" alt="dribbble">
-                                <span>Dribbble</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row g-0">
-                        <div class="col">
-                            <a class="dropdown-icon-item" href="#">
-                                <img src="{% static "admin_page_app/images/brands/bitbucket.png" %}" alt="bitbucket">
-                                <span>Bitbucket</span>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a class="dropdown-icon-item" href="#">
-                                <img src="{% static "admin_page_app/images/brands/dropbox.png" %}" alt="dropbox">
-                                <span>Dropbox</span>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a class="dropdown-icon-item" href="#">
-                                <img src="{% static "admin_page_app/images/brands/g-suite.png" %} " alt="G Suite">
-                                <span>G Suite</span>
-                            </a>
-                        </div>
-                    </div> <!-- end row-->
-                </div> {% endcomment %}
-
+                <!-- Additional Dropdown Items Here -->
             </div>
         </li>
 
@@ -175,24 +63,17 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown"
                 href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar">
-                    
-                    {% comment %} {% if admin %} 
-                        {% if admin.profile_picture %}
-                            <img src="{{ admin.profile_picture.url }}" alt="User Image" class="rounded-circle">
-                        {% else %}
-                            {% if admin.gender == 'male' %}
-                                <img src="{% static 'user_styles/images/avatar_man.png' %}" alt="Default Male Avatar" class="rounded-circle">
-                            {% else %}
-                                <img src="{% static 'user_styles/images/avatar_woman.png' %}" alt="Default Female Avatar" class="rounded-circle">
-                            {% endif %}
-                        {% endif %}
-                    {% endif %} {% endcomment %}
+                    {% if admin_profile_picture_url %}
+                        <img src="{{ admin_profile_picture_url }}" alt="profile-image" class="rounded-circle">
+                    {% else %}
+                        
+                        <img src="{% static 'home_page_app/images/avatar-placeholder.jpg' %}" alt="Default Male Avatar" class="rounded-circle">
                 
-                    
+                    {% endif %}
                 </span>
-                {% comment %} {% with names=admin.full_name.split %}
-                    <span class="account-user-name">{{ names.0 }} {{ names.1 }}</span>
-                {% endwith %} {% endcomment %}
+                {% if admin_user %}
+                    <span class="account-user-name">{{ admin_user.first_name }} {{ admin_user.last_name }}</span>
+                {% endif %}
                 <span class="account-position">Admin</span>
             </a>
             <div
@@ -203,20 +84,20 @@
                 </div>
 
                 <!-- item-->
-                <a href="" class="dropdown-item notify-item">
+                <a href="{% url 'account_app:update_admin' admin_user.id %}" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle me-1"></i>
                     <span>My Account</span>
                 </a>
 
                 <!-- item-->
-                <a href="" class="dropdown-item notify-item">
+           
+                <a href="{% url "account_app:reset_password_request" %}" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-edit me-1"></i>
                     <span>Change Password</span>
                 </a>
 
-
                 <!-- item-->
-                <a href="" class="dropdown-item notify-item">
+                <a href="{% url 'account_app:admin_logout' %}" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
                 </a>
@@ -232,7 +113,7 @@
             <div class="input-group">
                 <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
                 <span class="mdi mdi-magnify search-icon"></span>
-                <button class="input-group-text btn-primary" type="submit" name="submit_apartment">
+                <button class="input-group-text btn-success" type="submit" name="submit_apartment">
                     <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     <span class="button-text"> Search</span>
                 </button>

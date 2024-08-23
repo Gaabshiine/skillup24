@@ -1,0 +1,84 @@
+{% extends "home_base.html" %}
+
+{% block main %}
+<main class="main-wrapper">
+
+    <!-- Header Start -->
+    {% block header %}
+    {% include 'home_page_partials/main_header.html' %}
+    {% endblock %}
+    <!-- Header End -->
+
+    <!-- Page Banner Section Start -->
+    <div class="page-banner bg-color-05">
+        <div class="page-banner__wrapper">
+            <div class="container">
+                <div class="page-banner__caption text-center">
+                    <h2 class="page-banner__main-title">Search Results</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Start -->
+    {% block offcanvas %}
+    {% include "home_page_partials/offcanvas.html" %}
+    {% endblock %}
+    <!-- Offcanvas End -->
+     
+    <!-- Courses Start -->
+    <div class="courses-section section-padding-01">
+        <div class="container">
+            <div class="archive-filter-bar">
+                <p>Found <span>{{ results|length }}</span> results for "{{ query }}"</p>
+            </div>
+
+            <div class="row gy-6">
+                {% for course in results %}
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+
+                    <!-- Course Start -->
+                    <div class="course-item-02" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="course-header">
+                            <div class="course-header__thumbnail rounded-0">
+                                <a href="{% url 'home_page_app:course_detail' course.id %}">
+                                    <img src="{{ course.image_url }}" alt="{{ course.course_name }}" width="330" height="221">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="course-info-02">
+                            <div class="course-info-02__category">
+                                <a href="#">{{ course.category_name }}</a>
+                            </div>
+                            <h3 class="course-info-02__title">
+                                <a href="{% url 'home_page_app:course_detail' course.id %}">{{ course.course_name }}</a>
+                            </h3>
+                            <div class="course-info-02__price">
+                                <span class="sale-price">{{ course.price }}</span>
+                            </div>
+                            <div class="course-info-02__rating">
+                                <div class="rating-star">
+                                    <div class="rating-label" style="width: {{ course.average_rating|floatformat:1 }}%;"></div>
+                                </div>
+                                <span>({{ course.rating_count }} ratings)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Course End -->
+
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if results|length == 0 %}
+            <div class="no-results">
+                <p>No results found for "{{ query }}". Please try a different search term.</p>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <!-- Courses End -->
+
+</main>
+{% endblock %}

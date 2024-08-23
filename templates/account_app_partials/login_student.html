@@ -1,0 +1,131 @@
+<!-- Log In Modal Start -->
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-dialog-centered modal-login">
+        <!-- Modal Wrapper Start -->
+        <div class="modal-wrapper">
+            <button class="modal-close" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
+
+            <!-- Modal Content Start -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <p class="modal-description">Don't have an account yet? <button data-bs-toggle="modal" data-bs-target="#registerModal">Sign up for free</button></p>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" method="POST">
+                        <div class="modal-form">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="Your email" name="email_address" id="email">
+                            <div class="error-message text-danger" id="emailError"></div>
+                        </div>
+                        <div class="modal-form">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                            <div class="error-message text-danger" id="passwordError"></div>
+                        </div>
+                        <div class="modal-form">
+                            <!-- Error message container -->
+                            <div class="error-message text-danger" id="generalError" style="display: none;"></div>
+                        </div>
+                        <div class="modal-form d-flex justify-content-between flex-wrap gap-2">
+                            <div class="form-check">
+                                <input type="checkbox" id="rememberme">
+                                <label for="rememberme">Remember me</label>
+                            </div>
+                            <div class="text-end">
+                                <a class="modal-form__link" href="{% url "account_app:reset_password_request" %}">Forgot your password?</a>
+                            </div>
+                        </div>
+                        <div class="modal-form">
+                            <button class="btn btn-primary btn-hover-secondary w-100 btn-with-spinner" id="loginButton" type="button">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                <span class="button-text">Log In</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Modal Content End -->
+        </div>
+        <!-- Modal Wrapper End -->
+    </div>
+</div>
+<!-- Log In Modal End -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById('loginForm');
+        const loginButton = document.getElementById('loginButton');
+
+        loginButton.addEventListener('click', function () {
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = ''; // Clear the text content as well
+            });
+
+            // Show spinner and set button to "Logging in..."
+            handleButtonLoadingState(loginButton, 'Logging in...');
+
+            const formData = new FormData(form);
+
+            fetch("{% url 'account_app:model_login' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    resetButtonLoadingState(loginButton);
+
+                    // Display general error message once
+                    if (data.error === 'Email and password are required.' || data.error === 'Invalid email or password.') {
+                        document.getElementById('generalError').textContent = data.error;
+                        document.getElementById('generalError').style.display = 'block';
+                    } else {
+                        // Specific field errors
+                        if (data.error.includes('Email')) {
+                            document.getElementById('emailError').textContent = data.error;
+                            document.getElementById('emailError').style.display = 'block';
+                        }
+                        if (data.error.includes('password')) {
+                            document.getElementById('passwordError').textContent = data.error;
+                            document.getElementById('passwordError').style.display = 'block';
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('generalError').textContent = 'An unexpected error occurred.';
+                document.getElementById('generalError').style.display = 'block';
+                resetButtonLoadingState(loginButton);
+            });
+        });
+
+        function handleButtonLoadingState(button, loadingText) {
+            const spinner = button.querySelector('.spinner-border');
+            if (spinner) {
+                spinner.classList.remove('d-none');
+            }
+            button.querySelector('.button-text').textContent = loadingText;
+            button.disabled = true;
+        }
+
+        function resetButtonLoadingState(button) {
+            const spinner = button.querySelector('.spinner-border');
+            if (spinner) {
+                spinner.classList.add('d-none');
+            }
+            button.querySelector('.button-text').textContent = 'Log In';
+            button.disabled = false;
+        }
+    });
+</script>
+

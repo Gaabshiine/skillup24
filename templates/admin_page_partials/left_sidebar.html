@@ -8,17 +8,17 @@
             <img src="{% static "admin_page_app/images/logo.png" %}" alt="" height="40">
         </span>
         <span class="logo-sm">
-            <img src="{% static "admin_page_app/images/logo3.png" %}" alt="" height="16">
+            <img src="{% static "admin_page_app/images/logo.png" %}" alt="" height="16">
         </span>
     </a>
 
     <!-- LOGO -->
     <a href="{% url 'admin_page_app:dashboard' %}" class="logo text-center logo-dark">
         <span class="logo-lg">
-            <img src="{% static "admin_page_app/images/dark_logo.png" %}" alt="" height="40">
+            <img src="{% static "admin_page_app/images/logo.png" %}" alt="" height="40">
         </span>
         <span class="logo-sm">
-            <img src="{% static "admin_page_app/images/dark_logo2.png" %}" alt="" height="16">
+            <img src="{% static "admin_page_app/images/logo.png" %}" alt="" height="16">
         </span>
     </a>
 
@@ -40,15 +40,13 @@
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers" class="side-nav-link">
                     <i class="uil-user"></i>
-                    <span> Users </span>
+                    <span> Students </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarUsers">
                     <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:add_user" %} {% url "admin_page_app:view_users" %}{% endcomment %}
-                        
-                        <li><a href="#">Add User</a></li>
-                        <li><a href="#">View Users</a></li>
+                        <li><a href="{% url "account_app:add_student_by_admin" %}">Add Student</a></li>
+                        <li><a href="{% url "admin_page_app:student_list" %}">View Students</a></li>
                     </ul>
                 </div>
             </li>
@@ -61,24 +59,8 @@
                 </a>
                 <div class="collapse" id="sidebarInstructors">
                     <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:add_instructor" %} {% url "admin_page_app:view_instructors" %}{% endcomment %}
-                        <li><a href="#">Add Instructor</a></li>
-                        <li><a href="#">View Instructors</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarCourses" aria-expanded="false" aria-controls="sidebarCourses" class="side-nav-link">
-                    <i class="uil-book"></i>
-                    <span> Courses </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarCourses">
-                    <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:add_course" %} {% url "admin_page_app:view_courses" %}{% endcomment %}
-                        <li><a href="#">Add Course</a></li>
-                        <li><a href="">View Courses</a></li>
+                        <li><a href="{% url "account_app:add_instructor" %}">Add Instructor</a></li>
+                        <li><a href="{% url "admin_page_app:instructor_list" %}">View Instructors</a></li>
                     </ul>
                 </div>
             </li>
@@ -91,9 +73,50 @@
                 </a>
                 <div class="collapse" id="sidebarCategories">
                     <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:add_category" %} {% url "admin_page_app:view_categories" %}{% endcomment %}
-                        <li><a href="#">Add Category</a></li>
-                        <li><a href="#">View Categories</a></li>
+                        <li><a href="{% url "admin_page_app:add_categories" %}">Add Category</a></li>
+                        <li><a href="{% url "admin_page_app:category_list" %}">View Categories</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarCourses" aria-expanded="false" aria-controls="sidebarCourses" class="side-nav-link">
+                    <i class="uil-book"></i>
+                    <span> Courses </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarCourses">
+                    <ul class="side-nav-second-level">
+                        <li><a href="{% url "admin_page_app:add_courses" %}">Add Course</a></li>
+                        <li><a href="{% url "admin_page_app:course_list" %}">View Courses</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            {% comment %} lessons {% endcomment %}
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarLessons" aria-expanded="false" aria-controls="sidebarLessons" class="side-nav-link">
+                    <i class="uil-file"></i>
+                    <span> Lessons </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarLessons">
+                    <ul class="side-nav-second-level">
+                        <li><a href="{% url "admin_page_app:add_lessons" %}">Add Lesson</a></li>
+                        <li><a href="{% url "admin_page_app:list_lessons" %}">View Lessons</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarPayments" aria-expanded="false" aria-controls="sidebarPayments" class="side-nav-link">
+                    <i class="uil-money-bill"></i>
+                    <span> Payments </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarPayments">
+                    <ul class="side-nav-second-level">
+                        <li><a href="{% url "admin_page_app:view_payments" %}">View Payments</a></li>
                     </ul>
                 </div>
             </li>
@@ -106,9 +129,7 @@
                 </a>
                 <div class="collapse" id="sidebarCertificates">
                     <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:add_certificate" %} {% url "admin_page_app:view_certificates" %}{% endcomment %}
-                        <li><a href="#">Add Certificate</a></li>
-                        <li><a href="#">View Certificates</a></li>
+                        <li><a href="{% url "admin_page_app:view_certificates" %}">All Certificate</a></li>
                     </ul>
                 </div>
             </li>
@@ -116,14 +137,41 @@
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarReports" aria-expanded="false" aria-controls="sidebarReports" class="side-nav-link">
                     <i class="uil-chart-line"></i>
-                    <span> Reports </span>
+                    <span> Generate Report </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarReports">
                     <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:generate_report" %} {% url "admin_page_app:view_reports" %}{% endcomment %}
-                        <li><a href="#">Generate Report</a></li>
-                        <li><a href="#">View Reports</a></li>
+                        <li><a href="{% url 'admin_page_app:payment_report' %}">Payment Report</a></li>
+                        <li><a href="{% url 'admin_page_app:enrollment_report' %}">Enrollment Report</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarEvents" aria-expanded="false" aria-controls="sidebarEvents" class="side-nav-link">
+                    <i class="mdi mdi-calendar"></i>
+                    <span> Events </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarEvents">
+                    <ul class="side-nav-second-level">
+                        <li><a href="{% url 'admin_page_app:add_event' %}">Add Event</a></li>
+                        <li><a href="{% url 'admin_page_app:event_list' %}">View Events</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarFAQs" aria-expanded="false" aria-controls="sidebarFAQs" class="side-nav-link">
+                    <i class="mdi mdi-help-circle-outline"></i>
+                    <span> FAQs </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarFAQs">
+                    <ul class="side-nav-second-level">
+                        <li><a href="{% url 'admin_page_app:add_faq' %}">Add FAQs</a></li>
+                        <li><a href="{% url 'admin_page_app:faq_list' %}">View FAQs</a></li>
                     </ul>
                 </div>
             </li>
@@ -136,16 +184,14 @@
                 </a>
                 <div class="collapse" id="sidebarSettings">
                     <ul class="side-nav-second-level">
-                        {% comment %} {% url "admin_page_app:general_settings" %} {% url "admin_page_app:profile_settings" %}{% endcomment %}
-                        <li><a href="#">General Settings</a></li>
-                        <li><a href="#">Profile Settings</a></li>
+                        <li><a href="{% url "account_app:admin_register" %}">Create Admin</a></li>
+                        <li><a href="{% url "admin_page_app:view_admins" %}">View Admins</a></li>
                     </ul>
                 </div>
             </li>
 
             <li class="side-nav-item">
-                {% comment %} {% url "admin_page_app:logout" %} {% endcomment %}
-                <a href="#" class="side-nav-link">
+                <a href="{% url "account_app:admin_logout" %}" class="side-nav-link"> 
                     <i class="uil-sign-out-alt"></i>
                     <span> Logout </span>
                 </a>
@@ -161,3 +207,5 @@
 
 </div>
 <!-- Left Sidebar End -->
+
+

@@ -1,0 +1,237 @@
+<!-- Registration Modal -->
+<div class="modal fade" id="registerModal">
+    <div class="modal-dialog modal-dialog-centered modal-register">
+        <!-- Modal Wrapper Start -->
+        <div class="modal-wrapper">
+            <button class="modal-close" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
+            <!-- Modal Content Start -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign Up</h5>
+                    <p class="modal-description">Already have an account? <button data-bs-toggle="modal" data-bs-target="#loginModal">Log in</button></p>
+                </div>
+                <div class="modal-body">
+                    <form id="registrationForm" method="post" action="{% url 'account_app:add_student_by_user' %}">
+                        {% csrf_token %}
+                        <div class="row gy-5">
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+                                    <div class="error-message text-danger" id="first_nameError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Middle Name</label>
+                                    <input type="text" class="form-control" placeholder="Middle Name" name="middle_name" required>
+                                    <div class="error-message text-danger" id="middle_nameError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+                                    <div class="error-message text-danger" id="last_nameError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Gender</label>
+                                    <select class="form-control" name="gender" required>
+                                        <option value="">-- Select Gender --</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <div class="error-message text-danger" id="genderError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" placeholder="Address" name="address" required>
+                                    <div class="error-message text-danger" id="addressError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" placeholder="Date of Birth" id="datepicker" name="date_of_birth" required>
+                                    <div class="error-message text-danger" id="date_of_birthError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" placeholder="Phone Number" name="phone_number">
+                                    <div class="error-message text-danger" id="phone_numberError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="Your Email" name="email_address" required>
+                                    <div class="error-message text-danger" id="email_addressError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control" placeholder="Password" name="password" required>
+                                    <div class="error-message text-danger" id="passwordError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Re-Enter Password</label>
+                                    <input type="password" class="form-control" placeholder="Re-Enter Password" name="confirm_password" required>
+                                    <div class="error-message text-danger" id="confirm_passwordError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="modal-form">
+                                    <label class="form-label">Major</label>
+                                    <input type="text" class="form-control" placeholder="Major" name="major_or_department">
+                                    <div class="error-message text-danger" id="major_or_departmentError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="modal-form form-check">
+                                    <input type="checkbox" id="privacy" required>
+                                    <label for="privacy">Accept the Terms and Privacy Policy</label>
+                                    <div class="error-message text-danger" id="privacyError" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="modal-form">
+                                    <button class="btn btn-primary btn-hover-secondary w-100 btn-with-spinner" id="registerButton" type="submit">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                        <span class="button-text">Register</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+            <!-- Modal Content End -->
+        </div>
+        <!-- Modal Wrapper End -->
+    </div>
+</div>
+
+<!-- Custom register JS -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const registrationForm = document.getElementById('registrationForm');
+            const registerButton = document.getElementById('registerButton');
+    
+            registrationForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+    
+                // Clear previous error messages
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+    
+                let hasErrors = false;
+    
+                // Validate Terms and Privacy Policy checkbox
+                const privacyCheckbox = document.getElementById('privacy');
+                if (!privacyCheckbox.checked) {
+                    alert('You must accept the Terms and Privacy Policy.');
+                    hasErrors = true;
+                }
+    
+                // Validate password length
+                const password = registrationForm.elements['password'].value;
+                if (password.length < 8) {
+                    alert('Password must be at least 8 characters.');
+                    hasErrors = true;
+                }
+    
+                // Validate password match
+                const confirmPassword = registrationForm.elements['confirm_password'].value;
+                if (password !== confirmPassword) {
+                    document.getElementById('confirm_passwordError').textContent = 'Passwords do not match.';
+                    hasErrors = true;
+                }
+    
+                // Validate other fields
+                const requiredFields = ['first_name', 'middle_name', 'last_name', 'gender', 'address', 'date_of_birth', 'email_address', 'password', 'confirm_password'];
+                requiredFields.forEach(field => {
+                    if (!registrationForm.elements[field].value.trim()) {
+                        document.getElementById(`${field}Error`).textContent = `${field.replace('_', ' ')} is required.`;
+                        hasErrors = true;
+                    }
+                });
+    
+                if (hasErrors) return; // If any errors, stop the form submission
+    
+                // Show spinner and set button to "Registering..."
+                handleButtonLoadingState(registerButton, 'Registering...');
+    
+                // Collect form data
+                const formData = new FormData(registrationForm);
+    
+                // Send data using fetch API
+                fetch(registrationForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest' // Mark the request as AJAX
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirect or show success message
+                        window.location.href = data.redirect_url;
+                    } else {
+                        resetButtonLoadingState(registerButton);
+    
+                        // Show error messages from server-side validation
+                        if (data.errors) {
+                            for (let field in data.errors) {
+                                const errorElement = document.getElementById(`${field}Error`);
+                                if (errorElement) {
+                                    errorElement.textContent = data.errors[field];
+                                } else {
+                                    alert(data.errors[field]); // Fallback for any missing error fields
+                                }
+                            }
+                        } else {
+                            // General error message
+                            alert(data.error);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An unexpected error occurred.');
+                    resetButtonLoadingState(registerButton);
+                });
+            });
+    
+            function handleButtonLoadingState(button, loadingText) {
+                const spinner = button.querySelector('.spinner-border');
+                if (spinner) {
+                    spinner.classList.remove('d-none');
+                }
+                button.querySelector('.button-text').textContent = loadingText;
+                button.disabled = true;
+            }
+    
+            function resetButtonLoadingState(button) {
+                const spinner = button.querySelector('.spinner-border');
+                if (spinner) {
+                    spinner.classList.add('d-none');
+                }
+                button.querySelector('.button-text').textContent = 'Register';
+                button.disabled = false;
+            }
+        });
+    </script>
+    
+    
