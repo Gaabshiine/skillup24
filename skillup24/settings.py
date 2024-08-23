@@ -146,8 +146,12 @@ DATABASES = {
         'PASSWORD': 'Bwz36&f30',
         'HOST': 'fahad2023.helioho.st',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+
 
 # Message
 from django.contrib.messages import constants as messages
