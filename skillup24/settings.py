@@ -14,6 +14,7 @@ from pathlib import Path
 import string
 import secrets
 import os
+import django_on_heroku  # Add this import
 
 # Function to generate a random SECRET_KEY
 def generate_secret_key(length=50):
@@ -221,6 +222,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'abdisalanabdukadir@gmail.com')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'zbgc lshe blbq yvon')
+
+# Apply django-on-heroku settings
+django_on_heroku.settings(locals())  # Add this line at the end of settings.py
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
