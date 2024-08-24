@@ -16,7 +16,7 @@ import secrets
 import os
 import django_on_heroku  # Add this import
 import pymysql
-from flask_mysqldb import MySQL
+
 
 
 # Function to generate a random SECRET_KEY
