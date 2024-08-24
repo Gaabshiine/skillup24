@@ -15,6 +15,9 @@ import string
 import secrets
 import os
 import django_on_heroku  # Add this import
+import pymysql
+from flask_mysqldb import MySQL
+
 
 # Function to generate a random SECRET_KEY
 def generate_secret_key(length=50):
@@ -153,8 +156,9 @@ DATABASES = {
     }
 }
 
-import pymysql
-pymysql.install_as_MySQLdb()
+
+
+
 
 
 # Message
@@ -223,6 +227,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'abdisalanabdukadir@gmail.com')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'zbgc lshe blbq yvon')
 
+
+pymysql.install_as_MySQLdb()
 # Apply django-on-heroku settings
 django_on_heroku.settings(locals())  # Add this line at the end of settings.py
 
